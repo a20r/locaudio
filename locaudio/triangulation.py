@@ -27,15 +27,26 @@ import math
 K =  0.7
 
 
-def distanceFromSound(rRef, lRef, l):
+def distanceFromSound(rRef, lRef, lCurrent):
     """
 
     Determines the distance from a sound given the sound pressure level
     and a reference sound pressure level with an associated distance
 
+    @param rRef The reference distance at which the reference sound
+    pressure level was recorded
+
+    @param lRef The reference sound pressure level used to determine the
+    distance from the newly measured sound pressure level
+
+    @param lCurrent Newly measured sound pressure level
+
+    @return The predicted radius from a node event that the sound will be
+    located at given the current sound pressure level
+
     """
 
-    return rRef * math.pow(10, (lRef - l) / 20)
+    return rRef * math.pow(10, (lRef - lCurrent) / 20)
 
 
 def distanceFromDetectionEvent(x, y, nodeEvent):
@@ -43,6 +54,17 @@ def distanceFromDetectionEvent(x, y, nodeEvent):
 
     Given x and y coordinates, this returns the distance to a nodeEvent
     where the nodeEvent has attributes, x and y, on the same plane
+
+    @param x the horizontal location of the node event when the node event
+    was captured
+
+    @param y the vertical location of the node event when the node event
+    was captured
+
+    @param nodeEvent The associated data when a node detects with some
+    confidence that the sound has been identified
+
+    @return The distance from a node event given x and y coordinates
 
     """
 
@@ -57,6 +79,10 @@ def normalDistribution(x):
 
     This is the normal distribution function
 
+    @param x Input for the normal distribution function
+
+    @return The resulting value for the probability desnsity function
+
     """
 
     return (1 / math.sqrt(2 * math.pi)) * math.exp(-0.5 * math.pow(x, 2))
@@ -69,6 +95,26 @@ def positionEvaluation(x, y, rRef, lRef, nodeEvents):
     located in the mesh network of nodes. Given an x and y, this returns
     a weight. The higher the weight, the higher the likelihood that the
     sound originated from x and y.
+
+    @param x the horizontal location of the node event when the node event
+    was captured
+
+    @param y the vertical location of the node event when the node event
+    was captured
+
+    @param rRef The reference distance at which the reference sound
+    pressure level was recorded
+
+    @param lRef The reference sound pressure level used to determine the
+    distance from the newly measured sound pressure level
+
+    @param nodeEvents The list ofassociated data when a node detects with some
+    confidence that the sound has been identified
+
+    @return The a result, given independent variables, x and y, and a
+    configuration of node events with per sample sound constants, rRef and
+    lRef, will be a value representing the likelihood of the sample sound
+    being located at position (x, y).
 
     """
 
@@ -84,12 +130,32 @@ def positionEvaluation(x, y, rRef, lRef, nodeEvents):
     )
 
 
-def normalizedEval(x, y, rRef, lRef, nodeEvents):
+def positionProbability(x, y, rRef, lRef, nodeEvents):
     """
 
     Scales the evaluation function so it returns a probability (i.e. a float
     between 0 and 1 inclusive) that a given x and y is where a sample sound
     originated from
+
+    @param x the horizontal location of the node event when the node event
+    was captured
+
+    @param y the vertical location of the node event when the node event
+    was captured
+
+    @param rRef The reference distance at which the reference sound
+    pressure level was recorded
+
+    @param lRef The reference sound pressure level used to determine the
+    distance from the newly measured sound pressure level
+
+    @param nodeEvents The list ofassociated data when a node detects with some
+    confidence that the sound has been identified
+
+    @return The a result, given independent variables, x and y, and a
+    configuration of node events with per sample sound constants, rRef and
+    lRef, will be a value representing the probability of the sample
+    sound being located at position (x, y).
 
     """
 

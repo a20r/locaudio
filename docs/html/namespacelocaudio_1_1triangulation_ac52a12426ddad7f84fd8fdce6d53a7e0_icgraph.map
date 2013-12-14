@@ -1,0 +1,4 @@
+<map id="locaudio.triangulation.distanceFromDetectionEvent" name="locaudio.triangulation.distanceFromDetectionEvent">
+<area shape="rect" id="node2" href="$namespacelocaudio_1_1triangulation.html#af600bbadd299c94825b159b5df236f6f" title="Evaluation function to deterimine with some weight, where a sound is located in the mesh network of n..." alt="" coords="256,5,453,49"/>
+<area shape="rect" id="node3" href="$namespacelocaudio_1_1triangulation.html#af708227f069b847392f730d13060cce8" title="Scales the evaluation function so it returns a probability (i.e. " alt="" coords="501,5,699,49"/>
+</map>

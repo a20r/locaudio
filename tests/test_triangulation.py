@@ -23,9 +23,9 @@ class TriangulationTest(unittest.TestCase):
             tri.DetectionEvent(1, -1, 0.6, 100)
         ]
 
-    def test_normalizedEval(self):
+    def test_positionProbability(self):
 
-        print "=== Normalized Evaluation === ::",
+        print "=== Position Probability === ::",
         fig = plt.figure()
         ax = Axes3D(fig)
 
@@ -43,7 +43,7 @@ class TriangulationTest(unittest.TestCase):
         X, Y = np.meshgrid(x, y)
         zs = np.array(
             [
-                tri.normalizedEval(x, y, rRef, lRef, self.dEvents)
+                tri.positionProbability(x, y, rRef, lRef, self.dEvents)
                 for x, y in zip(np.ravel(X), np.ravel(Y))
             ]
         )
@@ -51,7 +51,7 @@ class TriangulationTest(unittest.TestCase):
         ax.plot_surface(X, Y, Z)
         plt.show()
 
-        print tri.normalizedEval(testX, testY, rRef, lRef, self.dEvents)
+        print tri.positionProbability(testX, testY, rRef, lRef, self.dEvents)
 
 if __name__ == "__main__":
     unittest.main()
