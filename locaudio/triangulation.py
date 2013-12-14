@@ -18,16 +18,13 @@ distance from which this measurement has been taken.
 
 
 from collections import namedtuple
+from detectionevent import DetectionEvent
 import math
-
-
-# Named tuple just used for testing purposes
-DetectionEvent = namedtuple("DetectionEvent", "x y confidence spl")
 
 
 # Scaling constant to transform a confidence probability into a
 # a standard deviation.
-K =  0.7 #float(3)
+K =  0.7
 
 
 def distanceFromSound(rRef, lRef, l):

@@ -8,34 +8,51 @@ import locaudio.triangulation as tri
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
+import unittest
 
-def testNormalizedEval():
-    fig = plt.figure()
-    ax = Axes3D(fig)
-    dEvents = [
-        tri.DetectionEvent(-1, -1, 0.9, 100),
-        tri.DetectionEvent(-1, 1, 0.3, 90),
-        tri.DetectionEvent(1, 1, 0.5, 100),
-        tri.DetectionEvent(1, -1, 0.6, 100)
-    ]
 
-    lRef = 100
-    rRef = 1
+class TriangulationTest(unittest.TestCase):
 
-    x = y = np.arange(-10, 10, 0.05)
-    X, Y = np.meshgrid(x, y)
-    zs = np.array(
-        [
-            tri.normalizedEval(x, y, rRef, lRef, dEvents)
-            for x, y in zip(np.ravel(X), np.ravel(Y))
+    def setUp(self):
+        print ""
+        print "=== Triangulation Testing ===\n"
+        self.dEvents = [
+            tri.DetectionEvent(-1, -1, 0.9, 100),
+            tri.DetectionEvent(-1, 1, 0.3, 90),
+            tri.DetectionEvent(1, 1, 0.5, 100),
+            tri.DetectionEvent(1, -1, 0.6, 100)
         ]
-    )
-    Z = zs.reshape(X.shape)
-    ax.plot_surface(X, Y, Z)
-    plt.show()
 
-    print tri.normalizedEval(0, 0, rRef, lRef, dEvents)
+    def test_normalizedEval(self):
+
+        print "=== Normalized Evaluation === ::",
+        fig = plt.figure()
+        ax = Axes3D(fig)
+
+        lRef = 100
+        rRef = 1
+
+        vMin = -10
+        vMax = 10
+        vStep = 0.05
+
+        testX = 0
+        testY = 0
+
+        x = y = np.arange(vMin, vMax, vStep)
+        X, Y = np.meshgrid(x, y)
+        zs = np.array(
+            [
+                tri.normalizedEval(x, y, rRef, lRef, self.dEvents)
+                for x, y in zip(np.ravel(X), np.ravel(Y))
+            ]
+        )
+        Z = zs.reshape(X.shape)
+        ax.plot_surface(X, Y, Z)
+        plt.show()
+
+        print tri.normalizedEval(testX, testY, rRef, lRef, self.dEvents)
 
 if __name__ == "__main__":
-    testNormalizedEval()
+    unittest.main()
 
