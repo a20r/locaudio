@@ -16,15 +16,19 @@ distance from which this measurement has been taken.
 
 """
 
+
 from collections import namedtuple
 import math
+
 
 # Named tuple just used for testing purposes
 DetectionEvent = namedtuple("DetectionEvent", "x y confidence spl")
 
+
 # Scaling constant to transform a confidence probability into a
 # a standard deviation.
-K = 3
+K =  0.7 #float(3)
+
 
 def distanceFromSound(rRef, lRef, l):
     """
@@ -36,6 +40,7 @@ def distanceFromSound(rRef, lRef, l):
 
     return rRef * math.pow(10, (lRef - l) / 20)
 
+
 def distanceFromDetectionEvent(x, y, nodeEvent):
     """
 
@@ -44,7 +49,11 @@ def distanceFromDetectionEvent(x, y, nodeEvent):
 
     """
 
-    return math.sqrt(math.pow(x - n.x, 2) + math.pow(y - n.y, 2))
+    return math.sqrt(
+        math.pow(x - nodeEvent.x, 2) +
+        math.pow(y - nodeEvent.y, 2)
+    )
+
 
 def normalDistribution(x):
     """
@@ -54,6 +63,7 @@ def normalDistribution(x):
     """
 
     return (1 / math.sqrt(2 * math.pi)) * math.exp(-0.5 * math.pow(x, 2))
+
 
 def positionEvaluation(x, y, rRef, lRef, nodeEvents):
     """
@@ -71,12 +81,13 @@ def positionEvaluation(x, y, rRef, lRef, nodeEvents):
                 (
                     distanceFromDetectionEvent(x, y, n) -
                     distanceFromSound(rRef, lRef, n.spl)
-                ) / (n.confidence * K)
-            ) for n in nodeEvents
+                ) / (K / n.confidence)
+            ) / (K / n.confidence) for n in nodeEvents
         ]
     )
 
-def positionProbability(x, y, rRef, lRef, nodeEvents):
+
+def normalizedEval(x, y, rRef, lRef, nodeEvents):
     """
 
     Scales the evaluation function so it returns a probability (i.e. a float
@@ -89,5 +100,6 @@ def positionProbability(x, y, rRef, lRef, nodeEvents):
         x, y,
         rRef, lRef,
         nodeEvents
-    ) / (n.confidence * K * len(nodeEvents))
+    ) / float(len(nodeEvents))
+
 
