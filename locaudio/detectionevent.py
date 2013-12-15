@@ -16,17 +16,17 @@ class DetectionEvent(object):
         self.spl = spl
 
 
-    def getX(self):
+    def get_x(self):
         return self.x
 
 
-    def getY(self):
+    def get_y(self):
         return self.y
 
 
-    def getConfidence(self):
+    def get_confidence(self):
         return self.confidence
 
-    def getSPL(self):
+    def get_spl(self):
         return self.spl
 

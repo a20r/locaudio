@@ -29,7 +29,7 @@ import scipy.optimize as opt
 K =  0.7
 
 
-def distanceFromSound(rRef, lRef, lCurrent):
+def distance_from_sound(r_ref, l_ref, l_current):
     """
 
     Determines the distance from a sound given the sound pressure level
@@ -48,10 +48,10 @@ def distanceFromSound(rRef, lRef, lCurrent):
 
     """
 
-    return rRef * math.pow(10, (lRef - lCurrent) / 20)
+    return r_ref * math.pow(10, (l_ref - l_current) / 20)
 
 
-def distanceFromDetectionEvent(x, y, nodeEvent):
+def distance_from_detection_event(x, y, node_event):
     """
 
     Given x and y coordinates, this returns the distance to a nodeEvent
@@ -71,12 +71,12 @@ def distanceFromDetectionEvent(x, y, nodeEvent):
     """
 
     return math.sqrt(
-        math.pow(x - nodeEvent.x, 2) +
-        math.pow(y - nodeEvent.y, 2)
+        math.pow(x - node_event.x, 2) +
+        math.pow(y - node_event.y, 2)
     )
 
 
-def normalDistribution(x):
+def normal_distribution(x):
     """
 
     This is the normal distribution function
@@ -90,7 +90,7 @@ def normalDistribution(x):
     return (1 / math.sqrt(2 * math.pi)) * math.exp(-0.5 * math.pow(x, 2))
 
 
-def positionEvaluation(x, y, rRef, lRef, nodeEvents):
+def position_evaluation(x, y, r_ref, l_ref, node_events):
     """
 
     Evaluation function to deterimine with some weight, where a sound is
@@ -122,17 +122,17 @@ def positionEvaluation(x, y, rRef, lRef, nodeEvents):
 
     return sum(
         [
-            normalDistribution(
+            normal_distribution(
                 (
-                    distanceFromDetectionEvent(x, y, n) -
-                    distanceFromSound(rRef, lRef, n.spl)
+                    distance_from_detection_event(x, y, n) -
+                    distance_from_sound(r_ref, l_ref, n.spl)
                 ) / (K / n.confidence)
-            ) / (K / n.confidence) for n in nodeEvents
+            ) / (K / n.confidence) for n in node_events
         ]
     )
 
 
-def positionProbability(x, y, rRef, lRef, nodeEvents):
+def position_probability(x, y, r_ref, l_ref, node_events):
     """
 
     Scales the evaluation function so it returns a probability (i.e. a float
@@ -161,14 +161,14 @@ def positionProbability(x, y, rRef, lRef, nodeEvents):
 
     """
 
-    return positionEvaluation(
+    return position_evaluation(
         x, y,
-        rRef, lRef,
-        nodeEvents
-    ) / float(len(nodeEvents))
+        r_ref, l_ref,
+        node_events
+    ) / float(len(node_events))
 
 
-def determineSoundPosition(rRef, lRef, initGuess, nodeEvents):
+def determine_sound_position(r_ref, l_ref, init_guess, node_events):
     """
 
     Gets the x and y position of a sound in a mesh network given a set of
@@ -191,16 +191,16 @@ def determineSoundPosition(rRef, lRef, initGuess, nodeEvents):
 
     """
 
-    pFunc = lambda v: -1 * positionProbability(
+    p_func = lambda v: -1 * position_probability(
         v[0], v[-1],
-        rRef, lRef,
-        nodeEvents
+        r_ref, l_ref,
+        node_events
     )
 
-    return opt.fmin(pFunc, initGuess)
+    return opt.fmin(p_func, init_guess)
 
 
-def generateSoundPositionFunc(rRef, lRef, initGuess):
+def generate_sound_position_func(r_ref, l_ref, init_guess):
     """
 
     This is a closure that provides a new function that makes it so the
@@ -224,8 +224,8 @@ def generateSoundPositionFunc(rRef, lRef, initGuess):
     """
 
     return partial(
-        determineSoundPosition,
-        rRef, lRef, initGuess
+        determine_sound_position,
+        r_ref, l_ref, init_guess
     )
 
 

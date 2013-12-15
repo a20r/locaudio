@@ -14,68 +14,72 @@ import unittest
 
 class TriangulationTest(unittest.TestCase):
 
-    def __init__(self, *args):
-        self.dEvents = [
+    def setUp(self):
+        self.show_plot = False
+        self.d_events = [
             tri.DetectionEvent(-2, -1, 0.9, 90),
             tri.DetectionEvent(-1, 1, 0.3, 97),
             tri.DetectionEvent(2, 3, 0.5, 86),
             tri.DetectionEvent(1, -1, 0.6, 100)
         ]
 
-        super(TriangulationTest, self).__init__(*args)
 
-    def test_positionProbability(self):
+    def test_position_probability(self):
 
-        fig = plt.figure("Position Probability Test")
-        ax = Axes3D(fig)
-        ax.set_title("Sound location probability density function")
-        ax.set_xlabel("X Location")
-        ax.set_ylabel("Y Location")
-        ax.set_zlabel("Probability")
-        lRef = 100
-        rRef = 1
+        l_ref = 100
+        r_ref = 1
 
-        vMin = -10
-        vMax = 10
-        vStep = 0.05
+        test_x = 0
+        test_y = 0
 
-        testX = 0
-        testY = 0
+        if self.show_plot:
+            fig = plt.figure("Position Probability Test")
+            ax = Axes3D(fig)
+            ax.set_title("Sound location probability density function")
+            ax.set_xlabel("X Location")
+            ax.set_ylabel("Y Location")
+            ax.set_zlabel("Probability")
 
-        x = y = np.arange(vMin, vMax, vStep)
-        X, Y = np.meshgrid(x, y)
-        zs = np.array(
-            [
-                tri.positionProbability(x, y, rRef, lRef, self.dEvents)
-                for x, y in zip(np.ravel(X), np.ravel(Y))
-            ]
-        )
-        Z = zs.reshape(X.shape)
-        ax.plot_surface(X, Y, Z)
-        plt.show()
+            v_min = -10
+            v_max = 10
+            v_step = 0.05
 
-        print "\n=== Position Probability === ::", tri.positionProbability(
-            testX, testY,
-            rRef, lRef,
-            self.dEvents
+            x = y = np.arange(v_min, v_max, v_step)
+            X, Y = np.meshgrid(x, y)
+            zs = np.array(
+                [
+                    tri.position_probability(x, y, r_ref, l_ref, self.d_events)
+                    for x, y in zip(np.ravel(X), np.ravel(Y))
+                ]
+            )
+            Z = zs.reshape(X.shape)
+            ax.plot_surface(X, Y, Z)
+            plt.show()
+
+        print "\n=== Position Probability === :: (", test_x,
+        print ",", test_y , ")  --> ",
+        print tri.position_probability(
+            test_x, test_y,
+            r_ref, l_ref,
+            self.d_events
         ), "\n"
 
 
     def test_optimization(self):
 
-        lRef = 100
-        rRef = 1
+        l_ref = 100
+        r_ref = 1
 
-        testX = 0
-        testY = 0
+        test_x = 0
+        test_y = 0
 
-        res = tri.determineSoundPosition(
-            rRef, lRef,
-            [testX, testY],
-            self.dEvents
+        res = tri.determine_sound_position(
+            r_ref, l_ref,
+            [test_x, test_y],
+            self.d_events
         )
 
-        print "\n=== Optimization === ::", res, "\n"
+        print "\n=== Optimization === :: [X, Y]  <--> ", res, "\n"
 
 
 if __name__ == "__main__":

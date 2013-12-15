@@ -1,11 +1,11 @@
 var triangulation_8py =
 [
-    [ "determineSoundPosition", "triangulation_8py.html#abd8cf1c3aaf884f1c97cbeb6c853f697", null ],
-    [ "distanceFromDetectionEvent", "triangulation_8py.html#ac52a12426ddad7f84fd8fdce6d53a7e0", null ],
-    [ "distanceFromSound", "triangulation_8py.html#a4a7017521badc87c46d0b84774d70b2f", null ],
-    [ "generateSoundPositionFunc", "triangulation_8py.html#a4e6907d01e9d4a6cd7ba3d7d3a41b3b2", null ],
-    [ "normalDistribution", "triangulation_8py.html#aeda79115af2a41e618d834fe29a63104", null ],
-    [ "positionEvaluation", "triangulation_8py.html#af600bbadd299c94825b159b5df236f6f", null ],
-    [ "positionProbability", "triangulation_8py.html#af708227f069b847392f730d13060cce8", null ],
+    [ "determine_sound_position", "triangulation_8py.html#a71810992293d61775d4d3c7e3a4e9029", null ],
+    [ "distance_from_detection_event", "triangulation_8py.html#a1206790ce9fd39f59ce264ac7c7fb443", null ],
+    [ "distance_from_sound", "triangulation_8py.html#aa6072b3aad637ae71a38424f23014a86", null ],
+    [ "generate_sound_position_func", "triangulation_8py.html#a91ab07f598b1161238e199e127fef855", null ],
+    [ "normal_distribution", "triangulation_8py.html#aa221cba0226b13aff028ca9155dfbd76", null ],
+    [ "position_evaluation", "triangulation_8py.html#acf50f5be4536fb0929c359396d41828f", null ],
+    [ "position_probability", "triangulation_8py.html#ab85ddfec0f2c6c1c20134d90a6fe874a", null ],
     [ "K", "triangulation_8py.html#ac85bcbed961d15baa586ddc0192860bb", null ]
 ];

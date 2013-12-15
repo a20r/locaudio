@@ -140,9 +140,9 @@ $(document).ready(function(){initNavTree('triangulation_8py_source.html','');});
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">#     located at given the current sound pressure level</span></div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"># </span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">#     </span></div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="code" href="namespacelocaudio_1_1triangulation.html#a4a7017521badc87c46d0b84774d70b2f">   51</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacelocaudio_1_1triangulation.html#a4a7017521badc87c46d0b84774d70b2f" title="Determines the distance from a sound given the sound pressure level and a reference sound pressure le...">distanceFromSound</a>(rRef, lRef, lCurrent):</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="code" href="namespacelocaudio_1_1triangulation.html#aa6072b3aad637ae71a38424f23014a86">   51</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacelocaudio_1_1triangulation.html#aa6072b3aad637ae71a38424f23014a86" title="Determines the distance from a sound given the sound pressure level and a reference sound pressure le...">distance_from_sound</a>(r_ref, l_ref, l_current):</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">return</span> rRef * math.pow(10, (lRef - lCurrent) / 20)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">return</span> r_ref * math.pow(10, (l_ref - l_current) / 20)</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">##</span></div>
@@ -163,11 +163,11 @@ $(document).ready(function(){initNavTree('triangulation_8py_source.html','');});
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">#     @return The distance from a node event given x and y coordinates</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment"># </span></div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">#     </span></div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="code" href="namespacelocaudio_1_1triangulation.html#ac52a12426ddad7f84fd8fdce6d53a7e0">   74</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacelocaudio_1_1triangulation.html#ac52a12426ddad7f84fd8fdce6d53a7e0" title="Given x and y coordinates, this returns the distance to a nodeEvent where the nodeEvent has attribute...">distanceFromDetectionEvent</a>(x, y, nodeEvent):</div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="code" href="namespacelocaudio_1_1triangulation.html#a1206790ce9fd39f59ce264ac7c7fb443">   74</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacelocaudio_1_1triangulation.html#a1206790ce9fd39f59ce264ac7c7fb443" title="Given x and y coordinates, this returns the distance to a nodeEvent where the nodeEvent has attribute...">distance_from_detection_event</a>(x, y, node_event):</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">return</span> math.sqrt(</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        math.pow(x - nodeEvent.x, 2) +</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        math.pow(y - nodeEvent.y, 2)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        math.pow(x - node_event.x, 2) +</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        math.pow(y - node_event.y, 2)</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    )</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
@@ -181,7 +181,7 @@ $(document).ready(function(){initNavTree('triangulation_8py_source.html','');});
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">#     @return The resulting value for the probability desnsity function</span></div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment"># </span></div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">#     </span></div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="code" href="namespacelocaudio_1_1triangulation.html#aeda79115af2a41e618d834fe29a63104">   92</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacelocaudio_1_1triangulation.html#aeda79115af2a41e618d834fe29a63104" title="This is the normal distribution function. ">normalDistribution</a>(x):</div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="code" href="namespacelocaudio_1_1triangulation.html#aa221cba0226b13aff028ca9155dfbd76">   92</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacelocaudio_1_1triangulation.html#aa221cba0226b13aff028ca9155dfbd76" title="This is the normal distribution function. ">normal_distribution</a>(x):</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">return</span> (1 / math.sqrt(2 * math.pi)) * math.exp(-0.5 * math.pow(x, 2))</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
@@ -215,16 +215,16 @@ $(document).ready(function(){initNavTree('triangulation_8py_source.html','');});
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">#     being located at position (x, y).</span></div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment"># </span></div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">#     </span></div>
-<div class="line"><a name="l00126"></a><span class="lineno"><a class="code" href="namespacelocaudio_1_1triangulation.html#af600bbadd299c94825b159b5df236f6f">  126</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacelocaudio_1_1triangulation.html#af600bbadd299c94825b159b5df236f6f" title="Evaluation function to deterimine with some weight, where a sound is located in the mesh network of n...">positionEvaluation</a>(x, y, rRef, lRef, nodeEvents):</div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="code" href="namespacelocaudio_1_1triangulation.html#acf50f5be4536fb0929c359396d41828f">  126</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacelocaudio_1_1triangulation.html#acf50f5be4536fb0929c359396d41828f" title="Evaluation function to deterimine with some weight, where a sound is located in the mesh network of n...">position_evaluation</a>(x, y, r_ref, l_ref, node_events):</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">return</span> sum(</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        [</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            <a class="code" href="namespacelocaudio_1_1triangulation.html#aeda79115af2a41e618d834fe29a63104" title="This is the normal distribution function. ">normalDistribution</a>(</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            <a class="code" href="namespacelocaudio_1_1triangulation.html#aa221cba0226b13aff028ca9155dfbd76" title="This is the normal distribution function. ">normal_distribution</a>(</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                (</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                    <a class="code" href="namespacelocaudio_1_1triangulation.html#ac52a12426ddad7f84fd8fdce6d53a7e0" title="Given x and y coordinates, this returns the distance to a nodeEvent where the nodeEvent has attribute...">distanceFromDetectionEvent</a>(x, y, n) -</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                    <a class="code" href="namespacelocaudio_1_1triangulation.html#a4a7017521badc87c46d0b84774d70b2f" title="Determines the distance from a sound given the sound pressure level and a reference sound pressure le...">distanceFromSound</a>(rRef, lRef, n.spl)</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                    <a class="code" href="namespacelocaudio_1_1triangulation.html#a1206790ce9fd39f59ce264ac7c7fb443" title="Given x and y coordinates, this returns the distance to a nodeEvent where the nodeEvent has attribute...">distance_from_detection_event</a>(x, y, n) -</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                    <a class="code" href="namespacelocaudio_1_1triangulation.html#aa6072b3aad637ae71a38424f23014a86" title="Determines the distance from a sound given the sound pressure level and a reference sound pressure le...">distance_from_sound</a>(r_ref, l_ref, n.spl)</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                ) / (K / n.confidence)</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            ) / (K / n.confidence) <span class="keywordflow">for</span> n <span class="keywordflow">in</span> nodeEvents</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            ) / (K / n.confidence) <span class="keywordflow">for</span> n <span class="keywordflow">in</span> node_events</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        ]</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    )</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
@@ -257,13 +257,13 @@ $(document).ready(function(){initNavTree('triangulation_8py_source.html','');});
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment">#     sound being located at position (x, y).</span></div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment"># </span></div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="comment">#     </span></div>
-<div class="line"><a name="l00168"></a><span class="lineno"><a class="code" href="namespacelocaudio_1_1triangulation.html#af708227f069b847392f730d13060cce8">  168</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacelocaudio_1_1triangulation.html#af708227f069b847392f730d13060cce8" title="Scales the evaluation function so it returns a probability (i.e. ">positionProbability</a>(x, y, rRef, lRef, nodeEvents):</div>
+<div class="line"><a name="l00168"></a><span class="lineno"><a class="code" href="namespacelocaudio_1_1triangulation.html#ab85ddfec0f2c6c1c20134d90a6fe874a">  168</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacelocaudio_1_1triangulation.html#ab85ddfec0f2c6c1c20134d90a6fe874a" title="Scales the evaluation function so it returns a probability (i.e. ">position_probability</a>(x, y, r_ref, l_ref, node_events):</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacelocaudio_1_1triangulation.html#af600bbadd299c94825b159b5df236f6f" title="Evaluation function to deterimine with some weight, where a sound is located in the mesh network of n...">positionEvaluation</a>(</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacelocaudio_1_1triangulation.html#acf50f5be4536fb0929c359396d41828f" title="Evaluation function to deterimine with some weight, where a sound is located in the mesh network of n...">position_evaluation</a>(</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        x, y,</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        rRef, lRef,</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        nodeEvents</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    ) / float(len(nodeEvents))</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        r_ref, l_ref,</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        node_events</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    ) / float(len(node_events))</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="comment">##</span></div>
@@ -288,15 +288,15 @@ $(document).ready(function(){initNavTree('triangulation_8py_source.html','');});
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment">#     @return The x and y position of the sound.</span></div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="comment"># </span></div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="comment">#     </span></div>
-<div class="line"><a name="l00199"></a><span class="lineno"><a class="code" href="namespacelocaudio_1_1triangulation.html#abd8cf1c3aaf884f1c97cbeb6c853f697">  199</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacelocaudio_1_1triangulation.html#abd8cf1c3aaf884f1c97cbeb6c853f697" title="Gets the x and y position of a sound in a mesh network given a set of node events. ">determineSoundPosition</a>(rRef, lRef, initGuess, nodeEvents):</div>
+<div class="line"><a name="l00199"></a><span class="lineno"><a class="code" href="namespacelocaudio_1_1triangulation.html#a71810992293d61775d4d3c7e3a4e9029">  199</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacelocaudio_1_1triangulation.html#a71810992293d61775d4d3c7e3a4e9029" title="Gets the x and y position of a sound in a mesh network given a set of node events. ">determine_sound_position</a>(r_ref, l_ref, init_guess, node_events):</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    pFunc = <span class="keyword">lambda</span> v: -1 * <a class="code" href="namespacelocaudio_1_1triangulation.html#af708227f069b847392f730d13060cce8" title="Scales the evaluation function so it returns a probability (i.e. ">positionProbability</a>(</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    p_func = <span class="keyword">lambda</span> v: -1 * <a class="code" href="namespacelocaudio_1_1triangulation.html#ab85ddfec0f2c6c1c20134d90a6fe874a" title="Scales the evaluation function so it returns a probability (i.e. ">position_probability</a>(</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        v[0], v[-1],</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        rRef, lRef,</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        nodeEvents</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        r_ref, l_ref,</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        node_events</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    )</div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordflow">return</span> opt.fmin(pFunc, initGuess)</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordflow">return</span> opt.fmin(p_func, init_guess)</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="comment">##</span></div>
@@ -321,11 +321,11 @@ $(document).ready(function(){initNavTree('triangulation_8py_source.html','');});
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;<span class="comment">#     just the node detection events.</span></div>
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="comment"># </span></div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="comment">#     </span></div>
-<div class="line"><a name="l00232"></a><span class="lineno"><a class="code" href="namespacelocaudio_1_1triangulation.html#a4e6907d01e9d4a6cd7ba3d7d3a41b3b2">  232</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacelocaudio_1_1triangulation.html#a4e6907d01e9d4a6cd7ba3d7d3a41b3b2" title="This is a closure that provides a new function that makes it so the developer does not need to contin...">generateSoundPositionFunc</a>(rRef, lRef, initGuess):</div>
+<div class="line"><a name="l00232"></a><span class="lineno"><a class="code" href="namespacelocaudio_1_1triangulation.html#a91ab07f598b1161238e199e127fef855">  232</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacelocaudio_1_1triangulation.html#a91ab07f598b1161238e199e127fef855" title="This is a closure that provides a new function that makes it so the developer does not need to contin...">generate_sound_position_func</a>(r_ref, l_ref, init_guess):</div>
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keywordflow">return</span> partial(</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        determineSoundPosition,</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        rRef, lRef, initGuess</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        determine_sound_position,</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        r_ref, l_ref, init_guess</div>
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    )</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;</div>
 <div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;</div>
@@ -337,7 +337,7 @@ $(document).ready(function(){initNavTree('triangulation_8py_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_2a17aacba290962b1ea89fe8f31949cf.html">locaudio</a></li><li class="navelem"><a class="el" href="triangulation_8py.html">triangulation.py</a></li>
-    <li class="footer">Generated on Sun Dec 15 2013 16:12:33 for Locaudio by
+    <li class="footer">Generated on Sun Dec 15 2013 21:04:38 for Locaudio by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

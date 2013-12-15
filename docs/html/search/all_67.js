@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['generatesoundpositionfunc',['generateSoundPositionFunc',['../namespacelocaudio_1_1triangulation.html#a4e6907d01e9d4a6cd7ba3d7d3a41b3b2',1,'locaudio::triangulation']]],
-  ['getconfidence',['getConfidence',['../classlocaudio_1_1detectionevent_1_1DetectionEvent.html#a7a4898ab90d97798dff70f4a2464f4c9',1,'locaudio::detectionevent::DetectionEvent']]],
-  ['getspl',['getSPL',['../classlocaudio_1_1detectionevent_1_1DetectionEvent.html#aa7a37ee69b6b0612bfb08411d4007713',1,'locaudio::detectionevent::DetectionEvent']]],
-  ['getx',['getX',['../classlocaudio_1_1detectionevent_1_1DetectionEvent.html#a0e0834f59fd2a15cfd2b6c9af28a4aa0',1,'locaudio::detectionevent::DetectionEvent']]],
-  ['gety',['getY',['../classlocaudio_1_1detectionevent_1_1DetectionEvent.html#ae3bdb3a490451b319a738a3e5707d8cb',1,'locaudio::detectionevent::DetectionEvent']]]
+  ['generate_5fsound_5fposition_5ffunc',['generate_sound_position_func',['../namespacelocaudio_1_1triangulation.html#a91ab07f598b1161238e199e127fef855',1,'locaudio::triangulation']]],
+  ['get_5fconfidence',['get_confidence',['../classlocaudio_1_1detectionevent_1_1DetectionEvent.html#ae0e6b0c991471cfaf025d09c8730b45e',1,'locaudio::detectionevent::DetectionEvent']]],
+  ['get_5fspl',['get_spl',['../classlocaudio_1_1detectionevent_1_1DetectionEvent.html#aa71a820d885f97dfb7aad1e32921cc75',1,'locaudio::detectionevent::DetectionEvent']]],
+  ['get_5fx',['get_x',['../classlocaudio_1_1detectionevent_1_1DetectionEvent.html#a220bfcacc5815c88912fe5fdc7b7a41c',1,'locaudio::detectionevent::DetectionEvent']]],
+  ['get_5fy',['get_y',['../classlocaudio_1_1detectionevent_1_1DetectionEvent.html#a33b86d111b0979e20894dd7035aafb15',1,'locaudio::detectionevent::DetectionEvent']]]
 ];
