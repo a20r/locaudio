@@ -1,7 +1,0 @@
-<map id="locaudio.triangulation.determineSoundPosition" name="locaudio.triangulation.determineSoundPosition">
-<area shape="rect" id="node2" href="$namespacelocaudio_1_1triangulation.html#af708227f069b847392f730d13060cce8" title="Scales the evaluation function so it returns a probability (i.e. " alt="" coords="264,73,461,117"/>
-<area shape="rect" id="node3" href="$namespacelocaudio_1_1triangulation.html#af600bbadd299c94825b159b5df236f6f" title="Evaluation function to deterimine with some weight, where a sound is located in the mesh network of n..." alt="" coords="509,73,707,117"/>
-<area shape="rect" id="node4" href="$namespacelocaudio_1_1triangulation.html#aeda79115af2a41e618d834fe29a63104" title="This is the normal distribution function. " alt="" coords="760,5,952,49"/>
-<area shape="rect" id="node5" href="$namespacelocaudio_1_1triangulation.html#ac52a12426ddad7f84fd8fdce6d53a7e0" title="Given x and y coordinates, this returns the distance to a nodeEvent where the nodeEvent has attribute..." alt="" coords="756,73,956,117"/>
-<area shape="rect" id="node6" href="$namespacelocaudio_1_1triangulation.html#a4a7017521badc87c46d0b84774d70b2f" title="Determines the distance from a sound given the sound pressure level and a reference sound pressure le..." alt="" coords="756,141,956,185"/>
-</map>

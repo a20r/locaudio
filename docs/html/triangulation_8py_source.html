@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>Locaudio: locaudio/triangulation.py Source File</title>
+<title>Locaudio: /Users/wallarelvo-mac/Documents/Projects/locaudio/locaudio/triangulation.py Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -288,7 +288,7 @@ $(document).ready(function(){initNavTree('triangulation_8py_source.html','');});
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment">#     @return The x and y position of the sound.</span></div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="comment"># </span></div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="comment">#     </span></div>
-<div class="line"><a name="l00199"></a><span class="lineno"><a class="code" href="namespacelocaudio_1_1triangulation.html#a71810992293d61775d4d3c7e3a4e9029">  199</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacelocaudio_1_1triangulation.html#a71810992293d61775d4d3c7e3a4e9029" title="Gets the x and y position of a sound in a mesh network given a set of node events. ">determine_sound_position</a>(r_ref, l_ref, init_guess, node_events):</div>
+<div class="line"><a name="l00199"></a><span class="lineno"><a class="code" href="namespacelocaudio_1_1triangulation.html#a71810992293d61775d4d3c7e3a4e9029">  199</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacelocaudio_1_1triangulation.html#a71810992293d61775d4d3c7e3a4e9029" title="Gets the x and y position of a sound in a mesh network given a set of node events. ">determine_sound_position</a>(r_ref, l_ref, init_guess, node_events, **kwargs):</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    p_func = <span class="keyword">lambda</span> v: -1 * <a class="code" href="namespacelocaudio_1_1triangulation.html#ab85ddfec0f2c6c1c20134d90a6fe874a" title="Scales the evaluation function so it returns a probability (i.e. ">position_probability</a>(</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        v[0], v[-1],</div>
@@ -296,7 +296,7 @@ $(document).ready(function(){initNavTree('triangulation_8py_source.html','');});
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        node_events</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    )</div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordflow">return</span> opt.fmin(p_func, init_guess)</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordflow">return</span> opt.fmin(p_func, init_guess, **kwargs)</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="comment">##</span></div>
@@ -337,7 +337,7 @@ $(document).ready(function(){initNavTree('triangulation_8py_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_2a17aacba290962b1ea89fe8f31949cf.html">locaudio</a></li><li class="navelem"><a class="el" href="triangulation_8py.html">triangulation.py</a></li>
-    <li class="footer">Generated on Sun Dec 15 2013 21:04:38 for Locaudio by
+    <li class="footer">Generated on Sun Dec 15 2013 21:49:01 for Locaudio by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>
