@@ -168,7 +168,7 @@ def position_probability(x, y, r_ref, l_ref, node_events):
     ) / float(len(node_events))
 
 
-def determine_sound_position(r_ref, l_ref, init_guess, node_events):
+def determine_sound_position(r_ref, l_ref, init_guess, node_events, **kwargs):
     """
 
     Gets the x and y position of a sound in a mesh network given a set of
@@ -197,7 +197,7 @@ def determine_sound_position(r_ref, l_ref, init_guess, node_events):
         node_events
     )
 
-    return opt.fmin(p_func, init_guess)
+    return opt.fmin(p_func, init_guess, **kwargs)
 
 
 def generate_sound_position_func(r_ref, l_ref, init_guess):
