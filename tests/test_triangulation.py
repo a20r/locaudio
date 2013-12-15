@@ -14,20 +14,24 @@ import unittest
 
 class TriangulationTest(unittest.TestCase):
 
-    def setUp(self):
+    def __init__(self, *args):
         self.dEvents = [
-            tri.DetectionEvent(-1, -1, 0.9, 100),
-            tri.DetectionEvent(-1, 1, 0.3, 90),
-            tri.DetectionEvent(1, 1, 0.5, 100),
+            tri.DetectionEvent(-2, -1, 0.9, 90),
+            tri.DetectionEvent(-1, 1, 0.3, 97),
+            tri.DetectionEvent(2, 3, 0.5, 86),
             tri.DetectionEvent(1, -1, 0.6, 100)
         ]
 
+        super(TriangulationTest, self).__init__(*args)
 
     def test_positionProbability(self):
 
-        fig = plt.figure()
+        fig = plt.figure("Position Probability Test")
         ax = Axes3D(fig)
-
+        ax.set_title("Sound location probability density function")
+        ax.set_xlabel("X Location")
+        ax.set_ylabel("Y Location")
+        ax.set_zlabel("Probability")
         lRef = 100
         rRef = 1
 
@@ -50,7 +54,7 @@ class TriangulationTest(unittest.TestCase):
         ax.plot_surface(X, Y, Z)
         plt.show()
 
-        print "\n=== Position Probability ===", tri.positionProbability(
+        print "\n=== Position Probability === ::", tri.positionProbability(
             testX, testY,
             rRef, lRef,
             self.dEvents
