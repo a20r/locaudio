@@ -20,6 +20,7 @@ distance from which this measurement has been taken.
 from collections import namedtuple
 from detectionevent import DetectionEvent
 import math
+import scipy.optimize as opt
 
 
 ## Scaling constant to transform a confidence probability into a
@@ -164,5 +165,35 @@ def positionProbability(x, y, rRef, lRef, nodeEvents):
         rRef, lRef,
         nodeEvents
     ) / float(len(nodeEvents))
+
+
+def determineSoundPosition(rRef, lRef, nodeEvents, initGuess):
+    """
+
+    Gets the x and y position of a sound in a mesh network given a set of
+    node events. In order to establish the x and y positions we need a
+    reference sound pressure level and the distance when this measurement
+    was taken.
+
+    @param rRef The reference distance at which the reference sound
+    pressure level was recorded
+
+    @param lRef The reference sound pressure level used to determine the
+    distance from the newly measured sound pressure level
+
+    @param nodeEvents The list ofassociated data when a node detects with some
+    confidence that the sound has been identified
+
+    @return The x and y position of the sound.
+
+    """
+
+    pFunc = lambda v: -1 * positionProbability(
+        v[0], v[-1],
+        rRef, lRef,
+        nodeEvents
+    )
+
+    return opt.fmin(pFunc, initGuess)
 
 

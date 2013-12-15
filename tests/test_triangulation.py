@@ -65,13 +65,12 @@ class TriangulationTest(unittest.TestCase):
         testX = 0
         testY = 0
 
-        pFunc = lambda v: -1 * tri.positionProbability(
-            v[0], v[1],
+        res = tri.determineSoundPosition(
             rRef, lRef,
-            self.dEvents
+            self.dEvents,
+            [testX, testY]
         )
 
-        res = opt.fmin(pFunc, np.array([testX, testY]))
         print "\n=== Optimization === ::", res, "\n"
 
 
@@ -79,4 +78,5 @@ if __name__ == "__main__":
 
     print "\n=== Triangulation Testing ===\n"
     unittest.main()
+
 

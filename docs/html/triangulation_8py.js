@@ -1,5 +1,6 @@
 var triangulation_8py =
 [
+    [ "determineSoundPosition", "triangulation_8py.html#abd8cf1c3aaf884f1c97cbeb6c853f697", null ],
     [ "distanceFromDetectionEvent", "triangulation_8py.html#ac52a12426ddad7f84fd8fdce6d53a7e0", null ],
     [ "distanceFromSound", "triangulation_8py.html#a4a7017521badc87c46d0b84774d70b2f", null ],
     [ "normalDistribution", "triangulation_8py.html#aeda79115af2a41e618d834fe29a63104", null ],
