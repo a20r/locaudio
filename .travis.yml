@@ -4,7 +4,7 @@ language:
 before_script:
     - sudo apt-get update
     - sudo apt-get install python-pip
-    - sudo pip install -r requirements.txt
+    - pip install -r requirements.txt
 
 script:
     make docs && python tests/unittest_runner.py 0
