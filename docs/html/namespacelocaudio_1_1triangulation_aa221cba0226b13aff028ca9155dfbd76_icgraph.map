@@ -1,0 +1,5 @@
+<map id="locaudio.triangulation.normal_distribution" name="locaudio.triangulation.normal_distribution">
+<area shape="rect" id="node2" href="$namespacelocaudio_1_1triangulation.html#acf50f5be4536fb0929c359396d41828f" title="Evaluation function to deterimine with some weight, where a sound is located in the mesh network of n..." alt="" coords="245,5,443,49"/>
+<area shape="rect" id="node3" href="$namespacelocaudio_1_1triangulation.html#ab85ddfec0f2c6c1c20134d90a6fe874a" title="Scales the evaluation function so it returns a probability (i.e. " alt="" coords="491,5,688,49"/>
+<area shape="rect" id="node4" href="$namespacelocaudio_1_1triangulation.html#a71810992293d61775d4d3c7e3a4e9029" title="Gets the x and y position of a sound in a mesh network given a set of node events. " alt="" coords="736,5,947,49"/>
+</map>
