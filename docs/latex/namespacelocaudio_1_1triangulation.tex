@@ -15,7 +15,9 @@ def \hyperlink{namespacelocaudio_1_1triangulation_af600bbadd299c94825b159b5df236
 def \hyperlink{namespacelocaudio_1_1triangulation_af708227f069b847392f730d13060cce8}{position\-Probability}
 \begin{DoxyCompactList}\small\item\em Scales the evaluation function so it returns a probability (i.\-e. \end{DoxyCompactList}\item 
 def \hyperlink{namespacelocaudio_1_1triangulation_abd8cf1c3aaf884f1c97cbeb6c853f697}{determine\-Sound\-Position}
-\begin{DoxyCompactList}\small\item\em Gets the x and y position of a sound in a mesh network given a set of node events. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Gets the x and y position of a sound in a mesh network given a set of node events. \end{DoxyCompactList}\item 
+def \hyperlink{namespacelocaudio_1_1triangulation_a4e6907d01e9d4a6cd7ba3d7d3a41b3b2}{generate\-Sound\-Position\-Func}
+\begin{DoxyCompactList}\small\item\em This is a closure that provides a new function that makes it so the developer does not need to continue passing the r\-Ref, l\-Ref and init\-Guess variables when determining the sound position. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -30,8 +32,8 @@ float \hyperlink{namespacelocaudio_1_1triangulation_ac85bcbed961d15baa586ddc0192
 \begin{DoxyParamCaption}
 \item[{}]{r\-Ref, }
 \item[{}]{l\-Ref, }
-\item[{}]{node\-Events, }
-\item[{}]{init\-Guess}
+\item[{}]{init\-Guess, }
+\item[{}]{node\-Events}
 \end{DoxyParamCaption}
 )}}\label{namespacelocaudio_1_1triangulation_abd8cf1c3aaf884f1c97cbeb6c853f697}
 
@@ -46,6 +48,8 @@ In order to establish the x and y positions we need a reference sound pressure l
 \hline
 {\em l\-Ref} & The reference sound pressure level used to determine the distance from the newly measured sound pressure level\\
 \hline
+{\em init\-Guess} & The initial guess for gradient decent\\
+\hline
 {\em node\-Events} & The list ofassociated data when a node detects with some confidence that the sound has been identified\\
 \hline
 \end{DoxyParams}
@@ -54,7 +58,7 @@ The x and y position of the sound.
 \end{DoxyReturn}
 
 
-Definition at line 196 of file triangulation.\-py.
+Definition at line 199 of file triangulation.\-py.
 
 
 
@@ -94,7 +98,7 @@ The distance from a node event given x and y coordinates
 \end{DoxyReturn}
 
 
-Definition at line 73 of file triangulation.\-py.
+Definition at line 74 of file triangulation.\-py.
 
 
 
@@ -134,7 +138,7 @@ The predicted radius from a node event that the sound will be located at given t
 \end{DoxyReturn}
 
 
-Definition at line 50 of file triangulation.\-py.
+Definition at line 51 of file triangulation.\-py.
 
 
 
@@ -146,6 +150,37 @@ Here is the caller graph for this function\-:\nopagebreak
 \end{center}
 \end{figure}
 
+
+\hypertarget{namespacelocaudio_1_1triangulation_a4e6907d01e9d4a6cd7ba3d7d3a41b3b2}{\index{locaudio\-::triangulation@{locaudio\-::triangulation}!generate\-Sound\-Position\-Func@{generate\-Sound\-Position\-Func}}
+\index{generate\-Sound\-Position\-Func@{generate\-Sound\-Position\-Func}!locaudio::triangulation@{locaudio\-::triangulation}}
+\subsubsection[{generate\-Sound\-Position\-Func}]{\setlength{\rightskip}{0pt plus 5cm}def locaudio.\-triangulation.\-generate\-Sound\-Position\-Func (
+\begin{DoxyParamCaption}
+\item[{}]{r\-Ref, }
+\item[{}]{l\-Ref, }
+\item[{}]{init\-Guess}
+\end{DoxyParamCaption}
+)}}\label{namespacelocaudio_1_1triangulation_a4e6907d01e9d4a6cd7ba3d7d3a41b3b2}
+
+
+This is a closure that provides a new function that makes it so the developer does not need to continue passing the r\-Ref, l\-Ref and init\-Guess variables when determining the sound position. 
+
+This is most useful when tracking a sound throughout an enivronment because these parameters will stay constant.
+
+
+\begin{DoxyParams}{Parameters}
+{\em r\-Ref} & The reference distance at which the reference sound pressure level was recorded\\
+\hline
+{\em l\-Ref} & The reference sound pressure level used to determine the distance from the newly measured sound pressure level\\
+\hline
+{\em init\-Guess} & The initial guess for gradient decent\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A function that will use r\-Ref, l\-Ref, and init\-Guess to determine the position of the input sound. The independent variable will become just the node detection events. 
+\end{DoxyReturn}
+
+
+Definition at line 232 of file triangulation.\-py.
 
 \hypertarget{namespacelocaudio_1_1triangulation_aeda79115af2a41e618d834fe29a63104}{\index{locaudio\-::triangulation@{locaudio\-::triangulation}!normal\-Distribution@{normal\-Distribution}}
 \index{normal\-Distribution@{normal\-Distribution}!locaudio::triangulation@{locaudio\-::triangulation}}
@@ -168,7 +203,7 @@ The resulting value for the probability desnsity function
 \end{DoxyReturn}
 
 
-Definition at line 91 of file triangulation.\-py.
+Definition at line 92 of file triangulation.\-py.
 
 
 
@@ -216,7 +251,7 @@ The a result, given independent variables, x and y, and a configuration of node 
 \end{DoxyReturn}
 
 
-Definition at line 125 of file triangulation.\-py.
+Definition at line 126 of file triangulation.\-py.
 
 
 
@@ -275,7 +310,7 @@ The a result, given independent variables, x and y, and a configuration of node 
 \end{DoxyReturn}
 
 
-Definition at line 167 of file triangulation.\-py.
+Definition at line 168 of file triangulation.\-py.
 
 
 
@@ -311,5 +346,5 @@ Scaling constant to transform a confidence probability into a a standard deviati
 
 
 
-Definition at line 29 of file triangulation.\-py.
+Definition at line 30 of file triangulation.\-py.
 

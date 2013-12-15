@@ -114,6 +114,9 @@ Functions</h2></td></tr>
 <tr class="memitem:abd8cf1c3aaf884f1c97cbeb6c853f697"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacelocaudio_1_1triangulation.html#abd8cf1c3aaf884f1c97cbeb6c853f697">determineSoundPosition</a></td></tr>
 <tr class="memdesc:abd8cf1c3aaf884f1c97cbeb6c853f697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the x and y position of a sound in a mesh network given a set of node events.  <a href="#abd8cf1c3aaf884f1c97cbeb6c853f697">More...</a><br/></td></tr>
 <tr class="separator:abd8cf1c3aaf884f1c97cbeb6c853f697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e6907d01e9d4a6cd7ba3d7d3a41b3b2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacelocaudio_1_1triangulation.html#a4e6907d01e9d4a6cd7ba3d7d3a41b3b2">generateSoundPositionFunc</a></td></tr>
+<tr class="memdesc:a4e6907d01e9d4a6cd7ba3d7d3a41b3b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a closure that provides a new function that makes it so the developer does not need to continue passing the rRef, lRef and initGuess variables when determining the sound position.  <a href="#a4e6907d01e9d4a6cd7ba3d7d3a41b3b2">More...</a><br/></td></tr>
+<tr class="separator:a4e6907d01e9d4a6cd7ba3d7d3a41b3b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -142,13 +145,13 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>nodeEvents</em>, </td>
+          <td class="paramname"><em>initGuess</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>initGuess</em>&#160;</td>
+          <td class="paramname"><em>nodeEvents</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -164,13 +167,14 @@ Variables</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">rRef</td><td>The reference distance at which the reference sound pressure level was recorded</td></tr>
     <tr><td class="paramname">lRef</td><td>The reference sound pressure level used to determine the distance from the newly measured sound pressure level</td></tr>
+    <tr><td class="paramname">initGuess</td><td>The initial guess for gradient decent</td></tr>
     <tr><td class="paramname">nodeEvents</td><td>The list ofassociated data when a node detects with some confidence that the sound has been identified</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The x and y position of the sound. </dd></dl>
 
-<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00196">196</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00199">199</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -224,7 +228,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The distance from a node event given x and y coordinates </dd></dl>
 
-<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00073">73</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00074">74</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -278,7 +282,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The predicted radius from a node event that the sound will be located at given the current sound pressure level </dd></dl>
 
-<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00050">50</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00051">51</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -288,6 +292,52 @@ Here is the caller graph for this function:</div>
 <area shape="rect" id="node2" href="namespacelocaudio_1_1triangulation.html#af600bbadd299c94825b159b5df236f6f" title="Evaluation function to deterimine with some weight, where a sound is located in the mesh network of n..." alt="" coords="256,5,453,49"/><area shape="rect" id="node3" href="namespacelocaudio_1_1triangulation.html#af708227f069b847392f730d13060cce8" title="Scales the evaluation function so it returns a probability (i.e. " alt="" coords="501,5,699,49"/><area shape="rect" id="node4" href="namespacelocaudio_1_1triangulation.html#abd8cf1c3aaf884f1c97cbeb6c853f697" title="Gets the x and y position of a sound in a mesh network given a set of node events. " alt="" coords="747,5,957,49"/></map>
 </div>
 </p>
+
+</div>
+</div>
+<a class="anchor" id="a4e6907d01e9d4a6cd7ba3d7d3a41b3b2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def locaudio.triangulation.generateSoundPositionFunc </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>rRef</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>lRef</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>initGuess</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This is a closure that provides a new function that makes it so the developer does not need to continue passing the rRef, lRef and initGuess variables when determining the sound position. </p>
+<p>This is most useful when tracking a sound throughout an enivronment because these parameters will stay constant.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rRef</td><td>The reference distance at which the reference sound pressure level was recorded</td></tr>
+    <tr><td class="paramname">lRef</td><td>The reference sound pressure level used to determine the distance from the newly measured sound pressure level</td></tr>
+    <tr><td class="paramname">initGuess</td><td>The initial guess for gradient decent</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A function that will use rRef, lRef, and initGuess to determine the position of the input sound. The independent variable will become just the node detection events. </dd></dl>
+
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00232">232</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 </div>
 </div>
@@ -314,7 +364,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The resulting value for the probability desnsity function </dd></dl>
 
-<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00091">91</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00092">92</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -383,7 +433,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The a result, given independent variables, x and y, and a configuration of node events with per sample sound constants, rRef and lRef, will be a value representing the likelihood of the sample sound being located at position (x, y). </dd></dl>
 
-<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00125">125</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00126">126</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -461,7 +511,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The a result, given independent variables, x and y, and a configuration of node events with per sample sound constants, rRef and lRef, will be a value representing the probability of the sample sound being located at position (x, y). </dd></dl>
 
-<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00167">167</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00168">168</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -496,7 +546,7 @@ Here is the caller graph for this function:</div>
 
 <p>Scaling constant to transform a confidence probability into a a standard deviation. </p>
 
-<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00029">29</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00030">30</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 </div>
 </div>
@@ -506,7 +556,7 @@ Here is the caller graph for this function:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacelocaudio.html">locaudio</a></li><li class="navelem"><a class="el" href="namespacelocaudio_1_1triangulation.html">triangulation</a></li>
-    <li class="footer">Generated on Sun Dec 15 2013 00:52:48 for Locaudio by
+    <li class="footer">Generated on Sun Dec 15 2013 01:18:10 for Locaudio by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

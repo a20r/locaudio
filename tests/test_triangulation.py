@@ -67,8 +67,8 @@ class TriangulationTest(unittest.TestCase):
 
         res = tri.determineSoundPosition(
             rRef, lRef,
-            self.dEvents,
-            [testX, testY]
+            [testX, testY],
+            self.dEvents
         )
 
         print "\n=== Optimization === ::", res, "\n"

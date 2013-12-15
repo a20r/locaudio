@@ -19,6 +19,7 @@ distance from which this measurement has been taken.
 
 from collections import namedtuple
 from detectionevent import DetectionEvent
+from functools import partial
 import math
 import scipy.optimize as opt
 
@@ -167,7 +168,7 @@ def positionProbability(x, y, rRef, lRef, nodeEvents):
     ) / float(len(nodeEvents))
 
 
-def determineSoundPosition(rRef, lRef, nodeEvents, initGuess):
+def determineSoundPosition(rRef, lRef, initGuess, nodeEvents):
     """
 
     Gets the x and y position of a sound in a mesh network given a set of
@@ -180,6 +181,8 @@ def determineSoundPosition(rRef, lRef, nodeEvents, initGuess):
 
     @param lRef The reference sound pressure level used to determine the
     distance from the newly measured sound pressure level
+
+    @param initGuess The initial guess for gradient decent
 
     @param nodeEvents The list ofassociated data when a node detects with some
     confidence that the sound has been identified
@@ -195,5 +198,34 @@ def determineSoundPosition(rRef, lRef, nodeEvents, initGuess):
     )
 
     return opt.fmin(pFunc, initGuess)
+
+
+def generateSoundPositionFunc(rRef, lRef, initGuess):
+    """
+
+    This is a closure that provides a new function that makes it so the
+    developer does not need to continue passing the rRef, lRef and initGuess
+    variables when determining the sound position. This is most useful when
+    tracking a sound throughout an enivronment because these parameters will
+    stay constant.
+
+    @param rRef The reference distance at which the reference sound
+    pressure level was recorded
+
+    @param lRef The reference sound pressure level used to determine the
+    distance from the newly measured sound pressure level
+
+    @param initGuess The initial guess for gradient decent
+
+    @return A function that will use rRef, lRef, and initGuess to determine
+    the position of the input sound. The independent variable will become
+    just the node detection events.
+
+    """
+
+    return partial(
+        determineSoundPosition,
+        rRef, lRef, initGuess
+    )
 
 
