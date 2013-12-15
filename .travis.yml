@@ -1,13 +1,16 @@
 language:
     python
 
-before_script:
+python:
+    - "2.7"
+    - "pypy"
+
+install:
     - sudo apt-get update
     - sudo apt-get install python-pip
     - pip install -r requirements.txt
 
-script:
-    make docs && python tests/unittest_runner.py 0
+script: python tests/unittest_runner.py
 
 branches:
   only:
