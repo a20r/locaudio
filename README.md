@@ -12,7 +12,10 @@ Sound source localization in reconfigurable wireless acoustic sensor networks
 ##### To Install
 `make depend` or `pip install -r requirements.txt`
 
-## Documentation
+## Running
 ##### To Generate Documentation
 `make documentation`
+
+##### To Run Tests
+`make run_tests`
 
