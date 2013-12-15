@@ -1,7 +1,7 @@
 
 """
 
-triangulation.py
+triangulation
 
 This file contains functions that can be used to determine the position
 of a sound in a mesh network given a set of nodeEvents with associated
@@ -22,7 +22,7 @@ from detectionevent import DetectionEvent
 import math
 
 
-# Scaling constant to transform a confidence probability into a
+## Scaling constant to transform a confidence probability into a
 # a standard deviation.
 K =  0.7
 

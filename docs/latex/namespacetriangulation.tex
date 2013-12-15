@@ -1,0 +1,12 @@
+\hypertarget{namespacetriangulation}{\section{triangulation Namespace Reference}
+\label{namespacetriangulation}\index{triangulation@{triangulation}}
+}
+
+
+This file contains functions that can be used to determine the position of a sound in a mesh network given a set of node\-Events with associated information.  
+
+
+
+
+\subsection{Detailed Description}
+This file contains functions that can be used to determine the position of a sound in a mesh network given a set of node\-Events with associated information. The node\-Event (at this point) is a simple struct containing its x and y position, the confidence of the sound that was just detected, and the sound pressure level of the sound when it was detected. Using this information we can create a probability function that can be maximized to determine the position of the sample sound. The sample sound (for localization given that the sound has been accurately detected by a set of node\-Events) only needs to contain the reference sound pressure level and a reference distance from which this measurement has been taken. 

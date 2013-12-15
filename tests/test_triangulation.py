@@ -8,14 +8,13 @@ import locaudio.triangulation as tri
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
+import scipy.optimize as opt
 import unittest
 
 
 class TriangulationTest(unittest.TestCase):
 
     def setUp(self):
-        print ""
-        print "=== Triangulation Testing ===\n"
         self.dEvents = [
             tri.DetectionEvent(-1, -1, 0.9, 100),
             tri.DetectionEvent(-1, 1, 0.3, 90),
@@ -23,9 +22,9 @@ class TriangulationTest(unittest.TestCase):
             tri.DetectionEvent(1, -1, 0.6, 100)
         ]
 
+
     def test_positionProbability(self):
 
-        print "=== Position Probability === ::",
         fig = plt.figure()
         ax = Axes3D(fig)
 
@@ -51,8 +50,33 @@ class TriangulationTest(unittest.TestCase):
         ax.plot_surface(X, Y, Z)
         plt.show()
 
-        print tri.positionProbability(testX, testY, rRef, lRef, self.dEvents)
+        print "\n=== Position Probability ===", tri.positionProbability(
+            testX, testY,
+            rRef, lRef,
+            self.dEvents
+        ), "\n"
+
+
+    def test_optimization(self):
+
+        lRef = 100
+        rRef = 1
+
+        testX = 0
+        testY = 0
+
+        pFunc = lambda v: -1 * tri.positionProbability(
+            v[0], v[1],
+            rRef, lRef,
+            self.dEvents
+        )
+
+        res = opt.fmin(pFunc, np.array([testX, testY]))
+        print "\n=== Optimization === ::", res, "\n"
+
 
 if __name__ == "__main__":
+
+    print "\n=== Triangulation Testing ===\n"
     unittest.main()
 
