@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     16621,        364]
-NotebookOptionsPosition[     16247,        346]
-NotebookOutlinePosition[     16601,        362]
-CellTagsIndexPosition[     16558,        359]
+NotebookDataLength[     16919,        373]
+NotebookOptionsPosition[     16467,        353]
+NotebookOutlinePosition[     16822,        369]
+CellTagsIndexPosition[     16779,        366]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -306,7 +306,7 @@ g) / 20)) / (K / a)) ^ 2)"},
         Typeset`nonpods$$, Typeset`queryinfo$$, Typeset`sessioninfo$$, 
         Typeset`showpods$$, Typeset`failedpods$$, Typeset`newq$$}]], 
      StandardForm],
-    ImageSizeCache->{673., {144., 149.}},
+    ImageSizeCache->{1209., {98., 104.}},
     TrackedSymbols:>{Typeset`showpods$$, Typeset`failedpods$$}],
    DynamicModuleValues:>{},
    Initialization:>If[
@@ -342,10 +342,17 @@ MSPa22701fe397139a569c4d000055ic40e478b2di59&s=29", Typeset`asyncpods$$}]];
   SelectWithContents->True]], "Print",
  CellMargins->{{20, 10}, {Inherited, Inherited}},
  CellChangeTimes->{3.5960142516169443`*^9}]
-}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[
+ FormBox["", TraditionalForm]], "Input",
+ CellChangeTimes->{{3.596020458453994*^9, 3.5960204789489822`*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.596032089697345*^9, 3.596032094420884*^9}}]
 },
-WindowSize->{740, 656},
-WindowMargins->{{4, Automatic}, {Automatic, 4}},
+WindowSize->{1276, 756},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
 FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
 2013)",
 StyleDefinitions->"Default.nb"
@@ -364,11 +371,12 @@ Notebook[{
 Cell[557, 20, 933, 30, 28, "Input"],
 Cell[CellGroupData[{
 Cell[1515, 54, 203, 4, 41, "WolframAlphaLong"],
-Cell[1721, 60, 14510, 283, 303, "Print"]
-}, Open  ]]
+Cell[1721, 60, 14510, 283, 212, "Print"]
+}, Open  ]],
+Cell[16246, 346, 122, 2, 28, "Input"],
+Cell[16371, 350, 92, 1, 28, "Input"]
 }
 ]
 *)
 
 (* End of internal cache information *)
-

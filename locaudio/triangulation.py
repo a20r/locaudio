@@ -16,9 +16,9 @@ distance from which this measurement has been taken.
 
 """
 
-
-from collections import namedtuple
+# imported and not used so that the class would be in the same package
 from detectionevent import DetectionEvent
+
 from functools import partial
 import math
 import scipy.optimize as opt

@@ -15,12 +15,12 @@ import unittest
 class TriangulationTest(unittest.TestCase):
 
     def setUp(self):
-        self.show_plot = False
+        self.show_plot = True
         self.d_events = [
-            tri.DetectionEvent(-2, -1, 0.9, 90),
-            tri.DetectionEvent(-1, 1, 0.3, 97),
-            tri.DetectionEvent(2, 3, 0.5, 86),
-            tri.DetectionEvent(1, -1, 0.6, 100)
+            tri.DetectionEvent(-3, -1, 0.9, 90),
+            tri.DetectionEvent(-2, 1, 0.3, 97),
+            tri.DetectionEvent(1, 3, 0.5, 86),
+            tri.DetectionEvent(0, -1, 0.6, 100)
         ]
 
 
