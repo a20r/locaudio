@@ -90,7 +90,7 @@ class TriangulationTest(unittest.TestCase):
         l_ref = 100
         r_ref = 1
 
-        res = tri.determine_sound_position(
+        res = tri.determine_sound_positions(
             r_ref, l_ref,
             self.d_events,
             disp=0

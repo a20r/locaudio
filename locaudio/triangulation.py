@@ -190,7 +190,7 @@ def determine_sound_position_list(r_ref, l_ref, node_events, **kwargs):
     @param nodeEvents The list ofassociated data when a node detects with some
     confidence that the sound has been identified
 
-    @return A list of the x and y positions of the sound.
+    @return A list of the possible x and y positions of the sound.
 
     """
 
@@ -212,7 +212,7 @@ def determine_sound_position_list(r_ref, l_ref, node_events, **kwargs):
     return max_vals
 
 
-def determine_sound_position(r_ref, l_ref, node_events, **kwargs):
+def determine_sound_positions(r_ref, l_ref, node_events, **kwargs):
     """
 
     Determines the position in the probability grid that has the highest
@@ -270,7 +270,7 @@ def generate_sound_position_func(r_ref, l_ref):
     """
 
     return partial(
-        determine_sound_position,
+        determine_sound_positions,
         r_ref, l_ref
     )
 
