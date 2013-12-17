@@ -8,6 +8,7 @@ Sound source localization in reconfigurable wireless acoustic sensor networks
 - Matplotlib
 - Scipy
 - Numpy
+- SciKit-Learn
 
 ##### To Install
 `make depend` or `pip install -r requirements.txt`

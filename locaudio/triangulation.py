@@ -18,10 +18,12 @@ distance from which this measurement has been taken.
 
 # imported and not used so that the class would be in the same package
 from detectionevent import DetectionEvent
-
+from point import Point
 from functools import partial
 import math
 import scipy.optimize as opt
+import sklearn.cluster as clustering # AffinityPropagation
+import numpy as np
 
 
 ## Scaling constant to transform a confidence probability into a
@@ -168,13 +170,14 @@ def position_probability(x, y, r_ref, l_ref, node_events):
     ) / float(len(node_events))
 
 
-def determine_sound_position(r_ref, l_ref, init_guess, node_events, **kwargs):
+def determine_sound_position_list(r_ref, l_ref, node_events, **kwargs):
     """
 
-    Gets the x and y position of a sound in a mesh network given a set of
-    node events. In order to establish the x and y positions we need a
-    reference sound pressure level and the distance when this measurement
-    was taken.
+    Determines a list of possible positions of where the sound will be
+    located. These positions are determined by changing iterating through
+    the list of node events and optimizing the probability density function
+    with the initial guess being the position of the node event. *Hopefully*
+    the optimization will find the local minima.
 
     @param rRef The reference distance at which the reference sound
     pressure level was recorded
@@ -187,7 +190,7 @@ def determine_sound_position(r_ref, l_ref, init_guess, node_events, **kwargs):
     @param nodeEvents The list ofassociated data when a node detects with some
     confidence that the sound has been identified
 
-    @return The x and y position of the sound.
+    @return A list of the x and y positions of the sound.
 
     """
 
@@ -197,10 +200,53 @@ def determine_sound_position(r_ref, l_ref, init_guess, node_events, **kwargs):
         node_events
     )
 
-    return opt.fmin(p_func, init_guess, **kwargs)
+    max_list = [
+        opt.fmin(p_func, ne.get_pos(), full_output=1, **kwargs)
+        for ne in node_events
+    ]
+
+    max_vals = [
+        (Point(x, y), z) for (x, y), z, _, _, _ in max_list
+    ]
+
+    return max_vals
 
 
-def generate_sound_position_func(r_ref, l_ref, init_guess):
+def determine_sound_position(r_ref, l_ref, node_events, **kwargs):
+    """
+
+    Determines the position in the probability grid that has the highest
+    probability of being the position of the sound.
+
+    @param rRef The reference distance at which the reference sound
+    pressure level was recorded
+
+    @param lRef The reference sound pressure level used to determine the
+    distance from the newly measured sound pressure level
+
+    @param initGuess The initial guess for gradient decent
+
+    @param nodeEvents The list ofassociated data when a node detects with some
+    confidence that the sound has been identified
+
+    @return A list of the x and y positions of the sound.
+
+    """
+
+    max_vals = determine_sound_position_list(
+        r_ref, l_ref,
+        node_events,
+        **kwargs
+    )
+
+    positions = np.array([p.to_list() for p, _ in max_vals])
+
+    af = clustering.AffinityPropagation().fit(positions)
+
+    return [max_vals[i][0] for i in af.cluster_centers_indices_]
+
+
+def generate_sound_position_func(r_ref, l_ref):
     """
 
     This is a closure that provides a new function that makes it so the
@@ -225,7 +271,7 @@ def generate_sound_position_func(r_ref, l_ref, init_guess):
 
     return partial(
         determine_sound_position,
-        r_ref, l_ref, init_guess
+        r_ref, l_ref
     )
 
 

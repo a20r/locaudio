@@ -27,6 +27,22 @@ class DetectionEvent(object):
     def get_confidence(self):
         return self.confidence
 
+
     def get_spl(self):
         return self.spl
+
+    def get_pos(self):
+        return (self.x, self.y)
+
+    def __str__(self):
+        return (
+            "DetectionEvent(x=" + str(self.x) +
+            ", y=" + str(self.y) +
+            ", confidence=" + str(self.confidence) +
+            ", spl=" + str(self.spl) + ")"
+        )
+
+
+    def __repr__(self):
+        return self.__str__()
 

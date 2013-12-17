@@ -6,23 +6,25 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 import locaudio.triangulation as tri
 import matplotlib.pyplot as plt
+from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 import scipy.optimize as opt
 import unittest
+from pprint import pprint
 
 
 class TriangulationTest(unittest.TestCase):
 
     def setUp(self):
-        self.show_plot = True
+        self.show_plot = False
         self.d_events = [
-            tri.DetectionEvent(-3, -1, 0.9, 90),
+            tri.DetectionEvent(-9, -1, 0.9, 90),
             tri.DetectionEvent(-2, 1, 0.3, 97),
             tri.DetectionEvent(1, 3, 0.5, 86),
             tri.DetectionEvent(0, -1, 0.6, 100)
         ]
-
+        #pprint(self.d_events)
 
     def test_position_probability(self):
 
@@ -52,8 +54,10 @@ class TriangulationTest(unittest.TestCase):
                     for x, y in zip(np.ravel(X), np.ravel(Y))
                 ]
             )
+
             Z = zs.reshape(X.shape)
-            ax.plot_surface(X, Y, Z)
+
+            ax.plot_surface(X, Y, Z, cmap=cm.jet)
             plt.show()
 
         print "\n=== Position Probability === :: (", test_x,
@@ -65,23 +69,34 @@ class TriangulationTest(unittest.TestCase):
         ), "\n"
 
 
+    def test_optimization_list(self):
+
+        l_ref = 100
+        r_ref = 1
+
+        res = tri.determine_sound_position_list(
+            r_ref, l_ref,
+            self.d_events,
+            disp=0
+        )
+
+        print "\n=== Optimization List === ::\n[ Xs, Ys ]  <--> ",
+        pprint(res)
+        print "\n"
+
+
     def test_optimization(self):
 
         l_ref = 100
         r_ref = 1
 
-        test_x = 0
-        test_y = 0
-
         res = tri.determine_sound_position(
             r_ref, l_ref,
-            [test_x, test_y],
             self.d_events,
             disp=0
         )
 
-        print "\n=== Optimization === :: [ X, Y ]  <--> ", res, "\n"
-
+        print "\n=== Optimization === :: [ Xs, Ys ]  <--> ", res, "\n"
 
 if __name__ == "__main__":
 
