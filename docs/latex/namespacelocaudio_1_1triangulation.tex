@@ -10,12 +10,16 @@ def \hyperlink{namespacelocaudio_1_1triangulation_a1206790ce9fd39f59ce264ac7c7fb
 \begin{DoxyCompactList}\small\item\em Given x and y coordinates, this returns the distance to a node\-Event where the node\-Event has attributes, x and y, on the same plane. \end{DoxyCompactList}\item 
 def \hyperlink{namespacelocaudio_1_1triangulation_aa221cba0226b13aff028ca9155dfbd76}{normal\-\_\-distribution}
 \begin{DoxyCompactList}\small\item\em This is the normal distribution function. \end{DoxyCompactList}\item 
+def \hyperlink{namespacelocaudio_1_1triangulation_ad44e1bed6beed7ee59cffc4c230f7144}{set\-\_\-node\-\_\-events\-\_\-std}
+\begin{DoxyCompactList}\small\item\em Uses the relative time differences between the node events mixed with the confidence of sound recognition to determine the standard deviation of the node event. \end{DoxyCompactList}\item 
 def \hyperlink{namespacelocaudio_1_1triangulation_acf50f5be4536fb0929c359396d41828f}{position\-\_\-evaluation}
 \begin{DoxyCompactList}\small\item\em Evaluation function to deterimine with some weight, where a sound is located in the mesh network of nodes. \end{DoxyCompactList}\item 
 def \hyperlink{namespacelocaudio_1_1triangulation_ab85ddfec0f2c6c1c20134d90a6fe874a}{position\-\_\-probability}
 \begin{DoxyCompactList}\small\item\em Scales the evaluation function so it returns a probability (i.\-e. \end{DoxyCompactList}\item 
-def \hyperlink{namespacelocaudio_1_1triangulation_a71810992293d61775d4d3c7e3a4e9029}{determine\-\_\-sound\-\_\-position}
-\begin{DoxyCompactList}\small\item\em Gets the x and y position of a sound in a mesh network given a set of node events. \end{DoxyCompactList}\item 
+def \hyperlink{namespacelocaudio_1_1triangulation_ad01abd5ed08c05988dea7978b141549c}{determine\-\_\-sound\-\_\-position\-\_\-list}
+\begin{DoxyCompactList}\small\item\em Determines a list of possible positions of where the sound will be located. \end{DoxyCompactList}\item 
+def \hyperlink{namespacelocaudio_1_1triangulation_a37420560e73cb3aefbdff181774725be}{determine\-\_\-sound\-\_\-positions}
+\begin{DoxyCompactList}\small\item\em Determines the position in the probability grid that has the highest probability of being the position of the sound. \end{DoxyCompactList}\item 
 def \hyperlink{namespacelocaudio_1_1triangulation_a91ab07f598b1161238e199e127fef855}{generate\-\_\-sound\-\_\-position\-\_\-func}
 \begin{DoxyCompactList}\small\item\em This is a closure that provides a new function that makes it so the developer does not need to continue passing the r\-Ref, l\-Ref and init\-Guess variables when determining the sound position. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Variables}
@@ -26,22 +30,21 @@ float \hyperlink{namespacelocaudio_1_1triangulation_ac85bcbed961d15baa586ddc0192
 
 
 \subsection{Function Documentation}
-\hypertarget{namespacelocaudio_1_1triangulation_a71810992293d61775d4d3c7e3a4e9029}{\index{locaudio\-::triangulation@{locaudio\-::triangulation}!determine\-\_\-sound\-\_\-position@{determine\-\_\-sound\-\_\-position}}
-\index{determine\-\_\-sound\-\_\-position@{determine\-\_\-sound\-\_\-position}!locaudio::triangulation@{locaudio\-::triangulation}}
-\subsubsection[{determine\-\_\-sound\-\_\-position}]{\setlength{\rightskip}{0pt plus 5cm}def locaudio.\-triangulation.\-determine\-\_\-sound\-\_\-position (
+\hypertarget{namespacelocaudio_1_1triangulation_ad01abd5ed08c05988dea7978b141549c}{\index{locaudio\-::triangulation@{locaudio\-::triangulation}!determine\-\_\-sound\-\_\-position\-\_\-list@{determine\-\_\-sound\-\_\-position\-\_\-list}}
+\index{determine\-\_\-sound\-\_\-position\-\_\-list@{determine\-\_\-sound\-\_\-position\-\_\-list}!locaudio::triangulation@{locaudio\-::triangulation}}
+\subsubsection[{determine\-\_\-sound\-\_\-position\-\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}def locaudio.\-triangulation.\-determine\-\_\-sound\-\_\-position\-\_\-list (
 \begin{DoxyParamCaption}
 \item[{}]{r\-\_\-ref, }
 \item[{}]{l\-\_\-ref, }
-\item[{}]{init\-\_\-guess, }
 \item[{}]{node\-\_\-events, }
 \item[{}]{kwargs}
 \end{DoxyParamCaption}
-)}}\label{namespacelocaudio_1_1triangulation_a71810992293d61775d4d3c7e3a4e9029}
+)}}\label{namespacelocaudio_1_1triangulation_ad01abd5ed08c05988dea7978b141549c}
 
 
-Gets the x and y position of a sound in a mesh network given a set of node events. 
+Determines a list of possible positions of where the sound will be located. 
 
-In order to establish the x and y positions we need a reference sound pressure level and the distance when this measurement was taken.
+These positions are determined by changing iterating through the list of node events and optimizing the probability density function with the initial guess being the position of the node event. {\itshape Hopefully} the optimization will find the local minima.
 
 
 \begin{DoxyParams}{Parameters}
@@ -55,19 +58,76 @@ In order to establish the x and y positions we need a reference sound pressure l
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-The x and y position of the sound. 
+A list of the possible x and y positions of the sound. 
 \end{DoxyReturn}
 
 
-Definition at line 199 of file triangulation.\-py.
+Definition at line 239 of file triangulation.\-py.
 
 
 
-Here is the call graph for this function\-:\nopagebreak
+Here is the call graph for this function\-:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{namespacelocaudio_1_1triangulation_a71810992293d61775d4d3c7e3a4e9029_cgraph}
+\includegraphics[width=350pt]{namespacelocaudio_1_1triangulation_ad01abd5ed08c05988dea7978b141549c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacelocaudio_1_1triangulation_ad01abd5ed08c05988dea7978b141549c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{namespacelocaudio_1_1triangulation_a37420560e73cb3aefbdff181774725be}{\index{locaudio\-::triangulation@{locaudio\-::triangulation}!determine\-\_\-sound\-\_\-positions@{determine\-\_\-sound\-\_\-positions}}
+\index{determine\-\_\-sound\-\_\-positions@{determine\-\_\-sound\-\_\-positions}!locaudio::triangulation@{locaudio\-::triangulation}}
+\subsubsection[{determine\-\_\-sound\-\_\-positions}]{\setlength{\rightskip}{0pt plus 5cm}def locaudio.\-triangulation.\-determine\-\_\-sound\-\_\-positions (
+\begin{DoxyParamCaption}
+\item[{}]{r\-\_\-ref, }
+\item[{}]{l\-\_\-ref, }
+\item[{}]{node\-\_\-events, }
+\item[{}]{kwargs}
+\end{DoxyParamCaption}
+)}}\label{namespacelocaudio_1_1triangulation_a37420560e73cb3aefbdff181774725be}
+
+
+Determines the position in the probability grid that has the highest probability of being the position of the sound. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em r\-Ref} & The reference distance at which the reference sound pressure level was recorded\\
+\hline
+{\em l\-Ref} & The reference sound pressure level used to determine the distance from the newly measured sound pressure level\\
+\hline
+{\em init\-Guess} & The initial guess for gradient decent\\
+\hline
+{\em node\-Events} & The list ofassociated data when a node detects with some confidence that the sound has been identified\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A list of the x and y positions of the sound. 
+\end{DoxyReturn}
+
+
+Definition at line 279 of file triangulation.\-py.
+
+
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacelocaudio_1_1triangulation_a37420560e73cb3aefbdff181774725be_cgraph}
 \end{center}
 \end{figure}
 
@@ -99,11 +159,12 @@ The distance from a node event given x and y coordinates
 \end{DoxyReturn}
 
 
-Definition at line 74 of file triangulation.\-py.
+Definition at line 76 of file triangulation.\-py.
 
 
 
-Here is the caller graph for this function\-:\nopagebreak
+Here is the caller graph for this function\-:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -139,11 +200,12 @@ The predicted radius from a node event that the sound will be located at given t
 \end{DoxyReturn}
 
 
-Definition at line 51 of file triangulation.\-py.
+Definition at line 53 of file triangulation.\-py.
 
 
 
-Here is the caller graph for this function\-:\nopagebreak
+Here is the caller graph for this function\-:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -157,8 +219,7 @@ Here is the caller graph for this function\-:\nopagebreak
 \subsubsection[{generate\-\_\-sound\-\_\-position\-\_\-func}]{\setlength{\rightskip}{0pt plus 5cm}def locaudio.\-triangulation.\-generate\-\_\-sound\-\_\-position\-\_\-func (
 \begin{DoxyParamCaption}
 \item[{}]{r\-\_\-ref, }
-\item[{}]{l\-\_\-ref, }
-\item[{}]{init\-\_\-guess}
+\item[{}]{l\-\_\-ref}
 \end{DoxyParamCaption}
 )}}\label{namespacelocaudio_1_1triangulation_a91ab07f598b1161238e199e127fef855}
 
@@ -181,7 +242,7 @@ A function that will use r\-Ref, l\-Ref, and init\-Guess to determine the positi
 \end{DoxyReturn}
 
 
-Definition at line 232 of file triangulation.\-py.
+Definition at line 316 of file triangulation.\-py.
 
 \hypertarget{namespacelocaudio_1_1triangulation_aa221cba0226b13aff028ca9155dfbd76}{\index{locaudio\-::triangulation@{locaudio\-::triangulation}!normal\-\_\-distribution@{normal\-\_\-distribution}}
 \index{normal\-\_\-distribution@{normal\-\_\-distribution}!locaudio::triangulation@{locaudio\-::triangulation}}
@@ -204,11 +265,12 @@ The resulting value for the probability desnsity function
 \end{DoxyReturn}
 
 
-Definition at line 92 of file triangulation.\-py.
+Definition at line 94 of file triangulation.\-py.
 
 
 
-Here is the caller graph for this function\-:\nopagebreak
+Here is the caller graph for this function\-:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -244,7 +306,7 @@ Given an x and y, this returns a weight. The higher the weight, the higher the l
 \hline
 {\em l\-Ref} & The reference sound pressure level used to determine the distance from the newly measured sound pressure level\\
 \hline
-{\em node\-Events} & The list ofassociated data when a node detects with some confidence that the sound has been identified\\
+{\em node\-Events} & The list of associated data when a node detects with some confidence that the sound has been identified\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -252,11 +314,12 @@ The a result, given independent variables, x and y, and a configuration of node 
 \end{DoxyReturn}
 
 
-Definition at line 126 of file triangulation.\-py.
+Definition at line 163 of file triangulation.\-py.
 
 
 
-Here is the call graph for this function\-:\nopagebreak
+Here is the call graph for this function\-:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -267,7 +330,8 @@ Here is the call graph for this function\-:\nopagebreak
 
 
 
-Here is the caller graph for this function\-:\nopagebreak
+Here is the caller graph for this function\-:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -311,11 +375,12 @@ The a result, given independent variables, x and y, and a configuration of node 
 \end{DoxyReturn}
 
 
-Definition at line 168 of file triangulation.\-py.
+Definition at line 207 of file triangulation.\-py.
 
 
 
-Here is the call graph for this function\-:\nopagebreak
+Here is the call graph for this function\-:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -326,11 +391,46 @@ Here is the call graph for this function\-:\nopagebreak
 
 
 
-Here is the caller graph for this function\-:\nopagebreak
+Here is the caller graph for this function\-:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{namespacelocaudio_1_1triangulation_ab85ddfec0f2c6c1c20134d90a6fe874a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{namespacelocaudio_1_1triangulation_ad44e1bed6beed7ee59cffc4c230f7144}{\index{locaudio\-::triangulation@{locaudio\-::triangulation}!set\-\_\-node\-\_\-events\-\_\-std@{set\-\_\-node\-\_\-events\-\_\-std}}
+\index{set\-\_\-node\-\_\-events\-\_\-std@{set\-\_\-node\-\_\-events\-\_\-std}!locaudio::triangulation@{locaudio\-::triangulation}}
+\subsubsection[{set\-\_\-node\-\_\-events\-\_\-std}]{\setlength{\rightskip}{0pt plus 5cm}def locaudio.\-triangulation.\-set\-\_\-node\-\_\-events\-\_\-std (
+\begin{DoxyParamCaption}
+\item[{}]{node\-\_\-events}
+\end{DoxyParamCaption}
+)}}\label{namespacelocaudio_1_1triangulation_ad44e1bed6beed7ee59cffc4c230f7144}
+
+
+Uses the relative time differences between the node events mixed with the confidence of sound recognition to determine the standard deviation of the node event. 
+
+Node events that are closest to the node event that has the largest time stamps will have a lower standard deviation. Also, node events that have a larger sound recognition confidence will be given lower standard deviations.
+
+
+\begin{DoxyParams}{Parameters}
+{\em node\-Events} & The list of associated data when a node detects with some confidence that the sound has been identified \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 113 of file triangulation.\-py.
+
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacelocaudio_1_1triangulation_ad44e1bed6beed7ee59cffc4c230f7144_icgraph}
 \end{center}
 \end{figure}
 
@@ -347,5 +447,5 @@ Scaling constant to transform a confidence probability into a a standard deviati
 
 
 
-Definition at line 30 of file triangulation.\-py.
+Definition at line 32 of file triangulation.\-py.
 

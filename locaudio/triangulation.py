@@ -92,6 +92,40 @@ def normal_distribution(x):
     return (1 / math.sqrt(2 * math.pi)) * math.exp(-0.5 * math.pow(x, 2))
 
 
+def set_node_events_std(node_events):
+    """
+
+    Uses the relative time differences between the node events mixed with
+    the confidence of sound recognition to determine the standard deviation
+    of the node event. Node events that are closest to the node event that has
+    the largest time stamps will have a lower standard deviation. Also, node
+    events that have a larger sound recognition confidence will be given lower
+    standard deviations.
+
+    @param nodeEvents The list of associated data when a node detects with some
+    confidence that the sound has been identified
+
+    """
+
+    if len(node_events) == 0:
+        raise ValueError("Node events is of length 0")
+
+    max_time = 0
+    min_time = node_events[0].get_timestamp()
+    for node_event in node_events:
+        if node_event.get_timestamp() > max_time:
+            max_time = node_event.get_timestamp()
+        if node_event.get_timestamp() < min_time:
+            min_time = node_event.get_timestamp()
+
+    for node_event in node_events:
+        time_error = 1.0 - (
+            (max_time - node_event.get_timestamp()) /
+            (max_time - min_time)
+        )
+        node_event.set_std(K / (node_event.confidence + time_error))
+
+
 def position_evaluation(x, y, r_ref, l_ref, node_events):
     """
 
@@ -112,7 +146,7 @@ def position_evaluation(x, y, r_ref, l_ref, node_events):
     @param lRef The reference sound pressure level used to determine the
     distance from the newly measured sound pressure level
 
-    @param nodeEvents The list ofassociated data when a node detects with some
+    @param nodeEvents The list of associated data when a node detects with some
     confidence that the sound has been identified
 
     @return The a result, given independent variables, x and y, and a
@@ -122,14 +156,16 @@ def position_evaluation(x, y, r_ref, l_ref, node_events):
 
     """
 
+    set_node_events_std(node_events)
+
     return sum(
         [
             normal_distribution(
                 (
                     distance_from_detection_event(x, y, n) -
                     distance_from_sound(r_ref, l_ref, n.spl)
-                ) / (K / n.confidence)
-            ) / (K / n.confidence) for n in node_events
+                ) / n.get_std()
+            ) / n.get_std() for n in node_events
         ]
     )
 

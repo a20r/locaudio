@@ -9,11 +9,14 @@ class DetectionEvent(object):
 
     """
 
-    def __init__(self, x, y, confidence, spl):
+
+    def __init__(self, x, y, confidence, spl, timestamp):
         self.x = x
         self.y = y
         self.confidence = confidence
         self.spl = spl
+        self.timestamp = timestamp
+        self.std = None
 
 
     def get_x(self):
@@ -31,8 +34,25 @@ class DetectionEvent(object):
     def get_spl(self):
         return self.spl
 
+
+    def get_timestamp(self):
+        return self.timestamp
+
+
     def get_pos(self):
         return (self.x, self.y)
+
+
+    def set_std(self, std):
+        self.std = std
+
+
+    def get_std(self):
+        if self.std == None:
+            raise AttributeError("Standard deviation not set")
+        else:
+            return self.std
+
 
     def __str__(self):
         return (
