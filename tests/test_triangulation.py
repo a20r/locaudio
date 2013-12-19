@@ -18,12 +18,13 @@ import time
 class TriangulationTest(unittest.TestCase):
 
     def setUp(self):
+
         self.show_plot = True
         self.d_events = [
             tri.DetectionEvent(-9, -1, 0.9, 90, time.time()),
-            tri.DetectionEvent(-2, 1, 0.3, 97, time.time()),
-            tri.DetectionEvent(1, 3, 0.5, 86, time.time()),
-            tri.DetectionEvent(0, -1, 0.6, 100, time.time())
+            tri.DetectionEvent(-2, 1, 0.3, 97, time.time() - 7),
+            tri.DetectionEvent(1, 3, 0.5, 86, time.time() - 10),
+            tri.DetectionEvent(0, -1, 0.6, 100, time.time() - 5)
         ]
         #pprint(self.d_events)
 
@@ -74,6 +75,18 @@ class TriangulationTest(unittest.TestCase):
         print "\n=== Optimization === :: [ Xs, Ys ]  <--> ", res, "\n"
 
 
+    def test_closure(self):
+
+        r_ref = 1
+        l_ref = 100
+
+        clos = tri.generate_sound_position_func(r_ref, l_ref)
+
+        print "\n=== Closure === :: V_1 == {0}, V_2 == {1}\n".format(
+            clos(self.d_events), clos(self.d_events)
+        )
+
+
     def test_together(self):
 
         r_ref = 1
@@ -122,6 +135,7 @@ class TriangulationTest(unittest.TestCase):
                 marker="D",
                 linewidths=10
             )
+
             print "\n=== All Together ===\n"
             plt.show()
 

@@ -18,8 +18,10 @@ distance from which this measurement has been taken.
 
 # imported and not used so that the class would be in the same package
 from detectionevent import DetectionEvent
+
 from point import Point
 from functools import partial
+
 import math
 import scipy.optimize as opt
 import sklearn.cluster as clustering # AffinityPropagation
@@ -108,14 +110,14 @@ def set_node_events_std(node_events):
     """
 
     if len(node_events) == 0:
-        raise ValueError("Node events is of length 0")
+        raise ValueError("Node event list is of length 0")
 
     max_time = 0
     min_time = node_events[0].get_timestamp()
     for node_event in node_events:
         if node_event.get_timestamp() > max_time:
             max_time = node_event.get_timestamp()
-        if node_event.get_timestamp() < min_time:
+        elif node_event.get_timestamp() < min_time:
             min_time = node_event.get_timestamp()
 
     for node_event in node_events:
@@ -123,7 +125,7 @@ def set_node_events_std(node_events):
             (max_time - node_event.get_timestamp()) /
             (max_time - min_time)
         )
-        node_event.set_std(K / (node_event.confidence + time_error))
+        node_event.set_std(2 * K / (node_event.confidence + time_error))
 
 
 def position_evaluation(x, y, r_ref, l_ref, node_events):
@@ -242,7 +244,7 @@ def determine_sound_position_list(r_ref, l_ref, node_events, **kwargs):
     ]
 
     max_vals = [
-        (Point(x, y), z) for (x, y), z, _, _, _ in max_list
+        (Point(x, y), -z) for (x, y), z, _, _, _ in max_list
     ]
 
     return max_vals
@@ -307,7 +309,7 @@ def generate_sound_position_func(r_ref, l_ref):
 
     return partial(
         determine_sound_positions,
-        r_ref, l_ref
+        r_ref, l_ref, disp=0
     )
 
 
