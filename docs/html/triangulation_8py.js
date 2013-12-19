@@ -1,5 +1,6 @@
 var triangulation_8py =
 [
+    [ "determine_peaks", "triangulation_8py.html#aaf881f389e42011e1bacc2247794cc7d", null ],
     [ "determine_sound_position_list", "triangulation_8py.html#ad01abd5ed08c05988dea7978b141549c", null ],
     [ "determine_sound_positions", "triangulation_8py.html#a37420560e73cb3aefbdff181774725be", null ],
     [ "distance_from_detection_event", "triangulation_8py.html#a1206790ce9fd39f59ce264ac7c7fb443", null ],

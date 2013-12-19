@@ -250,6 +250,39 @@ def determine_sound_position_list(r_ref, l_ref, node_events, **kwargs):
     return max_vals
 
 
+def determine_peaks(opt_vals, label_list):
+    """
+
+    Given a list of "optimized" points and their corresponding probabilities
+    and a list of labels returned from the clustering algorithm, this
+    function goes through all of the optimized points and returns the ones with
+    the highest probabilities and issues them as cluter centers. This function
+    is used to ensure that the center for each cluster also has the highest
+    probability in the cluster of being the sound position.
+
+    @param opt_vals A list of tuples where each element is a key-value pair
+    where the key is the Point object of the optimization x and y position
+    and the value is the associated probability
+
+    @param label_list A list of integers where the index of the list
+    corresponds to a certain key-value pair in the first parameter
+    list and the integer value represents which cluster it belongs to.
+
+    """
+    max_prob_list = list()
+    max_point_list = list()
+    for i, (point, prob) in zip(label_list, opt_vals):
+        try:
+            if max_prob_list[i] < prob:
+                max_point_list[i] = point
+                max_prob_list[i] = prob
+        except IndexError:
+            max_point_list.append(point)
+            max_prob_list.append(prob)
+
+    return max_point_list
+
+
 def determine_sound_positions(r_ref, l_ref, node_events, **kwargs):
     """
 
@@ -281,7 +314,9 @@ def determine_sound_positions(r_ref, l_ref, node_events, **kwargs):
 
     af = clustering.AffinityPropagation().fit(positions)
 
-    return [max_vals[i][0] for i in af.cluster_centers_indices_]
+    max_prob_centers = determine_peaks(max_vals, af.labels_)
+
+    return max_prob_centers
 
 
 def generate_sound_position_func(r_ref, l_ref):

@@ -117,6 +117,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ad01abd5ed08c05988dea7978b141549c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacelocaudio_1_1triangulation.html#ad01abd5ed08c05988dea7978b141549c">determine_sound_position_list</a></td></tr>
 <tr class="memdesc:ad01abd5ed08c05988dea7978b141549c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines a list of possible positions of where the sound will be located.  <a href="#ad01abd5ed08c05988dea7978b141549c">More...</a><br/></td></tr>
 <tr class="separator:ad01abd5ed08c05988dea7978b141549c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf881f389e42011e1bacc2247794cc7d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacelocaudio_1_1triangulation.html#aaf881f389e42011e1bacc2247794cc7d">determine_peaks</a></td></tr>
+<tr class="memdesc:aaf881f389e42011e1bacc2247794cc7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a list of "optimized" points and their corresponding probabilities and a list of labels returned from the clustering algorithm, this function goes through all of the optimized points and returns the ones with the highest probabilities and issues them as cluter centers.  <a href="#aaf881f389e42011e1bacc2247794cc7d">More...</a><br/></td></tr>
+<tr class="separator:aaf881f389e42011e1bacc2247794cc7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37420560e73cb3aefbdff181774725be"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacelocaudio_1_1triangulation.html#a37420560e73cb3aefbdff181774725be">determine_sound_positions</a></td></tr>
 <tr class="memdesc:a37420560e73cb3aefbdff181774725be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the position in the probability grid that has the highest probability of being the position of the sound.  <a href="#a37420560e73cb3aefbdff181774725be">More...</a><br/></td></tr>
 <tr class="separator:a37420560e73cb3aefbdff181774725be"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,6 +134,53 @@ Variables</h2></td></tr>
 <tr class="separator:ac85bcbed961d15baa586ddc0192860bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="aaf881f389e42011e1bacc2247794cc7d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def locaudio.triangulation.determine_peaks </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>opt_vals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>label_list</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Given a list of "optimized" points and their corresponding probabilities and a list of labels returned from the clustering algorithm, this function goes through all of the optimized points and returns the ones with the highest probabilities and issues them as cluter centers. </p>
+<p>This function is used to ensure that the center for each cluster also has the highest probability in the cluster of being the sound position.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">opt_vals</td><td>A list of tuples where each element is a key-value pair where the key is the Point object of the optimization x and y position and the value is the associated probability</td></tr>
+    <tr><td class="paramname">label_list</td><td>A list of integers where the index of the list corresponds to a certain key-value pair in the first parameter list and the integer value represents which cluster it belongs to. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00280">280</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacelocaudio_1_1triangulation_aaf881f389e42011e1bacc2247794cc7d_icgraph.png" border="0" usemap="#namespacelocaudio_1_1triangulation_aaf881f389e42011e1bacc2247794cc7d_icgraph" alt=""/></div>
+<map name="namespacelocaudio_1_1triangulation_aaf881f389e42011e1bacc2247794cc7d_icgraph" id="namespacelocaudio_1_1triangulation_aaf881f389e42011e1bacc2247794cc7d_icgraph">
+<area shape="rect" id="node2" href="namespacelocaudio_1_1triangulation.html#a37420560e73cb3aefbdff181774725be" title="Determines the position in the probability grid that has the highest probability of being the positio..." alt="" coords="264,5,475,49"/></map>
+</div>
+</p>
+
+</div>
+</div>
 <a class="anchor" id="ad01abd5ed08c05988dea7978b141549c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -180,7 +230,7 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A list of the possible x and y positions of the sound. </dd></dl>
 
-<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00239">239</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00241">241</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -250,14 +300,14 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A list of the x and y positions of the sound. </dd></dl>
 
-<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00279">279</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00315">315</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespacelocaudio_1_1triangulation_a37420560e73cb3aefbdff181774725be_cgraph.png" border="0" usemap="#namespacelocaudio_1_1triangulation_a37420560e73cb3aefbdff181774725be_cgraph" alt=""/></div>
 <map name="namespacelocaudio_1_1triangulation_a37420560e73cb3aefbdff181774725be_cgraph" id="namespacelocaudio_1_1triangulation_a37420560e73cb3aefbdff181774725be_cgraph">
-<area shape="rect" id="node2" href="namespacelocaudio_1_1triangulation.html#ad01abd5ed08c05988dea7978b141549c" title="Determines a list of possible positions of where the sound will be located. " alt="" coords="264,107,475,151"/><area shape="rect" id="node3" href="namespacelocaudio_1_1triangulation.html#ab85ddfec0f2c6c1c20134d90a6fe874a" title="Scales the evaluation function so it returns a probability (i.e. " alt="" coords="523,107,720,151"/><area shape="rect" id="node4" href="namespacelocaudio_1_1triangulation.html#acf50f5be4536fb0929c359396d41828f" title="Evaluation function to deterimine with some weight, where a sound is located in the mesh network of n..." alt="" coords="768,107,965,151"/><area shape="rect" id="node5" href="namespacelocaudio_1_1triangulation.html#ad44e1bed6beed7ee59cffc4c230f7144" title="Uses the relative time differences between the node events mixed with the confidence of sound recogni..." alt="" coords="1030,5,1199,49"/><area shape="rect" id="node6" href="namespacelocaudio_1_1triangulation.html#aa221cba0226b13aff028ca9155dfbd76" title="This is the normal distribution function. " alt="" coords="1019,73,1211,117"/><area shape="rect" id="node7" href="namespacelocaudio_1_1triangulation.html#a1206790ce9fd39f59ce264ac7c7fb443" title="Given x and y coordinates, this returns the distance to a nodeEvent where the nodeEvent has attribute..." alt="" coords="1014,141,1215,185"/><area shape="rect" id="node8" href="namespacelocaudio_1_1triangulation.html#aa6072b3aad637ae71a38424f23014a86" title="Determines the distance from a sound given the sound pressure level and a reference sound pressure le..." alt="" coords="1014,209,1215,253"/></map>
+<area shape="rect" id="node2" href="namespacelocaudio_1_1triangulation.html#ad01abd5ed08c05988dea7978b141549c" title="Determines a list of possible positions of where the sound will be located. " alt="" coords="264,107,475,151"/><area shape="rect" id="node9" href="namespacelocaudio_1_1triangulation.html#aaf881f389e42011e1bacc2247794cc7d" title="Given a list of &quot;optimized&quot; points and their corresponding probabilities and a list of labels returne..." alt="" coords="264,175,475,219"/><area shape="rect" id="node3" href="namespacelocaudio_1_1triangulation.html#ab85ddfec0f2c6c1c20134d90a6fe874a" title="Scales the evaluation function so it returns a probability (i.e. " alt="" coords="523,107,720,151"/><area shape="rect" id="node4" href="namespacelocaudio_1_1triangulation.html#acf50f5be4536fb0929c359396d41828f" title="Evaluation function to deterimine with some weight, where a sound is located in the mesh network of n..." alt="" coords="768,107,965,151"/><area shape="rect" id="node5" href="namespacelocaudio_1_1triangulation.html#ad44e1bed6beed7ee59cffc4c230f7144" title="Uses the relative time differences between the node events mixed with the confidence of sound recogni..." alt="" coords="1030,5,1199,49"/><area shape="rect" id="node6" href="namespacelocaudio_1_1triangulation.html#aa221cba0226b13aff028ca9155dfbd76" title="This is the normal distribution function. " alt="" coords="1019,73,1211,117"/><area shape="rect" id="node7" href="namespacelocaudio_1_1triangulation.html#a1206790ce9fd39f59ce264ac7c7fb443" title="Given x and y coordinates, this returns the distance to a nodeEvent where the nodeEvent has attribute..." alt="" coords="1014,141,1215,185"/><area shape="rect" id="node8" href="namespacelocaudio_1_1triangulation.html#aa6072b3aad637ae71a38424f23014a86" title="Determines the distance from a sound given the sound pressure level and a reference sound pressure le..." alt="" coords="1014,209,1215,253"/></map>
 </div>
 </p>
 
@@ -304,7 +354,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The distance from a node event given x and y coordinates </dd></dl>
 
-<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00076">76</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00078">78</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -358,7 +408,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The predicted radius from a node event that the sound will be located at given the current sound pressure level </dd></dl>
 
-<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00053">53</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00055">55</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -407,7 +457,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A function that will use rRef, lRef, and initGuess to determine the position of the input sound. The independent variable will become just the node detection events. </dd></dl>
 
-<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00316">316</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00354">354</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 </div>
 </div>
@@ -434,7 +484,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The resulting value for the probability desnsity function </dd></dl>
 
-<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00094">94</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00096">96</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -503,7 +553,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The a result, given independent variables, x and y, and a configuration of node events with per sample sound constants, rRef and lRef, will be a value representing the likelihood of the sample sound being located at position (x, y). </dd></dl>
 
-<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00163">163</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00165">165</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -581,7 +631,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The a result, given independent variables, x and y, and a configuration of node events with per sample sound constants, rRef and lRef, will be a value representing the probability of the sample sound being located at position (x, y). </dd></dl>
 
-<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00207">207</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00209">209</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -626,7 +676,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00113">113</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00115">115</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -652,7 +702,7 @@ Here is the caller graph for this function:</div>
 
 <p>Scaling constant to transform a confidence probability into a a standard deviation. </p>
 
-<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00032">32</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
+<p>Definition at line <a class="el" href="triangulation_8py_source.html#l00034">34</a> of file <a class="el" href="triangulation_8py_source.html">triangulation.py</a>.</p>
 
 </div>
 </div>
@@ -662,7 +712,7 @@ Here is the caller graph for this function:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacelocaudio.html">locaudio</a></li><li class="navelem"><a class="el" href="namespacelocaudio_1_1triangulation.html">triangulation</a></li>
-    <li class="footer">Generated on Thu Dec 19 2013 17:30:49 for Locaudio by
+    <li class="footer">Generated on Thu Dec 19 2013 23:27:57 for Locaudio by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

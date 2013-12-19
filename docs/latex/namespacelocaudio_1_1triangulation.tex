@@ -18,6 +18,8 @@ def \hyperlink{namespacelocaudio_1_1triangulation_ab85ddfec0f2c6c1c20134d90a6fe8
 \begin{DoxyCompactList}\small\item\em Scales the evaluation function so it returns a probability (i.\-e. \end{DoxyCompactList}\item 
 def \hyperlink{namespacelocaudio_1_1triangulation_ad01abd5ed08c05988dea7978b141549c}{determine\-\_\-sound\-\_\-position\-\_\-list}
 \begin{DoxyCompactList}\small\item\em Determines a list of possible positions of where the sound will be located. \end{DoxyCompactList}\item 
+def \hyperlink{namespacelocaudio_1_1triangulation_aaf881f389e42011e1bacc2247794cc7d}{determine\-\_\-peaks}
+\begin{DoxyCompactList}\small\item\em Given a list of \char`\"{}optimized\char`\"{} points and their corresponding probabilities and a list of labels returned from the clustering algorithm, this function goes through all of the optimized points and returns the ones with the highest probabilities and issues them as cluter centers. \end{DoxyCompactList}\item 
 def \hyperlink{namespacelocaudio_1_1triangulation_a37420560e73cb3aefbdff181774725be}{determine\-\_\-sound\-\_\-positions}
 \begin{DoxyCompactList}\small\item\em Determines the position in the probability grid that has the highest probability of being the position of the sound. \end{DoxyCompactList}\item 
 def \hyperlink{namespacelocaudio_1_1triangulation_a91ab07f598b1161238e199e127fef855}{generate\-\_\-sound\-\_\-position\-\_\-func}
@@ -30,6 +32,43 @@ float \hyperlink{namespacelocaudio_1_1triangulation_ac85bcbed961d15baa586ddc0192
 
 
 \subsection{Function Documentation}
+\hypertarget{namespacelocaudio_1_1triangulation_aaf881f389e42011e1bacc2247794cc7d}{\index{locaudio\-::triangulation@{locaudio\-::triangulation}!determine\-\_\-peaks@{determine\-\_\-peaks}}
+\index{determine\-\_\-peaks@{determine\-\_\-peaks}!locaudio::triangulation@{locaudio\-::triangulation}}
+\subsubsection[{determine\-\_\-peaks}]{\setlength{\rightskip}{0pt plus 5cm}def locaudio.\-triangulation.\-determine\-\_\-peaks (
+\begin{DoxyParamCaption}
+\item[{}]{opt\-\_\-vals, }
+\item[{}]{label\-\_\-list}
+\end{DoxyParamCaption}
+)}}\label{namespacelocaudio_1_1triangulation_aaf881f389e42011e1bacc2247794cc7d}
+
+
+Given a list of \char`\"{}optimized\char`\"{} points and their corresponding probabilities and a list of labels returned from the clustering algorithm, this function goes through all of the optimized points and returns the ones with the highest probabilities and issues them as cluter centers. 
+
+This function is used to ensure that the center for each cluster also has the highest probability in the cluster of being the sound position.
+
+
+\begin{DoxyParams}{Parameters}
+{\em opt\-\_\-vals} & A list of tuples where each element is a key-\/value pair where the key is the Point object of the optimization x and y position and the value is the associated probability\\
+\hline
+{\em label\-\_\-list} & A list of integers where the index of the list corresponds to a certain key-\/value pair in the first parameter list and the integer value represents which cluster it belongs to. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 280 of file triangulation.\-py.
+
+
+
+Here is the caller graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacelocaudio_1_1triangulation_aaf881f389e42011e1bacc2247794cc7d_icgraph}
+\end{center}
+\end{figure}
+
+
 \hypertarget{namespacelocaudio_1_1triangulation_ad01abd5ed08c05988dea7978b141549c}{\index{locaudio\-::triangulation@{locaudio\-::triangulation}!determine\-\_\-sound\-\_\-position\-\_\-list@{determine\-\_\-sound\-\_\-position\-\_\-list}}
 \index{determine\-\_\-sound\-\_\-position\-\_\-list@{determine\-\_\-sound\-\_\-position\-\_\-list}!locaudio::triangulation@{locaudio\-::triangulation}}
 \subsubsection[{determine\-\_\-sound\-\_\-position\-\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}def locaudio.\-triangulation.\-determine\-\_\-sound\-\_\-position\-\_\-list (
@@ -62,12 +101,11 @@ A list of the possible x and y positions of the sound.
 \end{DoxyReturn}
 
 
-Definition at line 239 of file triangulation.\-py.
+Definition at line 241 of file triangulation.\-py.
 
 
 
-Here is the call graph for this function\-:
-\nopagebreak
+Here is the call graph for this function\-:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -78,8 +116,7 @@ Here is the call graph for this function\-:
 
 
 
-Here is the caller graph for this function\-:
-\nopagebreak
+Here is the caller graph for this function\-:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -118,7 +155,7 @@ A list of the x and y positions of the sound.
 \end{DoxyReturn}
 
 
-Definition at line 279 of file triangulation.\-py.
+Definition at line 315 of file triangulation.\-py.
 
 
 
@@ -159,12 +196,11 @@ The distance from a node event given x and y coordinates
 \end{DoxyReturn}
 
 
-Definition at line 76 of file triangulation.\-py.
+Definition at line 78 of file triangulation.\-py.
 
 
 
-Here is the caller graph for this function\-:
-\nopagebreak
+Here is the caller graph for this function\-:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -200,12 +236,11 @@ The predicted radius from a node event that the sound will be located at given t
 \end{DoxyReturn}
 
 
-Definition at line 53 of file triangulation.\-py.
+Definition at line 55 of file triangulation.\-py.
 
 
 
-Here is the caller graph for this function\-:
-\nopagebreak
+Here is the caller graph for this function\-:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -242,7 +277,7 @@ A function that will use r\-Ref, l\-Ref, and init\-Guess to determine the positi
 \end{DoxyReturn}
 
 
-Definition at line 316 of file triangulation.\-py.
+Definition at line 354 of file triangulation.\-py.
 
 \hypertarget{namespacelocaudio_1_1triangulation_aa221cba0226b13aff028ca9155dfbd76}{\index{locaudio\-::triangulation@{locaudio\-::triangulation}!normal\-\_\-distribution@{normal\-\_\-distribution}}
 \index{normal\-\_\-distribution@{normal\-\_\-distribution}!locaudio::triangulation@{locaudio\-::triangulation}}
@@ -265,12 +300,11 @@ The resulting value for the probability desnsity function
 \end{DoxyReturn}
 
 
-Definition at line 94 of file triangulation.\-py.
+Definition at line 96 of file triangulation.\-py.
 
 
 
-Here is the caller graph for this function\-:
-\nopagebreak
+Here is the caller graph for this function\-:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -314,12 +348,11 @@ The a result, given independent variables, x and y, and a configuration of node 
 \end{DoxyReturn}
 
 
-Definition at line 163 of file triangulation.\-py.
+Definition at line 165 of file triangulation.\-py.
 
 
 
-Here is the call graph for this function\-:
-\nopagebreak
+Here is the call graph for this function\-:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -330,8 +363,7 @@ Here is the call graph for this function\-:
 
 
 
-Here is the caller graph for this function\-:
-\nopagebreak
+Here is the caller graph for this function\-:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -375,12 +407,11 @@ The a result, given independent variables, x and y, and a configuration of node 
 \end{DoxyReturn}
 
 
-Definition at line 207 of file triangulation.\-py.
+Definition at line 209 of file triangulation.\-py.
 
 
 
-Here is the call graph for this function\-:
-\nopagebreak
+Here is the call graph for this function\-:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -391,8 +422,7 @@ Here is the call graph for this function\-:
 
 
 
-Here is the caller graph for this function\-:
-\nopagebreak
+Here is the caller graph for this function\-:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -421,12 +451,11 @@ Node events that are closest to the node event that has the largest time stamps 
 \end{DoxyParams}
 
 
-Definition at line 113 of file triangulation.\-py.
+Definition at line 115 of file triangulation.\-py.
 
 
 
-Here is the caller graph for this function\-:
-\nopagebreak
+Here is the caller graph for this function\-:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -447,5 +476,5 @@ Scaling constant to transform a confidence probability into a a standard deviati
 
 
 
-Definition at line 32 of file triangulation.\-py.
+Definition at line 34 of file triangulation.\-py.
 
