@@ -1,5 +1,6 @@
 Locaudio
 ========
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/wallarelvo/locaudio/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 Sound source localization in reconfigurable wireless acoustic sensor networks
 
 ## Installing Dependencies
@@ -20,8 +21,3 @@ Sound source localization in reconfigurable wireless acoustic sensor networks
 
 ##### To Run Tests
 `make run_tests`
-
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/wallarelvo/locaudio/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
