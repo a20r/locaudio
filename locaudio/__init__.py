@@ -13,4 +13,7 @@ wireless acoustic sensor networks
 
 
 import triangulation
+import detectionserver
+import fingerprint
+
 
