@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['app',['app',['../namespacelocaudio_1_1detectionserver.html#aef3614adbb1729e98db6ad1e92df44aa',1,'locaudio::detectionserver']]]
+  ['app',['app',['../namespacelocaudio_1_1config.html#a360c0d0146f0defa6e852b004d834513',1,'locaudio::config']]]
 ];

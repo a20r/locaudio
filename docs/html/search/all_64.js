@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['detection_5fevents',['detection_events',['../namespacelocaudio_1_1config.html#ac701fbe139aea54ed29426657c92739e',1,'locaudio::config']]],
   ['detectionevent',['DetectionEvent',['../classlocaudio_1_1detectionevent_1_1DetectionEvent.html',1,'locaudio::detectionevent']]],
   ['detectionevent_2epy',['detectionevent.py',['../detectionevent_8py.html',1,'']]],
   ['detectionserver_2epy',['detectionserver.py',['../detectionserver_8py.html',1,'']]],
