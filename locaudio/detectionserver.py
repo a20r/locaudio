@@ -9,6 +9,7 @@ import fingerprint
 
 
 def request_to_detection_event(req_dict, confidence):
+    print confidence, type(confidence), "HERE"
     return tri.DetectionEvent(
         float(req_dict["x"]),
         float(req_dict["y"]),
@@ -26,13 +27,6 @@ def load_fingerprint_from_file(filename):
             print_dict["radius"],
             print_dict["sound_pressure_level"]
         )
-
-
-def test_notify():
-    return fingerprint.get_similarity(
-        [1, 2, 3, 4],
-        [1, 2, 3, 4]
-    )
 
 
 @config.app.route("/notify", methods=["POST"])
@@ -86,8 +80,4 @@ def timer_thread():
 def run(host, port, reference_file):
     config.reference_print = load_fingerprint_from_file(reference_file)
     config.app.run(host=host, port=int(port), debug=True)
-
-
-if __name__ == "__main__":
-    print test_notify()
 

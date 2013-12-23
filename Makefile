@@ -10,6 +10,7 @@ depend:
 	cd resources; git clone https://github.com/originell/jpype.git; cd ..;
 	cd resources/jpype; sudo python setup.py install; cd ..;
 	cd resources; git clone https://code.google.com/p/musicg/; cd ..;
+	cd resources/musicg/; javac com/musicg/fingerprint/FingerprintSimilarityComputer.java -d ../../
 
 documentation:
 	cd docs; doxygen Doxyfile; cd ..
