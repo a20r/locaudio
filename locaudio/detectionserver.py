@@ -1,23 +1,11 @@
 
 from flask import request, jsonify
-import threading
+from util import run_thread
 import time
 import config
 import json
 import triangulation as tri
 import fingerprint
-
-
-def run_thread(f):
-    """
-
-    Truly awesome function decorator. Truly. Fucking. Awesome.
-
-    """
-
-    thread = threading.Thread(target=f)
-    thread.setDaemon(True)
-    thread.start()
 
 
 def request_to_detection_event(req_dict, confidence):

@@ -13,8 +13,12 @@ __author__ = "Christopher Choi <chutsu@gmail.com>"
 keep_unittest_logs = False
 unittests_bin_dir = "tests"
 unittests_log_dir = "unittests_log"
-unittests_file_pattern = "^test_[a-zA-Z0-9_]*.py$"
+unittests_file_pattern = "^test_[a-zA-Z0-9_]*.*$"
 
+cmd_dict = {
+    "sh": "bash",
+    "py": "python"
+}
 
 class TC:
     HEADER = '\033[95m'
@@ -75,7 +79,9 @@ if __name__ == "__main__":
             unittest_output = open(unittest_output_fp, 'w')
 
             return_val = subprocess.check_call(
-                ["python", "./{0}".format(unittest)]
+                [cmd_dict[unittest.split(".")[-1]], "./{0}".format(unittest)],
+                stdout=unittest_output,
+                stderr=unittest_output
             )
             unittest_output.close()
             print("{0}PASSED!{1}".format(TC.OKGREEN, TC.ENDC))

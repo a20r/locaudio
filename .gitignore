@@ -1,5 +1,7 @@
 *.DS_STORE
 
+resources/
+
 *.py[cod]
 
 # C extensions

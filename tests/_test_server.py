@@ -10,6 +10,7 @@ import urllib
 import urllib2
 import json
 import locaudio.api as api
+import subprocess
 
 
 server_addr = "localhost"
@@ -51,10 +52,14 @@ d_dicts = [
 
 class ServerTest(unittest.TestCase):
 
-    def test_server_triangulation(self):
+    def test_server_notify(self):
         for d_dict in d_dicts:
             loc.notify_event(d_dict)
 
+        print "\n=== Server Notify ===\n"
+
+
+    def test_server_triangulation(self):
         pos_list = loc.get_sound_positions()
 
         print "\n=== Server Triangulation === :: {0}\n".format(pos_list)
@@ -62,5 +67,6 @@ class ServerTest(unittest.TestCase):
 
 if __name__ == "__main__":
     print "\n=== Server Testing ===\n"
+
     unittest.main()
 
