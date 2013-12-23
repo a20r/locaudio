@@ -1,11 +1,9 @@
 
 
 from util import on_import
-from collections import namedtuple
-import os
-import sys
 import atexit
 import jpype
+import math
 
 
 jvm_path = "/System/Library/Frameworks/JavaVM.framework/JavaVM"
@@ -14,10 +12,12 @@ Jfingerprint = None
 
 @on_import
 def setup_env():
+    if jpype.isJVMStarted():
+        return
+
     jpype.startJVM(jvm_path)
 
     global Jfingerprint
-    Jfingerprint = jpype.JPackage("com").musicg.fingerprint
 
 
 @atexit.register
@@ -26,10 +26,12 @@ def destroy_env():
 
 
 def get_similarity(f_1, f_2):
+
+    Jfingerprint = jpype.JPackage("com").musicg.fingerprint
     com_obj = Jfingerprint.FingerprintSimilarityComputer(f_1, f_2)
     sim_obj = com_obj.getFingerprintsSimilarity()
     sim = sim_obj.getSimilarity()
-    if not type(sim) == float:
+    if math.isnan(sim):
         print sim
         return 0.5
     else:

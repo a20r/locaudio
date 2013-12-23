@@ -28,14 +28,22 @@ def load_fingerprint_from_file(filename):
         )
 
 
+def test_notify():
+    return fingerprint.get_similarity(
+        [1, 2, 3, 4],
+        [1, 2, 3, 4]
+    )
+
+
 @config.app.route("/notify", methods=["POST"])
 def post_notify():
     if config.reference_print == None:
         raise AttributeError("Reference print not yet defined")
 
+    req_print = [int(x) for x in request.form["fingerprint"] if x.isdigit()]
     confidence = fingerprint.get_similarity(
         config.reference_print.fingerprint,
-        request.form["fingerprint"]
+        req_print
     )
 
     config.detection_events.append(
@@ -79,4 +87,7 @@ def run(host, port, reference_file):
     config.reference_print = load_fingerprint_from_file(reference_file)
     config.app.run(host=host, port=int(port), debug=True)
 
+
+if __name__ == "__main__":
+    print test_notify()
 
