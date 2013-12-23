@@ -1,6 +1,8 @@
 *.DS_STORE
 
 resources/
+com/
+docs/
 
 *.py[cod]
 

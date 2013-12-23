@@ -10,7 +10,6 @@ import urllib
 import urllib2
 import json
 import locaudio.api as api
-import subprocess
 
 
 server_addr = "localhost"
@@ -67,6 +66,5 @@ class ServerTest(unittest.TestCase):
 
 if __name__ == "__main__":
     print "\n=== Server Testing ===\n"
-
     unittest.main()
 
