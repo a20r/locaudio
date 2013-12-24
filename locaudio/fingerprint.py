@@ -4,6 +4,7 @@ from util import on_import
 import atexit
 import jpype
 import math
+import json
 
 
 jvm_path = "/System/Library/Frameworks/JavaVM.framework/JavaVM"
@@ -19,6 +20,16 @@ def surround_jvm(func):
 
         return ret_val
     return _inner
+
+
+def load_fingerprint_from_file(filename):
+    with open(filename) as f:
+        print_dict = json.loads(f.read())
+        return ReferencePrint(
+            print_dict["fingerprint"],
+            print_dict["radius"],
+            print_dict["sound_pressure_level"]
+        )
 
 
 @atexit.register

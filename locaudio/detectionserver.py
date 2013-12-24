@@ -1,7 +1,7 @@
 
 from flask import request, jsonify
-from util import run_thread
 import time
+import util
 import config
 import json
 import triangulation as tri
@@ -9,7 +9,6 @@ import fingerprint
 
 
 def request_to_detection_event(req_dict, confidence):
-    print confidence, type(confidence), "HERE"
     return tri.DetectionEvent(
         float(req_dict["x"]),
         float(req_dict["y"]),
@@ -17,16 +16,6 @@ def request_to_detection_event(req_dict, confidence):
         float(req_dict["spl"]),
         float(req_dict["timestamp"])
     )
-
-
-def load_fingerprint_from_file(filename):
-    with open(filename) as f:
-        print_dict = json.loads(f.read())
-        return fingerprint.ReferencePrint(
-            print_dict["fingerprint"],
-            print_dict["radius"],
-            print_dict["sound_pressure_level"]
-        )
 
 
 @config.app.route("/notify", methods=["POST"])
@@ -61,7 +50,7 @@ def get_sound_positions():
     )
 
 
-@run_thread
+@util.run_thread
 def timer_thread():
     while True:
         if len(config.detection_events) > 0:
@@ -78,6 +67,8 @@ def timer_thread():
 
 
 def run(host, port, reference_file):
-    config.reference_print = load_fingerprint_from_file(reference_file)
+    config.reference_print = fingerprint.load_fingerprint_from_file(
+        reference_file
+    )
     config.app.run(host=host, port=int(port), debug=True)
 

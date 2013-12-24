@@ -10,9 +10,11 @@ Sound source localization in reconfigurable wireless acoustic sensor networks
 - Numpy
 - SciKit-Learn
 - Flask
+- JPype
+- RethnkDB
 
 ##### To Install
-`make depend` or `pip install -r requirements.txt`
+`make depend`
 
 ## Running
 ##### To Generate Documentation

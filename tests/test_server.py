@@ -13,7 +13,7 @@ import locaudio.api as api
 
 
 server_addr = "localhost"
-server_port = 8080
+server_port = 8000
 
 loc = api.Locaudio(server_addr, server_port)
 

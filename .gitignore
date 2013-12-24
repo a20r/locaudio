@@ -3,6 +3,7 @@
 resources/
 com/
 docs/
+database/
 
 *.py[cod]
 
