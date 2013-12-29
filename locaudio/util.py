@@ -13,6 +13,11 @@ def run_thread(func):
     thread.start()
 
 
+already_imported = list()
 def on_import(func):
-    func()
+    global already_imported
+    name = func.__name__ + " " + func.__module__
+    if not name in already_imported:
+        already_imported.append(name)
+        func()
 

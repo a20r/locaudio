@@ -11,22 +11,12 @@ class Locaudio:
         self.url = "http://" + host + ":" + str(port)
         self.pos_url = self.url + "/get_positions"
         self.notify_url = self.url + "/notify"
-        self.sleep_time = 0.1
-
-
-    def get_sound_positions_no_block(self):
-        req = urllib2.urlopen(self.pos_url)
-        data = json.loads(req.read())
-        return data["positions"], data["new_data"]
 
 
     def get_sound_positions(self):
-        while True:
-            time.sleep(self.sleep_time)
-            pos_list, new_data = self.get_sound_positions_no_block()
-
-            if new_data:
-                return pos_list
+        req = urllib2.urlopen(self.pos_url)
+        data = json.loads(req.read())
+        return data["positions"]
 
 
     def notify_event(self, data):

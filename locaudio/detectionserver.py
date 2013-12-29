@@ -6,6 +6,10 @@ import config
 import json
 import triangulation as tri
 import fingerprint
+import db
+
+
+MAX_NODE_EVENTS = 100
 
 
 def request_to_detection_event(req_dict, confidence):
@@ -29,6 +33,9 @@ def post_notify():
         req_print
     )
 
+    if len(config.detection_events) + 1 >= MAX_NODE_EVENTS:
+        del config.detection_events[0]
+
     config.detection_events.append(
         request_to_detection_event(request.form, confidence)
     )
@@ -38,32 +45,21 @@ def post_notify():
 
 @config.app.route("/get_positions", methods=["GET"])
 def get_sound_positions():
-    ret_list = list()
-    ret_list.extend(config.position_list)
+    if len(config.detection_events) == 0:
+        return jsonify(error=1, message="No detection events yet")
 
-    ret_bool = config.new_data
-    config.new_data = False
-
-    return jsonify(
-        positions=map(lambda rl: rl.to_list(), ret_list),
-        new_data=ret_bool
+    position_list = tri.determine_sound_positions(
+        config.reference_print.radius,
+        config.reference_print.spl,
+        config.detection_events,
+        disp=0
     )
 
+    p_list = [p.to_list() for p in position_list]
 
-@util.run_thread
-def timer_thread():
-    while True:
-        if len(config.detection_events) > 0:
-            time.sleep(config.refresh_time)
-            config.position_list = tri.determine_sound_positions(
-                config.reference_print.radius,
-                config.reference_print.spl,
-                config.detection_events,
-                disp=0
-            )
-
-            config.new_data = True
-            config.detection_events = list()
+    return jsonify(
+        positions=p_list
+    )
 
 
 def run(host, port, reference_file):
