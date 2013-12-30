@@ -13,13 +13,18 @@ class Locaudio:
         self.notify_url = self.url + "/notify"
 
 
-    def get_sound_positions(self):
-        req = urllib2.urlopen(self.pos_url)
+    def make_position_url(self, sound_name):
+        return self.pos_url + "/" + sound_name
+
+
+    def get_sound_positions(self, sound_name):
+        req = urllib2.urlopen(self.make_position_url(sound_name))
         data = json.loads(req.read())
         return data["positions"]
 
 
     def notify_event(self, data):
+
         encdata = urllib.urlencode(data)
 
         hdr = {

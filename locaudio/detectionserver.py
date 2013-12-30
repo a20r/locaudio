@@ -24,42 +24,41 @@ def request_to_detection_event(req_dict, confidence):
 
 @config.app.route("/notify", methods=["POST"])
 def post_notify():
-    if config.reference_print == None:
-        raise AttributeError("Reference print not yet defined")
-
     req_print = [int(x) for x in request.form["fingerprint"] if x.isdigit()]
-    confidence = fingerprint.get_similarity(
-        config.reference_print.fingerprint,
+
+    sound_name, confidence = db.get_best_matching_print(
         req_print
     )
 
-    if len(config.detection_events) + 1 >= MAX_NODE_EVENTS:
-        del config.detection_events[0]
+    if not sound_name in config.detection_events.keys():
+        config.detection_events[sound_name] = list()
 
-    config.detection_events.append(
+    if len(config.detection_events[sound_name]) + 1 >= MAX_NODE_EVENTS:
+        del config.detection_events[sound_name][0]
+
+    config.detection_events[sound_name].append(
         request_to_detection_event(request.form, confidence)
     )
 
-    return jsonify(error=0, message="No error")
+    return jsonify(error=0, message="No error", name=sound_name)
 
 
-@config.app.route("/get_positions", methods=["GET"])
-def get_sound_positions():
-    if len(config.detection_events) == 0:
+@config.app.route("/get_positions/<sound_name>", methods=["GET"])
+def get_sound_positions(sound_name):
+    if not sound_name in config.detection_events.keys():
         return jsonify(error=1, message="No detection events yet")
 
+    radius, spl = db.get_reference_data(sound_name)
+
     position_list = tri.determine_sound_positions(
-        config.reference_print.radius,
-        config.reference_print.spl,
-        config.detection_events,
+        radius, spl,
+        config.detection_events[sound_name],
         disp=0
     )
 
     p_list = [p.to_list() for p in position_list]
 
-    return jsonify(
-        positions=p_list
-    )
+    return jsonify(positions=p_list)
 
 
 def run(host, port, reference_file):

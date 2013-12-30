@@ -73,19 +73,20 @@ def init():
 def get_best_matching_print(f_in):
     conn = r.connect(host=HOST, port=PORT, db=DB)
 
-    conf_tuples = r.table(FINGERPRINT_TABLE).map(
-        lambda info: (
-            fingerprint.get_similarity(
-                f_in, info["fingerprint"]
-            ), info
-        )
-    ).run(conn)
+    table = list(r.table(FINGERPRINT_TABLE).run(conn))
 
-    if len(conf_tuples) == 0:
+    if len(table) == 0:
         raise LookupError("Database is empty")
 
-    best_match = max(conf_tuples, key=lambda ct: ct[0])
-    return best_match[1]["name"], best_match[0]
+    conf_list = map(
+        lambda info: {
+            "conf": fingerprint.get_similarity(f_in, info["fingerprint"]),
+            "name": info["name"]
+        }, table
+    )
+
+    best_match = max(conf_list, key=lambda ct: ct["conf"])
+    return best_match["name"], best_match["conf"]
 
 
 def get_reference_data(ref_name):
@@ -104,7 +105,7 @@ def insert_reference(name, f_ref, r_ref, l_ref):
     ret_obj = r.table(FINGERPRINT_TABLE).insert(
         {
             "name": name,
-            "fingerprint":, f_ref,
+            "fingerprint": f_ref,
             "distance": r_ref,
             "spl": l_ref
         }

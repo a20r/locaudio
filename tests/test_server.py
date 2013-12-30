@@ -59,7 +59,7 @@ class ServerTest(unittest.TestCase):
 
 
     def test_server_triangulation(self):
-        pos_list = loc.get_sound_positions()
+        pos_list = loc.get_sound_positions("test")
 
         print "\n=== Server Triangulation === :: {0}\n".format(pos_list)
 
