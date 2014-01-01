@@ -1,4 +1,6 @@
 
+import math
+
 class Point(object):
 
     def __init__(self, x, y):
@@ -24,11 +26,18 @@ class Point(object):
         return self
 
 
+    def dist_to(self, other_point):
+        return math.sqrt(
+            pow(self.x - other_point.x, 2) +
+            pow(self.y - other_point.y, 2)
+        )
+
+
     def to_list(self):
         return [self.x, self.y]
 
 
     def __repr__(self):
-        return "({0}, {1})".format(self.x, self.y)
+        return "Point({0}, {1})".format(self.x, self.y)
 
 

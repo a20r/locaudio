@@ -1,6 +1,5 @@
 
 import rethinkdb as r
-import util
 import fingerprint
 
 
@@ -54,7 +53,6 @@ def create(conn):
     ).run(conn)
 
 
-@util.on_import
 def init():
     """
 

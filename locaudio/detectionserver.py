@@ -43,13 +43,12 @@ def post_notify():
     return jsonify(error=0, message="No error", name=sound_name)
 
 
-@config.app.route("/get_positions/<sound_name>", methods=["GET"])
+@config.app.route("/positions/<sound_name>", methods=["GET"])
 def get_sound_positions(sound_name):
     if not sound_name in config.detection_events.keys():
         return jsonify(error=1, message="No detection events yet")
 
     radius, spl = db.get_reference_data(sound_name)
-
     position_list = tri.determine_sound_positions(
         radius, spl,
         config.detection_events[sound_name],
@@ -62,8 +61,6 @@ def get_sound_positions(sound_name):
 
 
 def run(host, port, reference_file):
-    config.reference_print = fingerprint.load_fingerprint_from_file(
-        reference_file
-    )
+    db.init()
     config.app.run(host=host, port=int(port), debug=True)
 

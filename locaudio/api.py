@@ -9,7 +9,7 @@ class Locaudio:
 
     def __init__(self, host, port):
         self.url = "http://" + host + ":" + str(port)
-        self.pos_url = self.url + "/get_positions"
+        self.pos_url = self.url + "/positions"
         self.notify_url = self.url + "/notify"
 
 

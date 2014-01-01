@@ -33,6 +33,9 @@ import numpy as np
 K =  0.7
 
 
+MIN_DIST = 1
+
+
 def distance_from_sound(r_ref, l_ref, l_current):
     """
 
@@ -280,7 +283,17 @@ def determine_peaks(opt_vals, label_list):
             max_point_list.append(point)
             max_prob_list.append(prob)
 
-    return max_point_list
+    ret_list = list()
+    for max_point in max_point_list:
+        too_close = False
+        for ret_point in ret_list:
+            if ret_point.dist_to(max_point) < MIN_DIST:
+                too_close = True
+                break
+        if not too_close:
+            ret_list.append(max_point)
+
+    return ret_list
 
 
 def determine_sound_positions(r_ref, l_ref, node_events, **kwargs):
