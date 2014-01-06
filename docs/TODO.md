@@ -2,6 +2,7 @@ Things to do
 ========
 
 - Create database to store the audio fingerprints
+- [x] test
 
 - Create Android app that will do the audio fingerprinting.
 
