@@ -20,7 +20,7 @@ class Locaudio:
     def get_sound_positions(self, sound_name):
         req = urllib2.urlopen(self.make_position_url(sound_name))
         data = json.loads(req.read())
-        return data["positions"]
+        return data
 
 
     def notify_event(self, data):

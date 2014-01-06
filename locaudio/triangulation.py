@@ -27,6 +27,10 @@ import scipy.optimize as opt
 import sklearn.cluster as clustering # AffinityPropagation
 import numpy as np
 
+import matplotlib.pyplot as plt
+from matplotlib import cm
+from mpl_toolkits.mplot3d import Axes3D
+
 
 ## Scaling constant to transform a confidence probability into a
 # a standard deviation.
@@ -272,6 +276,7 @@ def determine_peaks(opt_vals, label_list):
     list and the integer value represents which cluster it belongs to.
 
     """
+
     max_prob_list = list()
     max_point_list = list()
     for i, (point, prob) in zip(label_list, opt_vals):
@@ -359,5 +364,48 @@ def generate_sound_position_func(r_ref, l_ref):
         determine_sound_positions,
         r_ref, l_ref, disp=0
     )
+
+
+def plot_detection_events(res, r_ref, l_ref, d_events, filename):
+
+    fig = plt.figure("Locaudio")
+    ax = Axes3D(fig)
+    ax.set_xlabel("X Location")
+    ax.set_ylabel("Y Location")
+    ax.set_zlabel("Probability")
+
+    v_min = -10
+    v_max = 10
+    v_step = 0.05
+
+    x = y = np.arange(v_min, v_max, v_step)
+    X, Y = np.meshgrid(x, y)
+    zs = np.array(
+        [
+            position_probability(x, y, r_ref, l_ref, d_events)
+            for x, y in zip(np.ravel(X), np.ravel(Y))
+        ]
+    )
+
+    Z = zs.reshape(X.shape)
+
+    ax.plot_surface(X, Y, Z, cmap=cm.jet)
+    ax.scatter(
+        [p.x for p in res],
+        [p.y for p in res],
+        [
+            position_probability(
+                p.x, p.y,
+                r_ref, l_ref,
+                d_events
+            ) for p in res
+        ],
+        marker="D",
+        linewidths=10
+    )
+
+    plt.savefig(filename)
+    plt.close()
+    return plt
 
 

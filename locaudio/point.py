@@ -25,7 +25,6 @@ class Point(object):
         self.y = y
         return self
 
-
     def dist_to(self, other_point):
         return math.sqrt(
             pow(self.x - other_point.x, 2) +

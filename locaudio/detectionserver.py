@@ -1,5 +1,5 @@
 
-from flask import request, jsonify
+from flask import request, jsonify, render_template
 import time
 import util
 import config
@@ -9,7 +9,9 @@ import fingerprint
 import db
 
 
-MAX_NODE_EVENTS = 100
+MAX_NODE_EVENTS = 10
+DEBUG = True
+IMG_DIR = "imgs/"
 
 
 def request_to_detection_event(req_dict, confidence):
@@ -55,12 +57,48 @@ def get_sound_positions(sound_name):
         disp=0
     )
 
-    p_list = [p.to_list() for p in position_list]
+    prob_list = [
+        tri.position_probability(
+            p.x, p.y, radius, spl,
+            config.detection_events[sound_name]
+        ) for p in position_list
+    ]
 
-    return jsonify(positions=p_list)
+    ret_dict = list(
+        {
+            "position": p.to_list(),
+            "confidence": conf
+        } for p, conf in zip(position_list, prob_list)
+    )
+
+    return json.dumps(ret_dict)
 
 
-def run(host, port, reference_file):
-    db.init()
-    config.app.run(host=host, port=int(port), debug=True)
+@config.app.route("/viewer/<sound_name>", methods=["GET"])
+def get_position_viewer(sound_name):
+    if not sound_name in config.detection_events.keys():
+        return render_template("graph.html")
+
+    radius, spl = db.get_reference_data(sound_name)
+    position_list = tri.determine_sound_positions(
+        radius, spl,
+        config.detection_events[sound_name],
+        disp=0
+    )
+
+    img_path = IMG_DIR + util.getUUID() + ".png"
+
+    tri.plot_detection_events(
+        position_list,
+        radius, spl,
+        config.detection_events[sound_name],
+        img_path
+    )
+
+    img_web_path = "/" + img_path
+
+    r_template = render_template("graph.html", img_path=img_web_path)
+
+    return r_template
+
 

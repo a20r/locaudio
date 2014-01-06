@@ -4,10 +4,10 @@ import sys
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 4:
-        locaudio.detectionserver.run(sys.argv[1], sys.argv[2], sys.argv[3])
-    elif len(sys.argv) == 2:
-        locaudio.detectionserver.run("localhost", 8000, sys.argv[1])
+    if len(sys.argv) == 3:
+        locaudio.config.run(sys.argv[1], sys.argv[2])
+    elif len(sys.argv) == 0:
+        locaudio.config.run("localhost", 8000)
     else:
-        raise Exception("Not enough arguments supplied")
+        raise Exception("Correct argument form not supplied")
 

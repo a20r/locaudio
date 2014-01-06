@@ -13,6 +13,7 @@ depend:
 	cd resources/musicg/; javac com/musicg/fingerprint/FingerprintSimilarityComputer.java -d ../../; cd ..
 	sudo brew install rethinkdb
 	mkdir database
+	mkdir imgs
 
 documentation:
 	cd docs; doxygen Doxyfile; cd ..

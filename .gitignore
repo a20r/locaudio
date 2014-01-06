@@ -2,8 +2,12 @@
 
 resources/
 com/
-docs/
+docs/html/
+docs/latex/
 database/
+imgs/
+
+*.pdf
 
 *.py[cod]
 

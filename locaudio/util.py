@@ -1,10 +1,11 @@
 
 import threading
+import uuid
 
 def run_thread(func):
     """
 
-    Truly awesome function decorator. Truly. Fucking. Awesome.
+    Truly awesome function decorator. Truly. Freaking. Awesome.
 
     """
 
@@ -20,4 +21,8 @@ def on_import(func):
     if not name in already_imported:
         already_imported.append(name)
         func()
+
+
+def getUUID():
+    return str(uuid.uuid4())
 
