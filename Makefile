@@ -6,7 +6,7 @@ run_tests:
 
 depend:
 	sudo brew install rethinkdb
-	pip install -r requirements.txt
+	pip install -r docs/requirements.txt
 	mkdir resources
 	cd resources; git clone https://github.com/originell/jpype.git; cd ..;
 	cd resources/jpype; sudo python setup.py install; cd ..;
