@@ -5,6 +5,10 @@ Sound source localization in reconfigurable wireless acoustic sensor networks
 ## Problem Specification
 Imagine a wireless sensor network of microphones dispersed in an environment. Using this wireless acoustic sensor network (WASN), we would like to be able to determine the positions of input sounds within the environment. More specifically, if we gave an input sound to our system, it would gather auditory information from the environment using the WASN combined with the positions of the nodes within the WASN to determine an *x, y* position of the sound and a corresponding confidence metric.
 
+## Example Usages
+- Tracking a bird in a jungle based on the bird's unique call
+- Determining the position of an enemy tank using the unique sound made by the engine
+
 ## Getting Started
 ### To Install Dependencies
 `make depend`
