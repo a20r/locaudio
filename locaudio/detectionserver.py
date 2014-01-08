@@ -98,7 +98,10 @@ def get_position_viewer(sound_name):
         "graph.html",
         img_path=img_web_path,
         location_list=location_list,
-        sound_name=sound_name
+        sound_name=sound_name,
+        detection_events=config.detection_events[sound_name],
+        r_ref=radius,
+        l_ref=spl
     )
 
     return r_template

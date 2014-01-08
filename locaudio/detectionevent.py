@@ -40,7 +40,7 @@ class DetectionEvent(object):
 
 
     def get_pos(self):
-        return (self.x, self.y)
+        return [self.x, self.y]
 
 
     def set_std(self, std):

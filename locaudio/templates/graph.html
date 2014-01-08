@@ -7,21 +7,49 @@
     	<meta name="author" content="">
         <style type="text/css">
 
-            table{
+            ::-webkit-scrollbar {
+                -webkit-appearance: none;
+                width: 7px;
+            }
+            ::-webkit-scrollbar-thumb {
+                border-radius: 4px;
+                background-color: rgba(0,0,0,.5);
+                -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+            }
+
+            .scrollable{
                 overflow-y: scroll;
-                height: 100px;
+                max-height: 100px;
                 display: block;
             }
 
             .container-narrow {
+                padding-top: 100px;
                 margin: 0 auto;
-                max-width: 600px;
+                max-width: 3000px;
                 -moz-transform: scale(0.75);
                 -webkit-transform: scale(0.75);
                 transform: scale(0.75);
             }
 
-    	</style>
+            .hero-unit {
+                max-width: 500px;
+                max-height: 600px;
+                min-width: 500px;
+            }
+
+            .pull-left {
+                float: left;
+            }
+
+            .pull-right {
+                float: right;
+            }
+
+
+        </style>
+        <link rel="shortcut icon" href="/imgs/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/imgs/favicon.ico" type="image/x-icon">
     	<!-- Le Bootstrap styles -->
         <link
         href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
@@ -31,21 +59,27 @@
     <body>
         <div id="myNavbar" class="navbar navbar-fixed-top navbar-inverse">
             <div class="navbar-inner">
-                <a class="brand" href="http://github.com/wallarelvo/locaudio">&nbsp;&nbsp; Locaudio</a>
-                <ul class="nav">
-                </ul>
+                <a class="brand" href="http://github.com/wallarelvo/locaudio">
+                    &nbsp;&nbsp; Locaudio
+                </a>
             </div>
         </div>
 
         <div class="container-narrow">
-            <div class="hero-unit">
+
+            <div style="padding-bottom: 30px;">
+                <font size="8">
+                    <b>Sound:</b> <small class="muted">{{ sound_name }}</small>
+                </font>
+            </div>
             {% if img_path %}
+            <div class="hero-unit pull-left">
             <font size="5">
-                <b style="padding-bottom:15;">Position Graph:</b> {{ sound_name }}
+                <b style="padding-bottom:15;">Position Graph</b>
             </font>
             <br/><br/>
                 <img src="{{ img_path }}"style="width: 540px; height: auto;">
-                <div style="padding-top:20;">
+                <div style="padding-top:20;" class="scrollable">
                     <table class="table table-hover" border="0">
                     {% for location in location_list %}
                     <tr>
@@ -57,18 +91,51 @@
                     {% endfor %}
                     </table>
                 </div>
+            </div>
+            <div class="hero-unit pull-right">
+            <font size="5">
+                <b style="padding-bottom:15;">Detection Events</b>
+            </font>
+            <br/><br/>
+                <div style="padding-top:20;" class="scrollable">
+                    <table class="table table-hover" border="0">
+                    {% for d_event in detection_events %}
+                    <tr>
+                    <td><b>Position:</b></td>
+                    <td>{{ d_event.get_pos() }}</td>
+                    <td><b>Confidence:</b></td>
+                    <td>{{ d_event.get_confidence() }}</td>
+                    <td><b>SPL:</b></td>
+                    <td>{{ d_event.get_spl() }}</td>
+                    </tr>
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
+            <div class="hero-unit pull-right">
+            <font size="5">
+                <b style="padding-bottom:15;">Reference Data</b>
+            </font>
+            <br/><br/>
+                <div style="padding-top:20;" class="scrollable">
+                    <table class="table table-hover" border="0">
+                    <tr>
+                    <td><b>Radius:</b></td>
+                    <td>{{ r_ref }}</td>
+                    </tr>
+                    <tr>
+                    <td><b>Sound Pressure Level:</b></td>
+                    <td>{{ l_ref }}</td>
+                    </tr>
+                    </table>
+                </div>
+            </div>
+
             {% else %}
-                <font size="5">
-                    <b style="padding-bottom:15;">No events detected:</b> {{ sound_name }}
-                </font>
+            <font size="5">
+                <b style="padding-bottom:15;">No events detected:</b> {{ sound_name }}
+            </font>
             {% endif %}
-            </div>
-            <div class="footer">
-                <p>
-                    Created by:
-                    <a href="http://aw204.host.cs.st-andrews.ac.uk">Alexander Wallar</a>
-                </p>
-            </div>
         </div>
     </body>
 </html>
