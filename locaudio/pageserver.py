@@ -16,7 +16,5 @@ MIME_DICT = {
 def get_static(file_type, filename):
     with open(file_type + "/" + filename) as f:
         res = Response(f.read(), mimetype=MIME_DICT[file_type])
-        if file_type == "imgs":
-            os.remove(f.name)
         return res
 

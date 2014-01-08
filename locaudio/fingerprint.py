@@ -32,7 +32,7 @@ def load_fingerprint_from_file(filename):
         )
 
 
-@atexit.register
+#@atexit.register
 def destroy_env():
     if jpype.isJVMStarted():
         jpype.shutdownJVM()

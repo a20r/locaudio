@@ -28,12 +28,12 @@ def request_to_detection_event(req_dict, confidence):
 def post_notify():
     req_print = [int(x) for x in request.form["fingerprint"] if x.isdigit()]
 
-    sound_name, confidence = db.get_best_matching_print(
-        req_print
-    )
+    sound_name, confidence = db.get_best_matching_print(req_print)
 
     if not sound_name in config.detection_events.keys():
         config.detection_events[sound_name] = list()
+
+    config.new_data[sound_name] = True
 
     if len(config.detection_events[sound_name]) + 1 >= MAX_NODE_EVENTS:
         del config.detection_events[sound_name][0]
@@ -51,53 +51,55 @@ def get_sound_positions(sound_name):
         return jsonify(error=1, message="No detection events yet")
 
     radius, spl = db.get_reference_data(sound_name)
-    position_list = tri.determine_sound_positions(
+    location_list = tri.determine_sound_positions(
         radius, spl,
         config.detection_events[sound_name],
         disp=0
     )
 
-    prob_list = [
-        tri.position_probability(
-            p.x, p.y, radius, spl,
-            config.detection_events[sound_name]
-        ) for p in position_list
-    ]
+    for location in location_list:
+        location["position"] = location["position"].to_list()
 
-    ret_dict = list(
-        {
-            "position": p.to_list(),
-            "confidence": conf
-        } for p, conf in zip(position_list, prob_list)
-    )
-
-    return json.dumps(ret_dict)
+    return json.dumps(location_list)
 
 
 @config.app.route("/viewer/<sound_name>", methods=["GET"])
 def get_position_viewer(sound_name):
     if not sound_name in config.detection_events.keys():
-        return render_template("graph.html")
+        return render_template("graph.html", sound_name=sound_name)
 
     radius, spl = db.get_reference_data(sound_name)
-    position_list = tri.determine_sound_positions(
+    location_list = tri.determine_sound_positions(
         radius, spl,
         config.detection_events[sound_name],
         disp=0
     )
 
-    img_path = IMG_DIR + util.getUUID() + ".png"
+    img_path = IMG_DIR + sound_name + ".png"
 
-    tri.plot_detection_events(
-        position_list,
-        radius, spl,
-        config.detection_events[sound_name],
-        img_path
-    )
+    if config.new_data[sound_name]:
+        tri.plot_detection_events(
+            location_list,
+            radius, spl,
+            config.detection_events[sound_name],
+            img_path
+        )
+
+        config.new_data[sound_name] = False
 
     img_web_path = "/" + img_path
 
-    r_template = render_template("graph.html", img_path=img_web_path)
+    for location in location_list:
+        location["confidence"] = round(location["confidence"], 3)
+        location["position"].x = round(location["position"].x, 3)
+        location["position"].y = round(location["position"].y, 3)
+
+    r_template = render_template(
+        "graph.html",
+        img_path=img_web_path,
+        location_list=location_list,
+        sound_name=sound_name
+    )
 
     return r_template
 

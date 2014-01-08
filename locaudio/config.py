@@ -6,9 +6,7 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 
 detection_events = dict()
-
-position_list = list()
-
+new_data = dict()
 
 # So the routes get initiated
 import detectionserver

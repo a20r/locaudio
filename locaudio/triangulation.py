@@ -334,7 +334,21 @@ def determine_sound_positions(r_ref, l_ref, node_events, **kwargs):
 
     max_prob_centers = determine_peaks(max_vals, af.labels_)
 
-    return max_prob_centers
+    prob_list = [
+        position_probability(
+            p.x, p.y, r_ref, l_ref,
+            node_events
+        ) for p in max_prob_centers
+    ]
+
+    ret_list = list(
+        {
+            "position": p,
+            "confidence": conf
+        } for p, conf in zip(max_prob_centers, prob_list)
+    )
+
+    return ret_list
 
 
 def generate_sound_position_func(r_ref, l_ref):
@@ -369,17 +383,16 @@ def generate_sound_position_func(r_ref, l_ref):
 def plot_detection_events(res, r_ref, l_ref, d_events, filename):
 
     fig = plt.figure("Locaudio")
-    ax = Axes3D(fig)
+    ax = fig.add_subplot(111)
     ax.set_xlabel("X Location")
     ax.set_ylabel("Y Location")
-    ax.set_zlabel("Probability")
 
     v_min = -10
     v_max = 10
-    v_step = 0.05
-
+    v_step = 0.1
     x = y = np.arange(v_min, v_max, v_step)
     X, Y = np.meshgrid(x, y)
+
     zs = np.array(
         [
             position_probability(x, y, r_ref, l_ref, d_events)
@@ -388,24 +401,23 @@ def plot_detection_events(res, r_ref, l_ref, d_events, filename):
     )
 
     Z = zs.reshape(X.shape)
-
-    ax.plot_surface(X, Y, Z, cmap=cm.jet)
+    ax.set_xlim(v_min, v_max)
+    ax.set_ylim(v_min, v_max)
+    ax.pcolormesh(X, Y, Z, cmap=cm.jet)
     ax.scatter(
-        [p.x for p in res],
-        [p.y for p in res],
-        [
-            position_probability(
-                p.x, p.y,
-                r_ref, l_ref,
-                d_events
-            ) for p in res
-        ],
-        marker="D",
+        [p["position"].x for p in res],
+        [p["position"].y for p in res],
+        marker="+",
+        linewidths=15
+    )
+    ax.scatter(
+        [d_event.x for d_event in d_events],
+        [d_event.y for d_event in d_events],
+        marker="o",
         linewidths=10
     )
 
     plt.savefig(filename)
-    plt.close()
     return plt
 
 
