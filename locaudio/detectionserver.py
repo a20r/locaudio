@@ -58,7 +58,10 @@ def get_sound_positions(sound_name):
     )
 
     for location in location_list:
-        location["position"] = location["position"].to_list()
+        location["position"] = {
+            "x": location["position"].x,
+            "y": location["position"].y
+        }
 
     return json.dumps(location_list)
 

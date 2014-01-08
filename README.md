@@ -9,6 +9,54 @@ Imagine a wireless sensor network of microphones dispersed in an environment. Us
 - Tracking a bird in a jungle based on the bird's unique call
 - Determining the position of an enemy tank using the unique sound made by the engine
 
+## RESTful API 
+To make use of this API, the Locaudio server and the RethinkDB database must be running.
+
+### Notifying the server of a detection event
+	
+	POST /notify
+	
+#### Post form
+
+	{
+		x: <Float: X position>,
+		y: <Float: Y position>,
+		spl: <Float: Sound pressure level>,
+		timestamp: <Float: Unix time in seconds>,
+		fingerprint: [<Float>: Audio fingerprint]
+	}
+
+#### Return structure
+	
+	{
+		error: <Integer: Error code>,
+		message: <String: Error message>,
+		name: <String: Sound name>
+	}
+
+### Getting positions of sounds
+
+	GET /positions/:sound_name
+	
+#### Return structure
+##### If successful
+
+	[
+		{
+			position: [
+				<Float: X position of sound>,
+				<Float: Y position of sound>
+			],
+			confidence: <Float (0 <= F <= 1)>
+	]
+
+##### If failure
+
+	{
+		error: <Integer: Error code>,
+		message: <String: Error Message>
+	}
+	
 ## Getting Started
 ### To Install Dependencies
 `make depend`
