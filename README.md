@@ -43,10 +43,10 @@ To make use of this API, the Locaudio server and the RethinkDB database must be 
 
 	[
 		{
-			position: [
-				<Float: X position of sound>,
-				<Float: Y position of sound>
-			],
+			position: {
+				x: <Float: X position of sound>,
+				y: <Float: Y position of sound>
+			},
 			confidence: <Float (0 <= F <= 1)>
 	]
 
