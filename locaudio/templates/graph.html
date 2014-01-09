@@ -46,6 +46,14 @@
                 float: right;
             }
 
+            #map-canvas
+            {
+                width: auto;
+                height: 500px;
+            }
+            #map-canvas img {
+                max-width: none;
+            }
 
         </style>
         <link rel="shortcut icon" href="/imgs/favicon.ico" type="image/x-icon">
@@ -54,7 +62,12 @@
         <link
         href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
         rel="stylesheet">
-
+        <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js">
+        </script>
+        <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?sensor=false">
+        </script>
     </head>
     <body>
         <div id="myNavbar" class="navbar navbar-fixed-top navbar-inverse">
@@ -64,14 +77,16 @@
                 </a>
             </div>
         </div>
-
         <div class="container-narrow">
 
             <div style="padding-bottom: 30px;">
                 <font size="8">
-                    <b>Sound:</b> <small class="muted">{{ sound_name }}</small>
+                    <b>Sound:</b> <a href="#" onclick="openMapModal()">
+                        <small class="muted">{{ sound_name }}</small>
+                    </a>
                 </font>
             </div>
+
             {% if img_path %}
             <div class="hero-unit pull-left">
             <font size="5">
@@ -94,7 +109,9 @@
             </div>
             <div class="hero-unit pull-right">
             <font size="5">
-                <b style="padding-bottom:15;">Detection Events</b>
+                <b style="padding-bottom:15;">
+                    Detection Events ({{ detection_events.__len__() }})
+                </b>
             </font>
             <br/><br/>
                 <div style="padding-top:20;" class="scrollable">
@@ -130,12 +147,70 @@
                     </table>
                 </div>
             </div>
-
             {% else %}
             <font size="5">
                 <b style="padding-bottom:15;">No events detected:</b> {{ sound_name }}
             </font>
             {% endif %}
         </div>
+
+        <!-- Modal -->
+        <div id="mapModal"
+            class="modal hide fade" tabindex="-1"
+            role="dialog" aria-labelledby="mapModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                ×
+            </button>
+            <h3 id="mapModalLabel">Map</h3>
+        </div>
+        <div class="modal-body" id="map-canvas"/>
+        </div>
+        <script type="text/javascript">
+            var mapOptions = {
+                center: new google.maps.LatLng(0, 0),
+                zoom: 3
+            };
+            var map = new google.maps.Map(
+                document.getElementById("map-canvas"),
+                mapOptions
+            );
+
+
+            function initialize() {
+                // console.log({{ location_list }}); 
+
+                {% for location in location_list %}
+                new google.maps.Marker({
+                    position: new google.maps.LatLng(
+                        {{ location["position"].x }},
+                        {{ location["position"].y }}
+                    ),
+                    title: "Sound",
+                    icon: "http://maps.google.com/mapfiles/arrow.png"
+                }).setMap(map);
+                {% endfor %}
+
+                {% for d_event in detection_events %}
+                new google.maps.Marker({
+                    position: new google.maps.LatLng(
+                        {{ d_event.x }},
+                        {{ d_event.y }}
+                    ),
+                    title: "Sound"
+                }).setMap(map);
+                {% endfor %}
+
+            }
+
+            function openMapModal() {
+                $('#mapModal').modal('show');
+                initialize();
+                $("#mapModal").on("shown", function() {
+                    google.maps.event.trigger(map, 'resize');
+                });
+            }
+        </script>
+
     </body>
 </html>

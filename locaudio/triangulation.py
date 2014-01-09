@@ -408,13 +408,16 @@ def plot_detection_events(res, r_ref, l_ref, d_events, filename):
         [p["position"].x for p in res],
         [p["position"].y for p in res],
         marker="+",
-        linewidths=15
+        linewidths=15,
+        c="white"
     )
     ax.scatter(
         [d_event.x for d_event in d_events],
         [d_event.y for d_event in d_events],
         marker="o",
-        linewidths=10
+        linewidths=5,
+        c="white",
+        s=300
     )
 
     plt.savefig(filename)
