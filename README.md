@@ -37,7 +37,12 @@ To make use of this API, the Locaudio server and the RethinkDB database must be 
 ### Getting positions of sounds
 
 	GET /positions/:sound_name
+
+
+#### Parameters
 	
+- `sound_name`: The name of the sounda
+
 #### Return structure
 ##### If successful
 
@@ -56,7 +61,15 @@ To make use of this API, the Locaudio server and the RethinkDB database must be 
 		error: <Integer: Error code>,
 		message: <String: Error Message>
 	}
+
+### Get UI for sound position
+
+	GET /viewer/:sound_name
 	
+#### Parameters
+	
+- `sound_name`: The name of the sound
+
 ## Getting Started
 ### To Install Dependencies
 `make depend`

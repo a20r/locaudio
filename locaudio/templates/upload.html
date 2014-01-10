@@ -1,0 +1,57 @@
+<html lang="en">
+    <head>
+    	<meta charset="utf-8">
+    	<title>Locaudio</title>
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<meta name="description" content="">
+    	<meta name="author" content="">
+        <style type="text/css">
+
+            body {
+                padding-top: 100px;
+                padding-bottom: 40px;
+            }
+            .container-narrow {
+                margin: 0 auto;
+                max-width: 600px;
+            }
+
+        </style>
+        <link rel="shortcut icon" href="/imgs/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/imgs/favicon.ico" type="image/x-icon">
+    	<!-- Le Bootstrap styles -->
+        <link
+        href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
+        rel="stylesheet">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js">
+        </script>
+    </head>
+    <body>
+        <div id="myNavbar" class="navbar navbar-fixed-top navbar-inverse">
+            <div class="navbar-inner">
+                <a class="brand" href="http://github.com/wallarelvo/locaudio">
+                    &nbsp;&nbsp; Locaudio
+                </a>
+            </div>
+        </div>
+        <div class="container-narrow">
+
+            <div class="hero-unit">
+                <h2 class="brand">Upload</h2>
+                <form method=POST enctype=multipart/form-data action="/upload">
+                    <table class="table table-hover">
+                        <tr>
+                            <td>Sound name:</td>
+                            <td><input type="text" name="sound_name"/></td>
+                        </tr>
+                        <tr>
+                            <td><input type="file" name="sound_file"/></td>
+                            <td><input type="submit" value="Submit"/></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

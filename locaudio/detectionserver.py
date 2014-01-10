@@ -110,3 +110,8 @@ def get_position_viewer(sound_name):
     return r_template
 
 
+@config.app.route("/upload", methods=["GET", "POST"])
+def get_post_upload():
+    """ IMPLEMENT THIS """
+    return render_template("upload.html")
+
