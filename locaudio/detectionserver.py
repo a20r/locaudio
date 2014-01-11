@@ -132,20 +132,6 @@ def get_post_upload():
     return render_template("upload.html")
 
 
-@config.app.route("/", methods=["GET"])
-def get_index():
-    names = db.get_list_of_names()
-    number_of_events = [
-        len(util.try_get(config.detection_events, name))
-        for name in names
-    ]
-
-    return render_template(
-        "index.html",
-        name_data=zip(names, number_of_events)
-    )
-
-
 @config.app.route("/names", methods=["GET"])
 def get_sound_names():
     return jsonify(names=db.get_list_of_names())
