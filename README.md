@@ -95,7 +95,7 @@ To make use of this API, the Locaudio server and the RethinkDB database must be 
 ### To Install Dependencies
 `make depend`
 
-#### To Generate Documentation
+### To Generate Documentation
 `make documentation`
 
 ### To Start the Locaudio Server
@@ -111,7 +111,7 @@ To make use of this API, the Locaudio server and the RethinkDB database must be 
 	1. Open browser
 	1. Go to `localhost:8000`
 
-#### To Run Tests
+### To Run Tests
 **NOTE: All commands should be spawned from different terminal sessions**
 
 1. Start the Locaudio server
