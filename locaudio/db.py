@@ -26,6 +26,12 @@ HOST = "localhost"
 PORT = 28015
 DB = "reference"
 
+# Sample entry information
+SAMPLE_PATH = "sounds/Cock.wav"
+SAMPLE_R_REF = 1
+SAMPLE_L_REF = 100
+SAMPLE_NAME = "Cock"
+
 
 # Table Names
 FINGERPRINT_TABLE = "fingerprints"
@@ -63,6 +69,8 @@ def init():
     conn = r.connect()
     if not DB in r.db_list().run(conn):
         create(conn)
+        f_print = fingerprint.get_fingerprint(SAMPLE_PATH)
+        insert_reference(SAMPLE_NAME, f_print, SAMPLE_R_REF, SAMPLE_L_REF)
         return True
     else:
         return False
