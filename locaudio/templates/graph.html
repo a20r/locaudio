@@ -51,6 +51,7 @@
                 width: auto;
                 height: 500px;
             }
+
             #map-canvas img {
                 max-width: none;
             }
@@ -75,6 +76,14 @@
                 <a class="brand" href="http://github.com/wallarelvo/locaudio">
                     &nbsp;&nbsp; Locaudio
                 </a>
+                <ul class="nav">
+                    <li>
+                    <a href="/">Home</a>
+                    </li>
+                    <li>
+                    <a href="/upload">Upload</a>
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="container-narrow">
@@ -135,7 +144,7 @@
                 <b style="padding-bottom:15;">Reference Data</b>
             </font>
             <br/><br/>
-                <div style="padding-top:20;" class="scrollable">
+                <div style="padding-top:20;">
                     <table class="table table-hover" border="0">
                     <tr>
                     <td><b>Radius:</b></td>
@@ -144,6 +153,14 @@
                     <tr>
                     <td><b>Sound Pressure Level:</b></td>
                     <td>{{ l_ref }}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Sound:</b></td>
+                        <td>
+                            <audio controls>
+                            <source src="/sounds/{{ sound_name }}.wav">
+                            </audio>
+                        </td>
                     </tr>
                     </table>
                 </div>

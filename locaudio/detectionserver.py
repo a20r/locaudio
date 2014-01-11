@@ -7,6 +7,7 @@ import json
 import triangulation as tri
 import fingerprint
 import db
+import os
 
 
 MAX_NODE_EVENTS = 10
@@ -26,7 +27,7 @@ def request_to_detection_event(req_dict, confidence):
 
 @config.app.route("/notify", methods=["POST"])
 def post_notify():
-    req_print = [int(x) for x in request.form["fingerprint"] if x.isdigit()]
+    req_print = json.loads(request.form["fingerprint"])
 
     sound_name, confidence = db.get_best_matching_print(req_print)
 
@@ -50,7 +51,7 @@ def get_sound_positions(sound_name):
     if not sound_name in config.detection_events.keys():
         return jsonify(error=1, message="No detection events yet")
 
-    radius, spl = db.get_reference_data(sound_name)
+    radius, spl, _ = db.get_reference_data(sound_name)
     location_list = tri.determine_sound_positions(
         radius, spl,
         config.detection_events[sound_name],
@@ -71,7 +72,7 @@ def get_position_viewer(sound_name):
     if not sound_name in config.detection_events.keys():
         return render_template("graph.html", sound_name=sound_name)
 
-    radius, spl = db.get_reference_data(sound_name)
+    radius, spl, _ = db.get_reference_data(sound_name)
     location_list = tri.determine_sound_positions(
         radius, spl,
         config.detection_events[sound_name],
@@ -112,6 +113,41 @@ def get_position_viewer(sound_name):
 
 @config.app.route("/upload", methods=["GET", "POST"])
 def get_post_upload():
-    """ IMPLEMENT THIS """
+    file_key = "sound_file"
+    upload_folder = "sounds"
+    if request.method == "POST" and file_key in request.files:
+        sound_file = request.files[file_key]
+        file_path = os.path.join(
+            upload_folder,
+            request.form["sound_name"] + ".wav"
+        )
+
+        sound_file.save(file_path)
+        db.insert_reference(
+            request.form["sound_name"],
+            fingerprint.get_fingerprint(file_path),
+            float(request.form["r_ref"]),
+            float(request.form["l_ref"])
+        )
     return render_template("upload.html")
+
+
+@config.app.route("/", methods=["GET"])
+def get_index():
+    names = db.get_list_of_names()
+    number_of_events = [
+        len(util.try_get(config.detection_events, name))
+        for name in names
+    ]
+
+    return render_template(
+        "index.html",
+        name_data=zip(names, number_of_events)
+    )
+
+
+@config.app.route("/names", methods=["GET"])
+def get_sound_names():
+    return jsonify(names=db.get_list_of_names())
+
 

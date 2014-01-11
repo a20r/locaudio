@@ -46,27 +46,19 @@
         <div class="container-narrow">
 
             <div class="hero-unit">
-                <h2 class="brand">Upload</h2>
-                <form method=POST enctype=multipart/form-data action="/upload">
-                    <table class="table table-hover">
-                        <tr>
-                            <td>Sound name:</td>
-                            <td><input type="text" name="sound_name"/></td>
-                        </tr>
-                        <tr>
-                            <td>Reference distance:</td>
-                            <td><input type="text" name="r_ref"></td>
-                        </tr>
-                        <tr>
-                            <td>Reference sound presure level:</td>
-                            <td><input type="text" name="l_ref"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="file" name="sound_file"/></td>
-                            <td><input type="submit" value="Submit"/></td>
-                        </tr>
-                    </table>
-                </form>
+                <h2 class="brand">Sounds</h2>
+                <table class="table table-hover">
+                    <tr>
+                        <th>Name</th>
+                        <th>Events</th>
+                    </tr>
+                    {% for name, n_of_e in name_data %}
+                    <tr>
+                        <td><a href="/viewer/{{ name }}">{{ name }}</a></td>
+                        <td>{{ n_of_e }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
             </div>
         </div>
     </body>

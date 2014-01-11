@@ -92,9 +92,15 @@ def get_reference_data(ref_name):
     ref_data = r.table(FINGERPRINT_TABLE).get(ref_name).run(conn)
 
     try:
-        return ref_data["distance"], ref_data["spl"]
+        return ref_data["distance"], ref_data["spl"], ref_data["fingerprint"]
     except KeyError:
         raise LookupError("Database does not have the requested reference")
+
+
+def get_list_of_names():
+    conn = r.connect(host=HOST, port=PORT, db=DB)
+    names = r.table(FINGERPRINT_TABLE)["name"].run(conn)
+    return list(names)
 
 
 def insert_reference(name, f_ref, r_ref, l_ref):

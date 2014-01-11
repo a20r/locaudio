@@ -8,7 +8,6 @@ import json
 
 
 jvm_path = "/System/Library/Frameworks/JavaVM.framework/JavaVM"
-Jfingerprint = None
 
 
 def surround_jvm(func):
@@ -48,6 +47,13 @@ def get_similarity(f_1, f_2):
         return 0.5
     else:
         return sim
+
+
+@surround_jvm
+def get_fingerprint(wav_path):
+    Jwave = jpype.JPackage("com").musicg.wave
+    wv = Jwave.Wave(wav_path)
+    return list(wv.getFingerprint())
 
 
 class ReferencePrint(object):

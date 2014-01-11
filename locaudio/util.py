@@ -26,3 +26,10 @@ def on_import(func):
 def getUUID():
     return str(uuid.uuid4())
 
+
+def try_get(collection, key):
+    try:
+        return collection[key]
+    except KeyError:
+        return list()
+

@@ -8,7 +8,8 @@ MIME_DICT = {
     "css": "text/css",
     "imgs": "image/png",
     "libraries": "text/javascript",
-    "data": "text/csv"
+    "data": "text/csv",
+    "sounds":  "audio/vnd.wav"
 }
 
 

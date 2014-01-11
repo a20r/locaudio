@@ -9,42 +9,47 @@ import time
 import urllib
 import urllib2
 import json
+import locaudio.db as db
 import locaudio.api as api
 
 
 server_addr = "localhost"
 server_port = 8000
 
+test_sound_name = "Cock"
+
 loc = api.Locaudio(server_addr, server_port)
+
+_, _, f_print = db.get_reference_data(test_sound_name)
 
 d_dicts = [
     {
         "x": -9,
         "y": -1,
-        "spl": 90,
+        "spl": 83,
         "timestamp": time.time(),
-        "fingerprint": [1,2,3,4]
+        "fingerprint": f_print
     },
     {
         "x": -2,
         "y": 1,
         "spl": 97,
         "timestamp": time.time() - 7,
-        "fingerprint": [1,2,3,4]
+        "fingerprint": f_print
     },
     {
         "x": 1,
         "y": 3,
         "spl": 86,
         "timestamp": time.time() - 10,
-        "fingerprint": [1,2,3,4]
+        "fingerprint": f_print
     },
     {
         "x": 0,
         "y": -1,
         "spl": 100,
         "timestamp": time.time() - 5,
-        "fingerprint": [1,2,3,4]
+        "fingerprint": f_print
     }
 ]
 
@@ -59,7 +64,7 @@ class ServerTest(unittest.TestCase):
 
 
     def test_server_triangulation(self):
-        pos_list = loc.get_sound_positions("test")
+        pos_list = loc.get_sound_positions(test_sound_name)
 
         print "\n=== Server Triangulation === :: {0}\n".format(pos_list)
 

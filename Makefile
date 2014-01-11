@@ -14,6 +14,7 @@ depend:
 	cd resources/musicg/; javac com/musicg/fingerprint/FingerprintSimilarityComputer.java -d ../../; cd ..
 	mkdir database
 	mkdir imgs
+	mkdir sounds
 
 documentation:
 	cd docs; doxygen Doxyfile; cd ..

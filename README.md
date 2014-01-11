@@ -41,7 +41,7 @@ To make use of this API, the Locaudio server and the RethinkDB database must be 
 
 #### Parameters
 	
-- `sound_name`: The name of the sounda
+- `sound_name`: The name of the sounds
 
 #### Return structure
 ##### If successful
