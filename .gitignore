@@ -8,6 +8,8 @@ database/
 imgs/
 sounds/
 
+!sounds/Cock.wav
+
 *.pdf
 
 *.py[cod]

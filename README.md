@@ -70,6 +70,27 @@ To make use of this API, the Locaudio server and the RethinkDB database must be 
 	
 - `sound_name`: The name of the sound
 
+### Get names of sounds in database
+
+	GET /names
+
+#### Return structure
+
+	[
+		<String: Name of sound>
+	]
+
+## Database Structure
+
+	[
+		{
+			name: <String: Sound name>,
+			distance: <Float: Reference distance>,
+			spl: <Float: Reference sound pressure level>,
+			fingerprint: [<Int: Fingerprint of the sound>]
+		}
+	]
+
 ## Getting Started
 ### To Install Dependencies
 `make depend`
@@ -85,6 +106,10 @@ To make use of this API, the Locaudio server and the RethinkDB database must be 
 
 1. Run the server
 	-  `python run.py localhost 8000`
+
+1. (Optional) View the main page
+	1. Open browser
+	1. Go to `localhost:8000`
 
 #### To Run Tests
 **NOTE: All commands should be spawned from different terminal sessions**
