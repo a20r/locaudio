@@ -1,5 +1,6 @@
 
 from flask import request, jsonify, render_template
+from point import Point
 import time
 import util
 import config
@@ -16,6 +17,13 @@ IMG_DIR = "imgs/"
 
 
 def request_to_detection_event(req_dict, confidence):
+    """
+
+    Converts the request's post form to a detection event.
+
+
+    """
+
     return tri.DetectionEvent(
         float(req_dict["x"]),
         float(req_dict["y"]),
@@ -58,13 +66,20 @@ def get_sound_positions(sound_name):
         disp=0
     )
 
-    for location in location_list:
-        location["position"] = {
-            "x": location["position"].x,
-            "y": location["position"].y
-        }
+    ret_list = list()
 
-    return json.dumps(location_list)
+    for location in location_list:
+        ret_list.append(
+            {
+                "position": {
+                    "x": location.position.x,
+                    "y": location.position.y
+                },
+                "confidence": location.confidence
+            }
+        )
+
+    return json.dumps(ret_list)
 
 
 @config.app.route("/viewer/<sound_name>", methods=["GET"])
@@ -93,15 +108,23 @@ def get_position_viewer(sound_name):
 
     img_web_path = "/" + img_path
 
+    ret_list = list()
+
     for location in location_list:
-        location["confidence"] = round(location["confidence"], 3)
-        location["position"].x = round(location["position"].x, 3)
-        location["position"].y = round(location["position"].y, 3)
+        ret_list.append(
+            {
+                "confidence": round(location.confidence, 3),
+                "position": Point(
+                    round(location.position.x, 3),
+                    round(location.position.y, 3)
+                )
+            }
+        )
 
     r_template = render_template(
         "graph.html",
         img_path=img_web_path,
-        location_list=location_list,
+        location_list=ret_list,
         sound_name=sound_name,
         detection_events=config.detection_events[sound_name],
         r_ref=radius,

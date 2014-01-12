@@ -166,9 +166,11 @@
                 </div>
             </div>
             {% else %}
-            <font size="5">
-                <b style="padding-bottom:15;">No events detected:</b> {{ sound_name }}
-            </font>
+            <div class="hero-unit" style="width: 100%;">
+                <font size="5">
+                    <b style="padding-bottom:15;">No events detected:</b> {{ sound_name }}
+                </font>
+            </div>
             {% endif %}
         </div>
 
@@ -196,7 +198,6 @@
 
 
             function initialize() {
-                // console.log({{ location_list }}); 
 
                 {% for location in location_list %}
                 new google.maps.Marker({

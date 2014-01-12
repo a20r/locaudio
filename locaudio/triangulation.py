@@ -21,6 +21,7 @@ from detectionevent import DetectionEvent
 
 from point import Point
 from functools import partial
+from collections import namedtuple
 
 import math
 import scipy.optimize as opt
@@ -230,8 +231,6 @@ def determine_sound_position_list(r_ref, l_ref, node_events, **kwargs):
     @param lRef The reference sound pressure level used to determine the
     distance from the newly measured sound pressure level
 
-    @param initGuess The initial guess for gradient decent
-
     @param nodeEvents The list ofassociated data when a node detects with some
     confidence that the sound has been identified
 
@@ -313,8 +312,6 @@ def determine_sound_positions(r_ref, l_ref, node_events, **kwargs):
     @param lRef The reference sound pressure level used to determine the
     distance from the newly measured sound pressure level
 
-    @param initGuess The initial guess for gradient decent
-
     @param nodeEvents The list ofassociated data when a node detects with some
     confidence that the sound has been identified
 
@@ -341,12 +338,12 @@ def determine_sound_positions(r_ref, l_ref, node_events, **kwargs):
         ) for p in max_prob_centers
     ]
 
-    ret_list = list(
-        {
-            "position": p,
-            "confidence": conf
-        } for p, conf in zip(max_prob_centers, prob_list)
-    )
+    Location = namedtuple("Location", "position confidence")
+
+    ret_list = [
+        Location(p, conf)
+        for p, conf in zip(max_prob_centers, prob_list)
+    ]
 
     return ret_list
 
@@ -366,8 +363,6 @@ def generate_sound_position_func(r_ref, l_ref):
     @param lRef The reference sound pressure level used to determine the
     distance from the newly measured sound pressure level
 
-    @param initGuess The initial guess for gradient decent
-
     @return A function that will use rRef, lRef, and initGuess to determine
     the position of the input sound. The independent variable will become
     just the node detection events.
@@ -381,6 +376,25 @@ def generate_sound_position_func(r_ref, l_ref):
 
 
 def plot_detection_events(res, r_ref, l_ref, d_events, filename):
+    """
+
+    Plots the detection events and saves the figure in the given path.
+
+    @param res The list of locations. Locations are named tuples with fields
+    which are position which is a point and confidence which is a float
+
+    @param rRef The reference distance at which the reference sound
+    pressure level was recorded
+
+    @param lRef The reference sound pressure level used to determine the
+    distance from the newly measured sound pressure level
+
+    @param nodeEvents The list ofassociated data when a node detects with some
+    confidence that the sound has been identified
+
+    @return The plt object of the saved figure
+
+    """
 
     fig = plt.figure("Locaudio")
     ax = fig.add_subplot(111)
@@ -405,8 +419,8 @@ def plot_detection_events(res, r_ref, l_ref, d_events, filename):
     ax.set_ylim(v_min, v_max)
     ax.pcolormesh(X, Y, Z, cmap=cm.jet)
     ax.scatter(
-        [p["position"].x for p in res],
-        [p["position"].y for p in res],
+        [p.position.x for p in res],
+        [p.position.y for p in res],
         marker="+",
         linewidths=15,
         c="white"
