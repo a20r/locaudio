@@ -14,6 +14,16 @@ import pageserver
 
 
 def run(host, port):
+    """
+
+    Runs the server.
+
+    @param host The host for the server
+
+    @param port The port for the server
+
+    """
+
     db.init()
     app.run(host=host, port=int(port), debug=True)
 

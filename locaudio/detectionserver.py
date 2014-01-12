@@ -1,4 +1,14 @@
 
+"""
+
+detectionserver
+
+Contains routes for the RESTful API and for heavily templated pages.
+
+Sorry for the crap comments, there is more description in the README.md
+
+"""
+
 from flask import request, jsonify, render_template
 from point import Point
 import time
@@ -21,6 +31,11 @@ def request_to_detection_event(req_dict, confidence):
 
     Converts the request's post form to a detection event.
 
+    @param req_dict The post form from the request
+
+    @param confidence The confidence of the recognition
+
+    @return A detection event created from the request's post form
 
     """
 
@@ -35,6 +50,13 @@ def request_to_detection_event(req_dict, confidence):
 
 @config.app.route("/notify", methods=["POST"])
 def post_notify():
+    """
+
+    This function is called when a node notifies the server of a new detection
+    event.
+
+    """
+
     req_print = json.loads(request.form["fingerprint"])
 
     sound_name, confidence = db.get_best_matching_print(req_print)
@@ -56,6 +78,12 @@ def post_notify():
 
 @config.app.route("/positions/<sound_name>", methods=["GET"])
 def get_sound_positions(sound_name):
+    """
+
+    Gets the sound position given the sound name
+
+    """
+
     if not sound_name in config.detection_events.keys():
         return jsonify(error=1, message="No detection events yet")
 
@@ -84,6 +112,12 @@ def get_sound_positions(sound_name):
 
 @config.app.route("/viewer/<sound_name>", methods=["GET"])
 def get_position_viewer(sound_name):
+    """
+
+    Allows the user to view the tracking information for a given sound
+
+    """
+
     if not sound_name in config.detection_events.keys():
         return render_template("graph.html", sound_name=sound_name)
 
@@ -136,6 +170,13 @@ def get_position_viewer(sound_name):
 
 @config.app.route("/upload", methods=["GET", "POST"])
 def get_post_upload():
+    """
+
+    Function is called when a user wants to upload sound and meta-data
+    to the database.
+
+    """
+
     file_key = "sound_file"
     upload_folder = "sounds"
     if request.method == "POST" and file_key in request.files:

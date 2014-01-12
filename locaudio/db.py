@@ -64,6 +64,8 @@ def init():
 
     Initializes the RethinkDB database
 
+    @return Whether the database was reinitialized or not
+
     """
 
     conn = r.connect()
@@ -77,6 +79,18 @@ def init():
 
 
 def get_best_matching_print(f_in):
+    """
+
+    Given an input fingerprint, this function iterates through the database
+    and returns the most similar fingerprint and the corresponding confidence
+
+    @param f_in Input fingerprint
+
+    @return A tuple with the most similar fingerprint and corresponding
+    confidence.
+
+    """
+
     conn = r.connect(host=HOST, port=PORT, db=DB)
 
     table = list(r.table(FINGERPRINT_TABLE).run(conn))
@@ -96,6 +110,17 @@ def get_best_matching_print(f_in):
 
 
 def get_reference_data(ref_name):
+    """
+
+    Gets the associated meta-data for a reference name
+
+    @param ref_name The name of the reference
+
+    @return A tuple containing the reference distance, the reference sound
+    pressure level, and the reference fingerprint
+
+    """
+
     conn = r.connect(host=HOST, port=PORT, db=DB)
     ref_data = r.table(FINGERPRINT_TABLE).get(ref_name).run(conn)
 
@@ -106,12 +131,33 @@ def get_reference_data(ref_name):
 
 
 def get_list_of_names():
+    """
+
+    Gets the list of sound names from the database
+
+    @return A list of strings of sound names
+
+    """
     conn = r.connect(host=HOST, port=PORT, db=DB)
     names = r.table(FINGERPRINT_TABLE)["name"].run(conn)
     return list(names)
 
 
 def insert_reference(name, f_ref, r_ref, l_ref):
+    """
+
+    Inserts a reference into the database
+
+    @param f_ref The reference fingerprint
+
+    @param r_ref The distance at which the reference data was recorded
+
+    @param l_ref The sound pressure level of the reference data
+
+    @return A RethinkDB insert return structure
+
+    """
+
     conn = r.connect(host=HOST, port=PORT, db=DB)
 
     ret_obj = r.table(FINGERPRINT_TABLE).insert(
