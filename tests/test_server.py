@@ -69,6 +69,12 @@ class ServerTest(unittest.TestCase):
         print "\n=== Server Triangulation === :: {0}\n".format(pos_list)
 
 
+    def test_names(self):
+        names_list = loc.get_names()
+
+        print "\n=== Server Names === :: {0}\n".format(names_list)
+
+
 if __name__ == "__main__":
     print "\n=== Server Testing ===\n"
     unittest.main()

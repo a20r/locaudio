@@ -20,6 +20,7 @@ distance from which this measurement has been taken.
 from detectionevent import DetectionEvent
 
 from point import Point
+from location import Location
 from functools import partial
 from collections import namedtuple
 
@@ -33,12 +34,11 @@ from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D
 
 
-## Scaling constant to transform a confidence probability into a
-# a standard deviation.
-K =  0.7
-
-
+STD_SCALE =  1.4
 MIN_DIST = 1
+MAX_RADIUS_INC = 10
+MIN_RADIUS_INC = -10
+RADIUS_STEP = 1
 
 
 def distance_from_sound(r_ref, l_ref, l_current):
@@ -133,7 +133,7 @@ def set_node_events_std(node_events):
             (max_time - node_event.get_timestamp()) /
             (max_time - min_time)
         )
-        node_event.set_std(2 * K / (node_event.confidence + time_error))
+        node_event.set_std(STD_SCALE / (node_event.confidence + time_error))
 
 
 def position_evaluation(x, y, r_ref, l_ref, node_events):
@@ -300,7 +300,7 @@ def determine_peaks(opt_vals, label_list):
     return ret_list
 
 
-def determine_sound_positions(r_ref, l_ref, node_events, **kwargs):
+def determine_sound_positions_instance(r_ref, l_ref, node_events, **kwargs):
     """
 
     Determines the position in the probability grid that has the highest
@@ -338,14 +338,46 @@ def determine_sound_positions(r_ref, l_ref, node_events, **kwargs):
         ) for p in max_prob_centers
     ]
 
-    Location = namedtuple("Location", "position confidence")
-
     ret_list = [
         Location(p, conf)
         for p, conf in zip(max_prob_centers, prob_list)
     ]
 
     return ret_list
+
+
+def evaluate_location_list(location_list):
+    if location_list == None:
+        return 0
+
+    locations_conf = 0
+    for location in location_list:
+        locations_conf += location.get_confidence()
+
+    return locations_conf
+
+
+def determine_sound_positions(r_ref, l_ref, node_events, **kwargs):
+
+    min_range = r_ref - MIN_RADIUS_INC
+    max_range = r_ref + MAX_RADIUS_INC + RADIUS_STEP
+
+    best_location_list = None
+
+    for r_ref_i in xrange(min_range, max_range, RADIUS_STEP):
+        location_list = determine_sound_positions_instance(
+            r_ref, l_ref,
+            node_events,
+            **kwargs
+        )
+
+        best_location_list_eval = evaluate_location_list(best_location_list)
+        location_list_eval = evaluate_location_list(location_list)
+
+        if best_location_list_eval <= location_list_eval:
+            best_location_list = location_list
+
+    return best_location_list
 
 
 def generate_sound_position_func(r_ref, l_ref):

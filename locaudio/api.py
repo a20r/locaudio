@@ -3,6 +3,8 @@ import urllib
 import urllib2
 import json
 import time
+from location import Location
+from point import Point
 
 
 class Locaudio:
@@ -11,6 +13,7 @@ class Locaudio:
         self.url = "http://" + host + ":" + str(port)
         self.pos_url = self.url + "/positions"
         self.notify_url = self.url + "/notify"
+        self.names_url = self.url + "/names"
 
 
     def make_position_url(self, sound_name):
@@ -19,8 +22,26 @@ class Locaudio:
 
     def get_sound_positions(self, sound_name):
         req = urllib2.urlopen(self.make_position_url(sound_name))
-        data = json.loads(req.read())
-        return data
+        location_list = json.loads(req.read())
+        ret_list = list()
+
+        for location in location_list:
+            position = Point(
+                location["position"]["x"],
+                location["position"]["y"]
+            )
+
+            ret_list.append(
+                Location(position, location["confidence"])
+            )
+
+        return ret_list
+
+
+    def get_names(self):
+        req = urllib2.urlopen(self.names_url)
+        names_dict = json.loads(req.read())
+        return names_dict["names"]
 
 
     def notify_event(self, data):

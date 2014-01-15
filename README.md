@@ -102,6 +102,7 @@ To make use of this API, the Locaudio server and the RethinkDB database must be 
 **NOTE: All commands should be spawned from different terminal sessions**
 
 1. Run RethinkDB
+	- `cd database`
 	- `rethinkdb`
 
 1. Run the server

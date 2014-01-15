@@ -88,6 +88,7 @@ def get_sound_positions(sound_name):
         return jsonify(error=1, message="No detection events yet")
 
     radius, spl, _ = db.get_reference_data(sound_name)
+
     location_list = tri.determine_sound_positions(
         radius, spl,
         config.detection_events[sound_name],
@@ -97,15 +98,7 @@ def get_sound_positions(sound_name):
     ret_list = list()
 
     for location in location_list:
-        ret_list.append(
-            {
-                "position": {
-                    "x": location.position.x,
-                    "y": location.position.y
-                },
-                "confidence": location.confidence
-            }
-        )
+        ret_list.append(location.to_dict())
 
     return json.dumps(ret_list)
 
@@ -122,6 +115,7 @@ def get_position_viewer(sound_name):
         return render_template("graph.html", sound_name=sound_name)
 
     radius, spl, _ = db.get_reference_data(sound_name)
+
     location_list = tri.determine_sound_positions(
         radius, spl,
         config.detection_events[sound_name],
@@ -129,6 +123,7 @@ def get_position_viewer(sound_name):
     )
 
     img_path = IMG_DIR + sound_name + ".png"
+    img_web_path = "/" + img_path
 
     if config.new_data[sound_name]:
         tri.plot_detection_events(
@@ -139,8 +134,6 @@ def get_position_viewer(sound_name):
         )
 
         config.new_data[sound_name] = False
-
-    img_web_path = "/" + img_path
 
     ret_list = list()
 
