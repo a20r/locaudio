@@ -8,8 +8,9 @@ database/
 imgs/
 sounds/*
 
+!app/Locabean/src/com/*
+
 !sounds/Cock.wav
-!app/Locabean/src
 
 *.pdf
 
