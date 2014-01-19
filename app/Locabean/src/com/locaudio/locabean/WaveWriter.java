@@ -1,5 +1,6 @@
 package com.locaudio.locabean;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -7,8 +8,15 @@ import java.io.IOException;
 
 import android.media.AudioFormat;
 import android.media.AudioRecord;
+import android.os.Environment;
 
 public class WaveWriter {
+
+	private static final String AUDIO_RECORDER_FILE_EXT_WAV = ".wav";
+	private static final String AUDIO_RECORDER_FOLDER = "AudioRecorder";
+	private static final String AUDIO_RECORDER_TEMP_FILE = "record_temp.raw";
+	private static final String AUDIO_RECORDER_FILENAME = "locabean_audio";
+
 	@SuppressWarnings("deprecation")
 	protected static final int RECORDER_CHANNELS = AudioFormat.CHANNEL_CONFIGURATION_MONO;
 	protected static final int RECORDER_BPP = 16;
@@ -107,4 +115,72 @@ public class WaveWriter {
 		}
 	}
 
+	protected static String getFilename() {
+		String filepath = Environment.getExternalStorageDirectory().getPath();
+		File file = new File(filepath, AUDIO_RECORDER_FOLDER);
+
+		if (!file.exists()) {
+			file.mkdirs();
+		}
+
+		return (file.getAbsolutePath() + "/" + AUDIO_RECORDER_FILENAME + AUDIO_RECORDER_FILE_EXT_WAV);
+	}
+
+	protected static String getTempFilename() {
+		String filepath = Environment.getExternalStorageDirectory().getPath();
+		File file = new File(filepath, AUDIO_RECORDER_FOLDER);
+
+		if (!file.exists()) {
+			file.mkdirs();
+		}
+
+		File tempFile = new File(filepath, AUDIO_RECORDER_TEMP_FILE);
+
+		if (tempFile.exists())
+			tempFile.delete();
+
+		return (file.getAbsolutePath() + "/" + AUDIO_RECORDER_TEMP_FILE);
+	}
+
+	protected static void deleteTempFile() {
+		File file = new File(getTempFilename());
+
+		file.delete();
+	}
+
+	protected static void writeAudioDataToFile(AudioRecord recorder,
+			boolean isRecording) {
+		byte data[] = new byte[WaveWriter.BUFFER_SIZE];
+		String filename = getTempFilename();
+		FileOutputStream os = null;
+
+		try {
+			os = new FileOutputStream(filename);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		int read = 0;
+
+		if (null != os) {
+			while (isRecording) {
+				read = recorder.read(data, 0, WaveWriter.BUFFER_SIZE);
+
+				if (AudioRecord.ERROR_INVALID_OPERATION != read) {
+					try {
+						os.write(data);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+			try {
+				os.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
