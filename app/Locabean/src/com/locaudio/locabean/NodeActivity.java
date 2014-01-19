@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import android.app.Activity;
 import android.media.AudioRecord;
-import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -12,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.musicg.wave.Wave;
+
+import com.locaudio.io.WaveWriter;
 
 public class NodeActivity extends Activity {
 
@@ -46,9 +47,7 @@ public class NodeActivity extends Activity {
 	}
 
 	private void startRecording() {
-		recorder = new AudioRecord(MediaRecorder.AudioSource.MIC,
-				WaveWriter.RECORDER_SAMPLERATE, WaveWriter.RECORDER_CHANNELS,
-				WaveWriter.RECORDER_AUDIO_ENCODING, WaveWriter.BUFFER_SIZE);
+		recorder = WaveWriter.getAudioRecord();
 
 		int i = recorder.getState();
 		if (i == 1)

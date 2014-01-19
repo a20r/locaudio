@@ -1,4 +1,4 @@
-package com.locaudio.locabean;
+package com.locaudio.io;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import android.media.AudioFormat;
 import android.media.AudioRecord;
+import android.media.MediaRecorder;
 import android.os.Environment;
 
 public class WaveWriter {
@@ -26,7 +27,7 @@ public class WaveWriter {
 	protected static final int BUFFER_SIZE = AudioRecord.getMinBufferSize(
 			RECORDER_SAMPLERATE, RECORDER_CHANNELS, RECORDER_AUDIO_ENCODING);
 
-	protected static void writeWaveFileHeader(FileOutputStream out,
+	public static void writeWaveFileHeader(FileOutputStream out,
 			long totalAudioLen, long totalDataLen, long longSampleRate,
 			int channels, long byteRate, int bitsPerSample) throws IOException {
 
@@ -80,7 +81,7 @@ public class WaveWriter {
 		out.write(header, 0, 44);
 	}
 
-	protected static void copyWaveFile(String inFilename, String outFilename) {
+	public static void copyWaveFile(String inFilename, String outFilename) {
 		FileInputStream in = null;
 		FileOutputStream out = null;
 		long totalAudioLen = 0;
@@ -115,7 +116,7 @@ public class WaveWriter {
 		}
 	}
 
-	protected static String getFilename() {
+	public static String getFilename() {
 		String filepath = Environment.getExternalStorageDirectory().getPath();
 		File file = new File(filepath, AUDIO_RECORDER_FOLDER);
 
@@ -126,7 +127,7 @@ public class WaveWriter {
 		return (file.getAbsolutePath() + "/" + AUDIO_RECORDER_FILENAME + AUDIO_RECORDER_FILE_EXT_WAV);
 	}
 
-	protected static String getTempFilename() {
+	public static String getTempFilename() {
 		String filepath = Environment.getExternalStorageDirectory().getPath();
 		File file = new File(filepath, AUDIO_RECORDER_FOLDER);
 
@@ -142,13 +143,13 @@ public class WaveWriter {
 		return (file.getAbsolutePath() + "/" + AUDIO_RECORDER_TEMP_FILE);
 	}
 
-	protected static void deleteTempFile() {
+	public static void deleteTempFile() {
 		File file = new File(getTempFilename());
 
 		file.delete();
 	}
 
-	protected static void writeAudioDataToFile(AudioRecord recorder,
+	public static void writeAudioDataToFile(AudioRecord recorder,
 			boolean isRecording) {
 		byte data[] = new byte[WaveWriter.BUFFER_SIZE];
 		String filename = getTempFilename();
@@ -182,5 +183,11 @@ public class WaveWriter {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public static AudioRecord getAudioRecord() {
+		return new AudioRecord(MediaRecorder.AudioSource.MIC,
+				RECORDER_SAMPLERATE, RECORDER_CHANNELS,
+				RECORDER_AUDIO_ENCODING, BUFFER_SIZE);
 	}
 }
