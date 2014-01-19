@@ -9,6 +9,7 @@ imgs/
 sounds/*
 
 !sounds/Cock.wav
+!app/Locabean/src
 
 *.pdf
 
