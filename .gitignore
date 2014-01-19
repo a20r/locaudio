@@ -61,8 +61,8 @@ nosetests.xml
 *.class
 
 # generated files
-bin/
-gen/
+app/Locabean/bin/
+app/Locabean/gen/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -70,9 +70,9 @@ local.properties
 *.pydevproject
 .project
 .metadata
-bin/**
-tmp/**
-tmp/**/*
+app/bin/**
+app/tmp/**
+app/tmp/**/*
 *.tmp
 *.bak
 *.swp
