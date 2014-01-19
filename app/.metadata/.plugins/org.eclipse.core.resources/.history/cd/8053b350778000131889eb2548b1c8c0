@@ -1,0 +1,52 @@
+
+package com.locaudio.locabean;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
+//import android.widget.TextView;
+
+public class NodeActivity extends Activity {
+
+	// detection parameters
+	// private DetectorThread detectorThread;
+	private RecorderThread recorderThread;
+	
+	private boolean IS_RECORDING = false;
+	
+	// views
+	private View mainView;
+	private Button recordButton;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		// set views
+		LayoutInflater inflater = LayoutInflater.from(this);
+		mainView = inflater.inflate(R.layout.activity_node, null);
+		setContentView(mainView);
+
+		recordButton = (Button) this.findViewById(R.id.btnRecord);
+		recordButton.setOnClickListener(new RecordClickEvent());
+	}
+
+	class RecordClickEvent implements OnClickListener {
+		public void onClick(View view) {
+			recorderThread = new RecorderThread();
+			recorderThread.start();
+			recorderThread.startRecording();
+			
+			recordButton.setText("Stop Recording");
+		}
+	}
+
+	protected void onDestroy() {
+		super.onDestroy();
+		android.os.Process.killProcess(android.os.Process.myPid());
+	}
+}

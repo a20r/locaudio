@@ -54,7 +54,7 @@ class DetectionEvent(object):
             return self.std
 
 
-    def __str__(self):
+    def __repr__(self):
         return (
             "DetectionEvent(x=" + str(self.x) +
             ", y=" + str(self.y) +
@@ -63,6 +63,6 @@ class DetectionEvent(object):
         )
 
 
-    def __repr__(self):
-        return self.__str__()
+    def __str__(self):
+        return "X: {0}, Y: {1}".format(self.x, self.y)
 

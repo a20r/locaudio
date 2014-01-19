@@ -109,7 +109,7 @@
                     {% for location in location_list %}
                     <tr>
                     <td><b>Position:</b></td>
-                    <td>{{ location["position"].to_list() }}</td>
+                    <td>{{ location["position"].__str__() }}</td>
                     <td><b>Confidence:</b></td>
                     <td>{{ location["confidence"] }}</td>
                     </tr>
@@ -129,7 +129,7 @@
                     {% for d_event in detection_events %}
                     <tr>
                     <td><b>Position:</b></td>
-                    <td>{{ d_event.get_pos() }}</td>
+                    <td>{{ d_event.__str__() }}</td>
                     <td><b>Confidence:</b></td>
                     <td>{{ d_event.get_confidence() }}</td>
                     <td><b>SPL:</b></td>

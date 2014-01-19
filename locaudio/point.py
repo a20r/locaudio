@@ -36,6 +36,10 @@ class Point(object):
         return [self.x, self.y]
 
 
+    def __str__(self):
+        return "X: {0}, Y: {1}".format(self.x, self.y)
+
+
     def __repr__(self):
         return "Point({0}, {1})".format(self.x, self.y)
 
