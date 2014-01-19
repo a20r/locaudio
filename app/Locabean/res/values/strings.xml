@@ -4,5 +4,8 @@
     <string name="app_name">Locabean</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="record">Record</string>
+    <string name="stop">Stop</string>
+    <string name="fingerprint"><b>Fingerprint:</b></string>
 
 </resources>

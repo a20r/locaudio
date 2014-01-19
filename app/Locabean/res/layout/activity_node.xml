@@ -8,24 +8,40 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".NodeActivity" >
 
-    <Button
-        android:id="@+id/btnStart"
+    <TextView
+        android:id="@+id/fingerprintLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnStop"
-        android:layout_alignBottom="@+id/btnStop"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="37dp"
-        android:text="Record" />
+        android:layout_marginTop="17dp"
+        android:text="@string/fingerprint"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/btnStop"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="55dp"
-        android:layout_toRightOf="@+id/btnStart"
-        android:text="Stop" />
+        android:layout_alignLeft="@+id/fingerprintText"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="37dp"
+        android:text="@string/stop" />
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnStop"
+        android:layout_alignLeft="@+id/btnStop"
+        android:layout_marginBottom="23dp"
+        android:text="@string/record" />
+
+    <TextView
+        android:id="@+id/fingerprintText"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_alignLeft="@+id/fingerprintLabel"
+        android:layout_below="@+id/fingerprintLabel"
+        android:layout_marginTop="36dp"
+        android:maxLines="100"
+        android:scrollbars="vertical" />
 
 </RelativeLayout>
