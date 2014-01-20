@@ -85,7 +85,7 @@ def get_sound_positions(sound_name):
     """
 
     if not sound_name in config.detection_events.keys():
-        return jsonify(error=1, message="No detection events yet")
+        return json.dumps([])
 
     radius, spl, _ = db.get_reference_data(sound_name)
 

@@ -15,9 +15,9 @@ public class Locaudio extends Requests {
 		super(ipAddress, port);
 	}
 
-	public Location[] getSoundLocations(final String soundName) {
-		AsyncGetRequest<Location[]> agr = new AsyncGetRequest<Location[]>(
-				Location[].class, LOCATIONS_ROUTE, soundName);
+	public SoundLocation[] getSoundLocations(final String soundName) {
+		AsyncGetRequest<SoundLocation[]> agr = new AsyncGetRequest<SoundLocation[]>(
+				SoundLocation[].class, LOCATIONS_ROUTE, soundName);
 		return agr.getResponse(this);
 	}
 
@@ -31,7 +31,7 @@ public class Locaudio extends Requests {
 			throws ClientProtocolException, IOException {
 		AsyncPostRequest<NotifyResponse> apr = new AsyncPostRequest<NotifyResponse>(
 				NotifyResponse.class, event.toMap(), NOTIFY_ROUTE);
-		
+
 		return apr.getResponse(this);
 	}
 }

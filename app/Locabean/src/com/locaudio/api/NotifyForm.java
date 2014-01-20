@@ -1,5 +1,6 @@
 package com.locaudio.api;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,13 +25,13 @@ public class NotifyForm {
 		this.fingerprint = fingerprint;
 	}
 	
-	public Map<String, ?> toMap() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("x", this.x);
-		map.put("y", this.y);
-		map.put("spl", this.soundPressureLevel);
-		map.put("timestamp", this.timestamp);
-		map.put("fingerprint", this.fingerprint);
+	public Map<String, String> toMap() {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("x", "" + this.x);
+		map.put("y", "" + this.y);
+		map.put("spl", "" + this.soundPressureLevel);
+		map.put("timestamp", "" + this.timestamp);
+		map.put("fingerprint", Arrays.toString(this.fingerprint));
 		return map;
 	}
 	

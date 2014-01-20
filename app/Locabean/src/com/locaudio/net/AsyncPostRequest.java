@@ -13,10 +13,10 @@ import com.locaudio.net.Requests;
 public class AsyncPostRequest<T> extends AsyncTask<Requests, Integer, T> {
 
 	private Class<T> tClass;
-	private Map<String, ?> postForm = null;
+	private Map<String, String> postForm = null;
 	private String[] urlParams = null;
 
-	public AsyncPostRequest(Class<T> tClass, Map<String, ?> postForm,
+	public AsyncPostRequest(Class<T> tClass, Map<String, String> postForm,
 			String... urlParams) {
 		this.tClass = tClass;
 		this.postForm = postForm;

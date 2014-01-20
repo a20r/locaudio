@@ -40,8 +40,7 @@ public class Requests {
 		this.url = "http://" + this.ipAddress + ":" + this.port;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public <T> T post(Class<T> classType, Map<String, ?> paramMap,
+	public <T> T post(Class<T> classType, Map<String, String> paramMap,
 			String... urlParams) throws ClientProtocolException, IOException {
 
 		String requestUrl = this.concatWithUrl(urlParams);
@@ -51,11 +50,11 @@ public class Requests {
 		// Request parameters and other properties.
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 
-		Iterator<?> it = paramMap.entrySet().iterator();
+		Iterator<Entry<String, String>> it = paramMap.entrySet().iterator();
 		Entry<String, String> pair = null;
 
 		while (it.hasNext()) {
-			pair = (Entry) it.next();
+			pair = (Entry<String, String>) it.next();
 			params.add(new BasicNameValuePair(pair.getKey(), pair.getValue()));
 		}
 

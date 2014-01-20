@@ -14,7 +14,7 @@ import android.os.Environment;
 public class WaveWriter {
 
 	private static final String AUDIO_RECORDER_FILE_EXT_WAV = ".wav";
-	private static final String AUDIO_RECORDER_FOLDER = "AudioRecorder";
+	private static final String AUDIO_RECORDER_FOLDER = "LocabeanAudio";
 	private static final String AUDIO_RECORDER_TEMP_FILE = "record_temp.raw";
 	private static final String AUDIO_RECORDER_FILENAME = "locabean_audio";
 
