@@ -56,6 +56,6 @@ class Locaudio:
 
         req = urllib2.Request(url=self.notify_url, data=encdata)
         res = urllib2.urlopen(req)
-        return res.read()
+        return json.loads(res.read())
 
 

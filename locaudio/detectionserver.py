@@ -73,7 +73,12 @@ def post_notify():
         request_to_detection_event(request.form, confidence)
     )
 
-    return jsonify(error=0, message="No error", name=sound_name)
+    return jsonify(
+        error=0,
+        message="No error",
+        name=sound_name,
+        confidence=confidence
+    )
 
 
 @config.app.route("/locations/<sound_name>", methods=["GET"])

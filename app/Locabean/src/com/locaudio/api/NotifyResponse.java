@@ -11,4 +11,7 @@ public class NotifyResponse {
 	
 	@SerializedName("name")
 	public String name;
+	
+	@SerializedName("confidence")
+	public float confidence;
 }
