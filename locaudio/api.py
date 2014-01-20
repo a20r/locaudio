@@ -11,7 +11,7 @@ class Locaudio:
 
     def __init__(self, host, port):
         self.url = "http://" + host + ":" + str(port)
-        self.pos_url = self.url + "/positions"
+        self.pos_url = self.url + "/locations"
         self.notify_url = self.url + "/notify"
         self.names_url = self.url + "/names"
 
@@ -20,7 +20,7 @@ class Locaudio:
         return self.pos_url + "/" + sound_name
 
 
-    def get_sound_positions(self, sound_name):
+    def get_sound_locations(self, sound_name):
         req = urllib2.urlopen(self.make_position_url(sound_name))
         location_list = json.loads(req.read())
         ret_list = list()

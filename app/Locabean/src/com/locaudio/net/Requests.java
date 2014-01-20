@@ -2,7 +2,6 @@ package com.locaudio.net;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,66 +17,93 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+
+import com.google.gson.Gson;
 
 public class Requests {
 
 	private String ipAddress = null;
 	private int port = 80;
 	private String url = null;
-	private static final int CHAR_BUFFER_SIZE = 256;
 
 	public Requests() {
 		this.ipAddress = "localhost";
 		this.port = 8000;
-		this.url = this.ipAddress + ":" + this.port;
+		this.url = "http://" + this.ipAddress + ":" + this.port;
 	}
 
 	public Requests(String ipAddress, int port) {
 		this.ipAddress = ipAddress;
 		this.port = port;
-		this.url = this.ipAddress + ":" + this.port;
+		this.url = "http://" + this.ipAddress + ":" + this.port;
 	}
 
-	public JSONObject post(Map<String, String> paramMap)
-			throws ClientProtocolException, IOException, JSONException {
-		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost(this.url);
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public <T> T post(Class<T> classType, Map<String, ?> paramMap,
+			String... urlParams) throws ClientProtocolException, IOException {
+
+		String requestUrl = this.concatWithUrl(urlParams);
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpPost httpPost = new HttpPost(requestUrl);
 
 		// Request parameters and other properties.
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 
-		Iterator<Entry<String, String>> it = paramMap.entrySet().iterator();
+		Iterator<?> it = paramMap.entrySet().iterator();
 		Entry<String, String> pair = null;
 
 		while (it.hasNext()) {
-			pair = (Entry<String, String>) it.next();
+			pair = (Entry) it.next();
 			params.add(new BasicNameValuePair(pair.getKey(), pair.getValue()));
 		}
 
-		httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+		httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 		// Execute and get the response.
-		HttpResponse response = httpclient.execute(httppost);
+		HttpResponse response = httpClient.execute(httpPost);
 		HttpEntity entity = response.getEntity();
 
+		return entityToObject(entity, classType);
+	}
+
+	public <T> T get(Class<T> classType, String... urlParams)
+			throws ClientProtocolException, IOException {
+
+		String requestUrl = this.concatWithUrl(urlParams);
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpGet httpGet = new HttpGet(requestUrl);
+		HttpContext localContext = new BasicHttpContext();
+
+		HttpResponse response = httpClient.execute(httpGet, localContext);
+		HttpEntity entity = response.getEntity();
+
+		return entityToObject(entity, classType);
+	}
+
+	protected static <T> T entityToObject(HttpEntity entity, Class<T> classType)
+			throws IllegalStateException, IOException {
 		if (entity != null) {
 			InputStreamReader reader = new InputStreamReader(
 					entity.getContent());
 			try {
-				CharBuffer target = CharBuffer.allocate(CHAR_BUFFER_SIZE);
-				reader.read(target);
-				return new JSONObject(target.toString());
+				Gson gson = new Gson();
+				return gson.fromJson(reader, classType);
 			} finally {
 				reader.close();
 			}
 		} else {
-			return new JSONObject();
+			return null;
 		}
 	}
-	
-	public JSONObject get(String... params) {
-		return new JSONObject();
+
+	protected String concatWithUrl(String... urlParams) {
+		String retString = this.url;
+		for (String urlParam : urlParams) {
+			retString += "/" + urlParam;
+		}
+		return retString;
 	}
+
 }

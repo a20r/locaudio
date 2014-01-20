@@ -76,7 +76,7 @@ def post_notify():
     return jsonify(error=0, message="No error", name=sound_name)
 
 
-@config.app.route("/positions/<sound_name>", methods=["GET"])
+@config.app.route("/locations/<sound_name>", methods=["GET"])
 def get_sound_positions(sound_name):
     """
 

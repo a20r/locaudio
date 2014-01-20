@@ -23,7 +23,7 @@ To make use of this API, the Locaudio server and the RethinkDB database must be 
 		y: <Float: Y position>,
 		spl: <Float: Sound pressure level>,
 		timestamp: <Float: Unix time in seconds>,
-		fingerprint: [<Float>: Audio fingerprint]
+		fingerprint: [<Int>: Audio fingerprint]
 	}
 
 #### Return structure
@@ -36,7 +36,7 @@ To make use of this API, the Locaudio server and the RethinkDB database must be 
 
 ### Getting positions of sounds
 
-	GET /positions/:sound_name
+	GET /location/:sound_name
 
 
 #### Parameters

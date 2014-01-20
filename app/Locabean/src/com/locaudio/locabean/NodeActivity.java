@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.musicg.wave.Wave;
 
 import com.locaudio.io.WaveWriter;
+import com.locaudio.api.Locaudio;
 
 public class NodeActivity extends Activity {
 
@@ -20,6 +21,7 @@ public class NodeActivity extends Activity {
 	private Thread recordingThread = null;
 	private boolean isRecording = false;
 	private TextView fingerprintTextView = null;
+	private Locaudio locaudio = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,8 @@ public class NodeActivity extends Activity {
 		enableButtons(false);
 		fingerprintTextView = (TextView) findViewById(R.id.fingerprintText);
 		fingerprintTextView.setMovementMethod(new ScrollingMovementMethod());
+
+		locaudio = new Locaudio("192.168.1.9", 8000);
 	}
 
 	private void setButtonHandlers() {
@@ -105,6 +109,8 @@ public class NodeActivity extends Activity {
 				Wave wave = new Wave(WaveWriter.getFilename());
 				fingerprintTextView.setText(Arrays.toString(wave
 						.getFingerprint()));
+				
+				System.out.println(locaudio.getSoundLocations("Cock")[0].position.x);
 				break;
 			}
 			}
