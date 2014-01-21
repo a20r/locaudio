@@ -52,9 +52,10 @@ public class NodeActivity extends Activity {
 	}
 
 	private void setButtonHandlers() {
-		((Button) findViewById(R.id.btnStart)).setOnClickListener(btnClick);
-		((Button) findViewById(R.id.btnStop)).setOnClickListener(btnClick);
-		((Button) findViewById(R.id.btnSend)).setOnClickListener(btnClick);
+		((Button) findViewById(R.id.btnStart))
+				.setOnClickListener(btnStartClick);
+		((Button) findViewById(R.id.btnStop)).setOnClickListener(btnStopClick);
+		((Button) findViewById(R.id.btnSend)).setOnClickListener(btnSendClick);
 	}
 
 	private void enableButton(int id, boolean isEnable) {
@@ -101,52 +102,48 @@ public class NodeActivity extends Activity {
 		WaveWriter.deleteTempFile();
 	}
 
-	private View.OnClickListener btnClick = new View.OnClickListener() {
+	private View.OnClickListener btnStartClick = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			switch (v.getId()) {
-			case R.id.btnStart: {
-				System.out.println("Start Recording");
-				enableButtons(true);
+			System.out.println("Start Recording");
+			enableButtons(true);
 
-				startRecording();
+			startRecording();
+		}
+	};
 
-				break;
-			}
-			case R.id.btnStop: {
-				System.out.println("Stop Recording");
-				enableButtons(false);
-				stopRecording();
-				Wave wave = new Wave(WaveWriter.getFilename());
-				splTextView.setText(""
-						+ WaveProcessing
-								.determineAverageSoundPressureLevel(wave));
+	private View.OnClickListener btnStopClick = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			System.out.println("Stop Recording");
+			enableButtons(false);
+			stopRecording();
+			Wave wave = new Wave(WaveWriter.getFilename());
+			splTextView.setText(""
+					+ WaveProcessing.determineAverageSoundPressureLevel(wave));
+		}
+	};
 
-				break;
-			}
-			case R.id.btnSend: {
+	private View.OnClickListener btnSendClick = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Wave wave = new Wave(WaveWriter.getFilename());
+			NotifyForm postForm = new NotifyForm();
+			postForm.setFingerprint(wave.getFingerprint());
+			postForm.setSoundPressureLevel(100);
+			postForm.setTimestamp(10);
+			postForm.setX(1);
+			postForm.setY(0);
 
-				Wave wave = new Wave(WaveWriter.getFilename());
-				NotifyForm postForm = new NotifyForm();
-				postForm.setFingerprint(wave.getFingerprint());
-				postForm.setSoundPressureLevel(100);
-				postForm.setTimestamp(10);
-				postForm.setX(1);
-				postForm.setY(0);
+			locaudio.notifyEvent(postForm,
+					new UIFunction<NotifyResponse>(self) {
 
-				locaudio.notifyEvent(postForm, new UIFunction<NotifyResponse>(
-						self) {
-
-					@Override
-					public void runUI(NotifyResponse nr) {
-						nameTextView.setText(nr.name);
-						confidenceTextView.setText("" + nr.confidence);
-					}
-				});
-
-				break;
-			}
-			}
+						@Override
+						public void runUI(NotifyResponse nr) {
+							nameTextView.setText(nr.name);
+							confidenceTextView.setText("" + nr.confidence);
+						}
+					});
 		}
 	};
 }
