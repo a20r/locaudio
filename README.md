@@ -36,7 +36,7 @@ To make use of this API, the Locaudio server and the RethinkDB database must be 
 
 ### Getting positions of sounds
 
-	GET /location/:sound_name
+	GET /locations/:sound_name
 
 
 #### Parameters
@@ -44,7 +44,6 @@ To make use of this API, the Locaudio server and the RethinkDB database must be 
 - `sound_name`: The name of the sounds
 
 #### Return structure
-##### If successful
 
 	[
 		{
@@ -54,13 +53,6 @@ To make use of this API, the Locaudio server and the RethinkDB database must be 
 			},
 			confidence: <Float (0 <= F <= 1)>
 	]
-
-##### If failure
-
-	{
-		error: <Integer: Error code>,
-		message: <String: Error Message>
-	}
 
 ### Get UI for sound position
 
