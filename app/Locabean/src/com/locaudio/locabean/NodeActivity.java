@@ -139,10 +139,11 @@ public class NodeActivity extends Activity {
 					new UIFunction<NotifyResponse>(self) {
 
 						@Override
-						public void runUI(NotifyResponse nr) {
+						public void body(NotifyResponse nr) {
 							nameTextView.setText(nr.name);
 							confidenceTextView.setText("" + nr.confidence);
 						}
+
 					});
 		}
 	};

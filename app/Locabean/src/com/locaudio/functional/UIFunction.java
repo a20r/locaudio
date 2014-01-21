@@ -10,13 +10,13 @@ public abstract class UIFunction<T> extends Function<T> {
 		this.activity = activity;
 	}
 
-	public abstract void runUI(T input);
+	public abstract void body(T input);
 
-	public void run(final T input) {
+	public void call(final T input) {
 		this.activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				runUI(input);
+				body(input);
 			}
 		});
 	}

@@ -20,7 +20,7 @@ public class Locaudio extends Requests {
 
 			@Override
 			public void runOnceReceivedResponse(SoundLocation[] response) {
-				callback.run(response);
+				callback.call(response);
 			}
 
 		};
@@ -52,7 +52,7 @@ public class Locaudio extends Requests {
 
 			@Override
 			public void runOnceReceivedResponse(String[] response) {
-				callback.run(response);
+				callback.call(response);
 			}
 
 		};
@@ -83,7 +83,7 @@ public class Locaudio extends Requests {
 
 			@Override
 			public void runOnceReceivedResponse(NotifyResponse response) {
-				callback.run(response);
+				callback.call(response);
 			}
 
 		};
