@@ -136,12 +136,14 @@ public class NodeActivity extends Activity {
 			postForm.setY(0);
 
 			locaudio.notifyEvent(postForm,
-					new UIFunction<NotifyResponse>(self) {
+					new UIFunction<NotifyResponse, Void>(self) {
 
 						@Override
-						public void body(NotifyResponse nr) {
+						public Void body(NotifyResponse nr) {
 							nameTextView.setText(nr.name);
 							confidenceTextView.setText("" + nr.confidence);
+							
+							return null;
 						}
 
 					});

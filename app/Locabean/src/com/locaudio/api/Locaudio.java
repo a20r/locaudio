@@ -13,7 +13,7 @@ public class Locaudio extends Requests {
 	}
 
 	public AsyncGetRequest<SoundLocation[]> getSoundLocations(
-			final String soundName, final Function<SoundLocation[]> callback) {
+			final String soundName, final Function<SoundLocation[], Void> callback) {
 
 		AsyncGetRequest<SoundLocation[]> agr = new AsyncGetRequest<SoundLocation[]>(
 				SoundLocation[].class, LOCATIONS_ROUTE, soundName) {
@@ -45,7 +45,7 @@ public class Locaudio extends Requests {
 		return agr.getResponse(this);
 	}
 
-	public AsyncGetRequest<String[]> getNames(final Function<String[]> callback) {
+	public AsyncGetRequest<String[]> getNames(final Function<String[], Void> callback) {
 
 		AsyncGetRequest<String[]> agr = new AsyncGetRequest<String[]>(
 				String[].class, NAMES_ROUTE) {
@@ -76,7 +76,7 @@ public class Locaudio extends Requests {
 	}
 
 	public AsyncPostRequest<NotifyResponse> notifyEvent(final NotifyForm event,
-			final Function<NotifyResponse> callback) {
+			final Function<NotifyResponse, Void> callback) {
 
 		AsyncPostRequest<NotifyResponse> apr = new AsyncPostRequest<NotifyResponse>(
 				NotifyResponse.class, event.toMap(), NOTIFY_ROUTE) {
