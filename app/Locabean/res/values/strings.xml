@@ -11,5 +11,7 @@
     <string name="nameItl"><it>Sound Name</it></string>
     <string name="confidenceItl"><it>Recognition Confidence</it></string>
     <string name="send">Send</string>
+    <string name="averageSPL"><b>Average SPL:</b></string>
+    <string name="soundPressureLevel"><it>SPL</it></string>
 
 </resources>

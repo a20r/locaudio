@@ -1,5 +1,7 @@
 package com.locaudio.locabean;
 
+// import java.util.Arrays;
+
 import android.app.Activity;
 import android.media.AudioRecord;
 import android.os.Bundle;
@@ -9,7 +11,9 @@ import android.widget.TextView;
 
 import com.musicg.wave.Wave;
 
+import com.locaudio.functional.UIFunction;
 import com.locaudio.io.WaveWriter;
+import com.locaudio.signal.WaveProcessing;
 import com.locaudio.api.Locaudio;
 import com.locaudio.api.NotifyForm;
 import com.locaudio.api.NotifyResponse;
@@ -19,9 +23,15 @@ public class NodeActivity extends Activity {
 	private AudioRecord recorder = null;
 	private Thread recordingThread = null;
 	private boolean isRecording = false;
+
 	private TextView nameTextView = null;
 	private TextView confidenceTextView = null;
+	private TextView splTextView = null;
+
 	private Locaudio locaudio = null;
+
+	// temporary fix
+	private Activity self = this;
 
 	private static final String IP_ADDRESS = "192.168.1.9";
 	private static final int PORT = 8000;
@@ -36,6 +46,7 @@ public class NodeActivity extends Activity {
 
 		nameTextView = (TextView) findViewById(R.id.nameTextView);
 		confidenceTextView = (TextView) findViewById(R.id.confidenceTextView);
+		splTextView = (TextView) findViewById(R.id.splTextView);
 
 		locaudio = new Locaudio(IP_ADDRESS, PORT);
 	}
@@ -106,6 +117,10 @@ public class NodeActivity extends Activity {
 				System.out.println("Stop Recording");
 				enableButtons(false);
 				stopRecording();
+				Wave wave = new Wave(WaveWriter.getFilename());
+				splTextView.setText(""
+						+ WaveProcessing
+								.determineAverageSoundPressureLevel(wave));
 
 				break;
 			}
@@ -119,9 +134,15 @@ public class NodeActivity extends Activity {
 				postForm.setX(1);
 				postForm.setY(0);
 
-				NotifyResponse nr = locaudio.notifyEvent(postForm);
-				nameTextView.setText(nr.name);
-				confidenceTextView.setText("" + nr.confidence);
+				locaudio.notifyEvent(postForm, new UIFunction<NotifyResponse>(
+						self) {
+
+					@Override
+					public void runUI(NotifyResponse nr) {
+						nameTextView.setText(nr.name);
+						confidenceTextView.setText("" + nr.confidence);
+					}
+				});
 
 				break;
 			}

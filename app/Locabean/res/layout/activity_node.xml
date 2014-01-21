@@ -75,4 +75,23 @@
         android:layout_marginBottom="27dp"
         android:text="@string/record" />
 
+    <TextView
+        android:id="@+id/splTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/confidenceTextView"
+        android:layout_below="@+id/confidenceLabel"
+        android:layout_marginTop="27dp"
+        android:text="@string/soundPressureLevel" />
+
+    <TextView
+        android:id="@+id/splLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/splTextView"
+        android:layout_alignBottom="@+id/splTextView"
+        android:layout_alignLeft="@+id/confidenceLabel"
+        android:text="@string/averageSPL"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
 </RelativeLayout>

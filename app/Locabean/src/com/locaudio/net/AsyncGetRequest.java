@@ -9,7 +9,8 @@ import android.os.AsyncTask;
 
 import com.locaudio.net.Requests;
 
-public class AsyncGetRequest<T> extends AsyncTask<Requests, Integer, T> {
+public abstract class AsyncGetRequest<T> extends
+		AsyncTask<Requests, Integer, T> {
 
 	private Class<T> tClass;
 	private String[] urlParams = null;
@@ -18,7 +19,9 @@ public class AsyncGetRequest<T> extends AsyncTask<Requests, Integer, T> {
 		this.tClass = tClass;
 		this.urlParams = urlParams;
 	}
-	
+
+	public abstract void runOnceReceivedResponse(T response);
+
 	public T getResponse(Requests reqs) {
 		try {
 			this.execute(reqs);
@@ -31,18 +34,20 @@ public class AsyncGetRequest<T> extends AsyncTask<Requests, Integer, T> {
 			return null;
 		}
 	}
-	
+
 	@Override
 	protected T doInBackground(Requests... reqs) {
+		T resp = null;
 		try {
-			return reqs[0].get(this.tClass, this.urlParams);
+			resp = reqs[0].get(this.tClass, this.urlParams);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
-			return null;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return null;
 		}
+
+		runOnceReceivedResponse(resp);
+		return resp;
 	}
 
 }
