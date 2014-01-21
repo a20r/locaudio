@@ -49,21 +49,12 @@
         android:text="@string/confidenceItl" />
 
     <Button
-        android:id="@+id/btnStart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnStop"
-        android:layout_alignLeft="@+id/btnStop"
-        android:layout_marginBottom="15dp"
-        android:text="@string/record" />
-
-    <Button
         android:id="@+id/btnSend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnStop"
+        android:layout_alignLeft="@+id/btnStart"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="34dp"
+        android:layout_marginBottom="27dp"
         android:text="@string/send" />
 
     <Button
@@ -72,7 +63,16 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnSend"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="26dp"
         android:text="@string/stop" />
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnStop"
+        android:layout_alignLeft="@+id/btnStop"
+        android:layout_marginBottom="27dp"
+        android:text="@string/record" />
 
 </RelativeLayout>

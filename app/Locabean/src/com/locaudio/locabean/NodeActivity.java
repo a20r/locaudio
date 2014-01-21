@@ -23,7 +23,7 @@ public class NodeActivity extends Activity {
 	private TextView confidenceTextView = null;
 	private Locaudio locaudio = null;
 
-	private static final String IP_ADDRESS = "10.0.0.221";// "192.168.1.9";
+	private static final String IP_ADDRESS = "192.168.1.9";
 	private static final int PORT = 8000;
 
 	@Override
@@ -110,7 +110,7 @@ public class NodeActivity extends Activity {
 				break;
 			}
 			case R.id.btnSend: {
-				
+
 				Wave wave = new Wave(WaveWriter.getFilename());
 				NotifyForm postForm = new NotifyForm();
 				postForm.setFingerprint(wave.getFingerprint());
