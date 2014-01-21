@@ -136,7 +136,7 @@ public class NodeActivity extends Activity {
 			postForm.setY(0);
 
 			locaudio.notifyEvent(postForm,
-					new UIFunction<NotifyResponse, Void>(self) {
+					new UIFunction<NotifyResponse>(self) {
 
 						@Override
 						public Void body(NotifyResponse nr) {

@@ -2,7 +2,7 @@ package com.locaudio.functional;
 
 import android.app.Activity;
 
-public abstract class UIFunction<T, R> extends Function<T, R> {
+public abstract class UIFunction<T> extends Function<T, Void> {
 
 	private Activity activity;
 
@@ -10,9 +10,9 @@ public abstract class UIFunction<T, R> extends Function<T, R> {
 		this.activity = activity;
 	}
 
-	public abstract R body(T input);
+	public abstract Void body(T input);
 
-	public R call(final T input) {
+	public Void call(final T input) {
 		this.activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
