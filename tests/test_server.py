@@ -13,7 +13,7 @@ import locaudio.db as db
 import locaudio.api as api
 
 
-server_addr = "192.168.1.9"
+server_addr = "10.0.0.221" #"192.168.1.9"
 server_port = 8000
 
 test_sound_name = "Cock"

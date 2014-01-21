@@ -6,6 +6,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="record">Record</string>
     <string name="stop">Stop</string>
-    <string name="fingerprint"><b>Fingerprint:</b></string>
+    <string name="name"><b>Name:</b></string>
+    <string name="confidence"><b>Confidence:</b></string>
+    <string name="nameItl"><it>Sound Name</it></string>
+    <string name="confidenceItl"><it>Recognition Confidence</it></string>
+    <string name="send">Send</string>
 
 </resources>

@@ -1,14 +1,8 @@
 package com.locaudio.locabean;
 
-import java.io.IOException;
-import java.util.Arrays;
-
-import org.apache.http.client.ClientProtocolException;
-
 import android.app.Activity;
 import android.media.AudioRecord;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,17 +13,17 @@ import com.locaudio.io.WaveWriter;
 import com.locaudio.api.Locaudio;
 import com.locaudio.api.NotifyForm;
 import com.locaudio.api.NotifyResponse;
-import com.locaudio.api.SoundLocation;
 
 public class NodeActivity extends Activity {
 
 	private AudioRecord recorder = null;
 	private Thread recordingThread = null;
 	private boolean isRecording = false;
-	private TextView fingerprintTextView = null;
+	private TextView nameTextView = null;
+	private TextView confidenceTextView = null;
 	private Locaudio locaudio = null;
 
-	private static final String IP_ADDRESS = "192.168.1.9";
+	private static final String IP_ADDRESS = "10.0.0.221";// "192.168.1.9";
 	private static final int PORT = 8000;
 
 	@Override
@@ -39,8 +33,9 @@ public class NodeActivity extends Activity {
 
 		setButtonHandlers();
 		enableButtons(false);
-		fingerprintTextView = (TextView) findViewById(R.id.fingerprintText);
-		fingerprintTextView.setMovementMethod(new ScrollingMovementMethod());
+
+		nameTextView = (TextView) findViewById(R.id.nameTextView);
+		confidenceTextView = (TextView) findViewById(R.id.confidenceTextView);
 
 		locaudio = new Locaudio(IP_ADDRESS, PORT);
 	}
@@ -48,6 +43,7 @@ public class NodeActivity extends Activity {
 	private void setButtonHandlers() {
 		((Button) findViewById(R.id.btnStart)).setOnClickListener(btnClick);
 		((Button) findViewById(R.id.btnStop)).setOnClickListener(btnClick);
+		((Button) findViewById(R.id.btnSend)).setOnClickListener(btnClick);
 	}
 
 	private void enableButton(int id, boolean isEnable) {
@@ -68,13 +64,7 @@ public class NodeActivity extends Activity {
 
 		isRecording = true;
 
-		recordingThread = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				WaveWriter.writeAudioDataToFile(recorder, isRecording);
-			}
-		}, "AudioRecorder Thread");
+		recordingThread = WaveWriter.getRecorderThread(recorder, isRecording);
 
 		recordingThread.start();
 	}
@@ -84,8 +74,10 @@ public class NodeActivity extends Activity {
 			isRecording = false;
 
 			int i = recorder.getState();
-			if (i == 1)
+			if (i == WaveWriter.AUDIO_RECORDER_ON_STATE) {
 				recorder.stop();
+			}
+
 			recorder.release();
 
 			recorder = null;
@@ -115,30 +107,22 @@ public class NodeActivity extends Activity {
 				enableButtons(false);
 				stopRecording();
 
-				Wave wave = new Wave(WaveWriter.getFilename());
-				fingerprintTextView.setText(Arrays.toString(wave
-						.getFingerprint()));
-
-				SoundLocation[] soundLocations = locaudio
-						.getSoundLocations("Cock");
-				System.out.println(Arrays.toString(soundLocations));
+				break;
+			}
+			case R.id.btnSend: {
 				
+				Wave wave = new Wave(WaveWriter.getFilename());
 				NotifyForm postForm = new NotifyForm();
 				postForm.setFingerprint(wave.getFingerprint());
 				postForm.setSoundPressureLevel(100);
 				postForm.setTimestamp(10);
 				postForm.setX(1);
 				postForm.setY(0);
-				
-				try {
-					NotifyResponse nr = locaudio.notifyEvent(postForm);
-					System.out.println(nr.name);
-				} catch (ClientProtocolException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
+
+				NotifyResponse nr = locaudio.notifyEvent(postForm);
+				nameTextView.setText(nr.name);
+				confidenceTextView.setText("" + nr.confidence);
+
 				break;
 			}
 			}

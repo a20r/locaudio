@@ -17,7 +17,9 @@ public class WaveWriter {
 	private static final String AUDIO_RECORDER_FOLDER = "LocabeanAudio";
 	private static final String AUDIO_RECORDER_TEMP_FILE = "record_temp.raw";
 	private static final String AUDIO_RECORDER_FILENAME = "locabean_audio";
-
+	private static final String AUDIO_RECORDER_THREAD_NAME = "LocabeanRecorderThread";
+	public static final int AUDIO_RECORDER_ON_STATE = 1;
+	
 	@SuppressWarnings("deprecation")
 	protected static final int RECORDER_CHANNELS = AudioFormat.CHANNEL_CONFIGURATION_MONO;
 	protected static final int RECORDER_BPP = 16;
@@ -79,6 +81,17 @@ public class WaveWriter {
 		header[43] = (byte) ((totalAudioLen >> 24) & 0xff);
 
 		out.write(header, 0, 44);
+	}
+
+	public static Thread getRecorderThread(final AudioRecord recorder,
+			final boolean isRecording) {
+		return new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				WaveWriter.writeAudioDataToFile(recorder, isRecording);
+			}
+		}, WaveWriter.AUDIO_RECORDER_THREAD_NAME);
 	}
 
 	public static void copyWaveFile(String inFilename, String outFilename) {

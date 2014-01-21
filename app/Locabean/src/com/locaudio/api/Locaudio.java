@@ -1,9 +1,5 @@
 package com.locaudio.api;
 
-import java.io.IOException;
-
-import org.apache.http.client.ClientProtocolException;
-
 import com.locaudio.net.*;
 
 public class Locaudio extends Requests {
@@ -21,14 +17,13 @@ public class Locaudio extends Requests {
 		return agr.getResponse(this);
 	}
 
-	public String[] getNames() throws ClientProtocolException, IOException {
+	public String[] getNames() {
 		AsyncGetRequest<String[]> agr = new AsyncGetRequest<String[]>(
 				String[].class, NAMES_ROUTE);
 		return agr.getResponse(this);
 	}
 
-	public NotifyResponse notifyEvent(final NotifyForm event)
-			throws ClientProtocolException, IOException {
+	public NotifyResponse notifyEvent(final NotifyForm event) {
 		AsyncPostRequest<NotifyResponse> apr = new AsyncPostRequest<NotifyResponse>(
 				NotifyResponse.class, event.toMap(), NOTIFY_ROUTE);
 
