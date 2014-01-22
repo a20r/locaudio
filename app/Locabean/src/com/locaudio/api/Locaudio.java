@@ -1,7 +1,12 @@
 package com.locaudio.api;
 
+import android.content.Context;
+
 import com.locaudio.functional.Function;
+import com.locaudio.io.WaveWriter;
 import com.locaudio.net.*;
+
+import com.musicg.wave.Wave;
 
 public class Locaudio extends Requests {
 	private static final String NAMES_ROUTE = "names";
@@ -13,7 +18,8 @@ public class Locaudio extends Requests {
 	}
 
 	public AsyncGetRequest<SoundLocation[]> getSoundLocations(
-			final String soundName, final Function<SoundLocation[], Void> callback) {
+			final String soundName,
+			final Function<SoundLocation[], Void> callback) {
 
 		AsyncGetRequest<SoundLocation[]> agr = new AsyncGetRequest<SoundLocation[]>(
 				SoundLocation[].class, LOCATIONS_ROUTE, soundName) {
@@ -41,11 +47,12 @@ public class Locaudio extends Requests {
 			}
 
 		};
-		
+
 		return agr.getResponse(this);
 	}
 
-	public AsyncGetRequest<String[]> getNames(final Function<String[], Void> callback) {
+	public AsyncGetRequest<String[]> getNames(
+			final Function<String[], Void> callback) {
 
 		AsyncGetRequest<String[]> agr = new AsyncGetRequest<String[]>(
 				String[].class, NAMES_ROUTE) {
@@ -56,9 +63,9 @@ public class Locaudio extends Requests {
 			}
 
 		};
-		
+
 		agr.execute(this);
-		
+
 		return agr;
 	}
 
@@ -75,11 +82,33 @@ public class Locaudio extends Requests {
 		return agr.getResponse(this);
 	}
 
+	public AsyncPostRequest<NotifyResponse> notifyEvent(Context context,
+			final Function<NotifyResponse, Void> callback) {
+
+		AsyncPostRequest<NotifyResponse> apr = new AsyncPostRequest<NotifyResponse>(
+				NotifyResponse.class, NOTIFY_ROUTE) {
+
+			@Override
+			public void runOnceReceivedResponse(NotifyResponse response) {
+
+				callback.call(response);
+			}
+
+		};
+
+		Wave wave = WaveWriter.getWave();
+		apr.setPostForm(NotifyForm.getDefaultNotifyForm(wave, context));
+		apr.execute(this);
+
+		return apr;
+
+	}
+
 	public AsyncPostRequest<NotifyResponse> notifyEvent(final NotifyForm event,
 			final Function<NotifyResponse, Void> callback) {
 
 		AsyncPostRequest<NotifyResponse> apr = new AsyncPostRequest<NotifyResponse>(
-				NotifyResponse.class, event.toMap(), NOTIFY_ROUTE) {
+				NotifyResponse.class, event, NOTIFY_ROUTE) {
 
 			@Override
 			public void runOnceReceivedResponse(NotifyResponse response) {
@@ -87,7 +116,7 @@ public class Locaudio extends Requests {
 			}
 
 		};
-		
+
 		apr.execute(this);
 
 		return apr;
@@ -97,7 +126,7 @@ public class Locaudio extends Requests {
 	public NotifyResponse notifyEvent(final NotifyForm event) {
 
 		AsyncPostRequest<NotifyResponse> apr = new AsyncPostRequest<NotifyResponse>(
-				NotifyResponse.class, event.toMap(), NOTIFY_ROUTE) {
+				NotifyResponse.class, event, NOTIFY_ROUTE) {
 
 			@Override
 			public void runOnceReceivedResponse(NotifyResponse response) {

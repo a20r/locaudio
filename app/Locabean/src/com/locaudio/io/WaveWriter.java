@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import com.musicg.wave.Wave;
+
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
@@ -19,7 +21,7 @@ public class WaveWriter {
 	private static final String AUDIO_RECORDER_FILENAME = "locabean_audio";
 	private static final String AUDIO_RECORDER_THREAD_NAME = "LocabeanRecorderThread";
 	public static final int AUDIO_RECORDER_ON_STATE = 1;
-	
+
 	@SuppressWarnings("deprecation")
 	protected static final int RECORDER_CHANNELS = AudioFormat.CHANNEL_CONFIGURATION_MONO;
 	protected static final int RECORDER_BPP = 16;
@@ -28,6 +30,10 @@ public class WaveWriter {
 
 	protected static final int BUFFER_SIZE = AudioRecord.getMinBufferSize(
 			RECORDER_SAMPLERATE, RECORDER_CHANNELS, RECORDER_AUDIO_ENCODING);
+
+	private static AudioRecord recorder = null;
+	private static Thread recordingThread = null;
+	private static boolean isRecording = false;
 
 	public static void writeWaveFileHeader(FileOutputStream out,
 			long totalAudioLen, long totalDataLen, long longSampleRate,
@@ -203,4 +209,43 @@ public class WaveWriter {
 				RECORDER_SAMPLERATE, RECORDER_CHANNELS,
 				RECORDER_AUDIO_ENCODING, BUFFER_SIZE);
 	}
+
+	public static Wave getWave() {
+		return new Wave(getFilename());
+	}
+
+	public static void startRecording() {
+		recorder = getAudioRecord();
+
+		int i = recorder.getState();
+		if (i == 1)
+			recorder.startRecording();
+
+		isRecording = true;
+
+		recordingThread = getRecorderThread(recorder, isRecording);
+
+		recordingThread.start();
+	}
+
+	public static void stopRecording() {
+		if (null != recorder) {
+			isRecording = false;
+
+			int i = recorder.getState();
+			if (i == AUDIO_RECORDER_ON_STATE) {
+				recorder.stop();
+			}
+
+			recorder.release();
+
+			recorder = null;
+			recordingThread = null;
+		}
+
+		copyWaveFile(getTempFilename(), getFilename());
+
+		deleteTempFile();
+	}
+
 }

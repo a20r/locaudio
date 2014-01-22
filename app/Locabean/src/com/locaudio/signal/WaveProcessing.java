@@ -18,7 +18,7 @@ public class WaveProcessing {
 
 	public static float determineAverageAmplitude(Wave wave) {
 
-		short threshold = 100;
+		short threshold = 300;
 		int runningSum = 0;
 		int count = 0;
 
