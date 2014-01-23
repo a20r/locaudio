@@ -56,11 +56,15 @@ def distance_from_sound(r_ref, l_ref, l_current):
     @param lCurrent Newly measured sound pressure level
 
     @return The predicted radius from a node event that the sound will be
-    located at given the current sound pressure level
+    located at given the current sound pressure level.
 
     """
 
-    return r_ref * math.pow(10, (l_ref - l_current) / 20)
+    return r_ref * math.pow(10, (l_ref - l_current) / float(20))
+
+
+def meters_to_lat_lng_dist(meters):
+    return meters / float(111 * 1000)
 
 
 def distance_from_detection_event(x, y, node_event):
@@ -82,10 +86,20 @@ def distance_from_detection_event(x, y, node_event):
 
     """
 
-    return math.sqrt(
-        math.pow(x - node_event.x, 2) +
-        math.pow(y - node_event.y, 2)
-    )
+    earth_radius = 6373 * 1000
+    degrees_to_radians = math.pi / 180.0
+
+    phi1 = (90.0 - x) * degrees_to_radians
+    phi2 = (90.0 - node_event.x) * degrees_to_radians
+
+    theta1 = y * degrees_to_radians
+    theta2 = node_event.y * degrees_to_radians
+
+    cos = (math.sin(phi1) * math.sin(phi2) * math.cos(theta1 - theta2) +
+           math.cos(phi1) * math.cos(phi2))
+    arc = math.acos(cos)
+
+    return earth_radius * arc
 
 
 def normal_distribution(x):
@@ -172,8 +186,12 @@ def position_evaluation(x, y, r_ref, l_ref, node_events):
         [
             normal_distribution(
                 (
-                    distance_from_detection_event(x, y, n) -
-                    distance_from_sound(r_ref, l_ref, n.spl)
+                    meters_to_lat_lng_dist(
+                        distance_from_detection_event(x, y, n)
+                    ) -
+                    meters_to_lat_lng_dist(
+                        distance_from_sound(r_ref, l_ref, n.spl)
+                    )
                 ) / n.get_std()
             ) / n.get_std() for n in node_events
         ]
@@ -432,7 +450,6 @@ def plot_detection_events(res, r_ref, l_ref, d_events, filename):
     ax = fig.add_subplot(111)
     ax.set_xlabel("X Location")
     ax.set_ylabel("Y Location")
-
     v_min = -10
     v_max = 10
     v_step = 0.1
