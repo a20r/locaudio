@@ -58,15 +58,6 @@
         android:text="@string/send" />
 
     <Button
-        android:id="@+id/btnStop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnSend"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="26dp"
-        android:text="@string/stop" />
-
-    <Button
         android:id="@+id/btnStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -93,5 +84,14 @@
         android:layout_alignLeft="@+id/confidenceLabel"
         android:text="@string/averageSPL"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/btnStop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnSend"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="29dp"
+        android:text="@string/stop" />
 
 </RelativeLayout>

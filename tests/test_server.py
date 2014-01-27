@@ -11,9 +11,10 @@ import urllib2
 import json
 import locaudio.db as db
 import locaudio.api as api
+import socket
 
 
-server_addr = "192.168.1.9"
+server_addr = socket.gethostbyname(socket.getfqdn())
 server_port = 8000
 
 test_sound_name = "Cock"
@@ -24,31 +25,31 @@ _, _, f_print = db.get_reference_data(test_sound_name)
 
 d_dicts = [
     {
-        "x": -9,
-        "y": -1,
-        "spl": 83,
+        "x": 56.3399723,
+        "y": -2.8082881,
+        "spl": 65,
         "timestamp": time.time(),
         "fingerprint": f_print
     },
     {
-        "x": -2,
-        "y": 1,
-        "spl": 97,
-        "timestamp": time.time() - 7,
+        "x": 56.3399723,
+        "y": -2.8082881,
+        "spl": 65,
+        "timestamp": time.time() - 1,
         "fingerprint": f_print
     },
     {
-        "x": 1,
-        "y": 3,
-        "spl": 86,
-        "timestamp": time.time() - 10,
+        "x": 56.3399723,
+        "y": -2.8082881,
+        "spl": 65,
+        "timestamp": time.time(),
         "fingerprint": f_print
     },
     {
-        "x": 0,
-        "y": -1,
-        "spl": 100,
-        "timestamp": time.time() - 5,
+        "x": 56.3399723,
+        "y": -2.8082881,
+        "spl": 65,
+        "timestamp": time.time(),
         "fingerprint": f_print
     }
 ]
@@ -77,5 +78,8 @@ class ServerTest(unittest.TestCase):
 
 if __name__ == "__main__":
     print "\n=== Server Testing ===\n"
+    global server_addr
+    if len(sys.argv) == 2:
+        server_addr = sys.argv[1]
     unittest.main()
 

@@ -146,10 +146,7 @@ def get_position_viewer(sound_name):
         ret_list.append(
             {
                 "confidence": round(location.confidence, 3),
-                "position": Point(
-                    round(location.position.x, 3),
-                    round(location.position.y, 3)
-                )
+                "position": location.position
             }
         )
 

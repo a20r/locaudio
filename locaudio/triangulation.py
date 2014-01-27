@@ -39,6 +39,7 @@ MIN_DIST = 1
 MAX_RADIUS_INC = 10
 MIN_RADIUS_INC = -10
 RADIUS_STEP = 1
+EARTH_RADIUS = 1000 * 6371
 
 
 def distance_from_sound(r_ref, l_ref, l_current):
@@ -63,10 +64,6 @@ def distance_from_sound(r_ref, l_ref, l_current):
     return r_ref * math.pow(10, (l_ref - l_current) / float(20))
 
 
-def meters_to_lat_lng_dist(meters):
-    return meters / float(111 * 1000)
-
-
 def distance_from_detection_event(x, y, node_event):
     """
 
@@ -86,20 +83,24 @@ def distance_from_detection_event(x, y, node_event):
 
     """
 
-    earth_radius = 6373 * 1000
-    degrees_to_radians = math.pi / 180.0
+    lat1 = math.radians(x)
+    lon1 = math.radians(y)
+    lat2 = math.radians(node_event.x)
+    lon2 = math.radians(node_event.y)
 
-    phi1 = (90.0 - x) * degrees_to_radians
-    phi2 = (90.0 - node_event.x) * degrees_to_radians
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
 
-    theta1 = y * degrees_to_radians
-    theta2 = node_event.y * degrees_to_radians
+    a = (
+        (math.sin(dlat / 2)) ** 2 +
+        math.cos(lat1) * math.cos(lat2) * (math.sin(dlon / 2)) ** 2
+    )
 
-    cos = (math.sin(phi1) * math.sin(phi2) * math.cos(theta1 - theta2) +
-           math.cos(phi1) * math.cos(phi2))
-    arc = math.acos(cos)
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
-    return earth_radius * arc
+    distance = EARTH_RADIUS * c
+
+    return distance
 
 
 def normal_distribution(x):
@@ -186,12 +187,8 @@ def position_evaluation(x, y, r_ref, l_ref, node_events):
         [
             normal_distribution(
                 (
-                    meters_to_lat_lng_dist(
-                        distance_from_detection_event(x, y, n)
-                    ) -
-                    meters_to_lat_lng_dist(
-                        distance_from_sound(r_ref, l_ref, n.spl)
-                    )
+                    distance_from_detection_event(x, y, n) -
+                    distance_from_sound(r_ref, l_ref, n.spl)
                 ) / n.get_std()
             ) / n.get_std() for n in node_events
         ]
@@ -450,10 +447,13 @@ def plot_detection_events(res, r_ref, l_ref, d_events, filename):
     ax = fig.add_subplot(111)
     ax.set_xlabel("X Location")
     ax.set_ylabel("Y Location")
-    v_min = -10
-    v_max = 10
-    v_step = 0.1
-    x = y = np.arange(v_min, v_max, v_step)
+    x_min = 56.3399
+    x_max = 56.3400
+    y_min = -2.80834
+    y_max = -2.80824
+    v_step = 0.000001
+    x = np.arange(x_min, x_max, v_step)
+    y = np.arange(y_min, y_max, v_step)
     X, Y = np.meshgrid(x, y)
 
     zs = np.array(
@@ -464,8 +464,6 @@ def plot_detection_events(res, r_ref, l_ref, d_events, filename):
     )
 
     Z = zs.reshape(X.shape)
-    ax.set_xlim(v_min, v_max)
-    ax.set_ylim(v_min, v_max)
     ax.pcolormesh(X, Y, Z, cmap=cm.jet)
     ax.scatter(
         [p.position.x for p in res],
@@ -482,6 +480,9 @@ def plot_detection_events(res, r_ref, l_ref, d_events, filename):
         c="white",
         s=300
     )
+
+    ax.set_xlim(x_min, x_max)
+    ax.set_ylim(y_min, y_max)
 
     plt.savefig(filename)
     return plt
