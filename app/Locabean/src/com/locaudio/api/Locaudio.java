@@ -3,7 +3,7 @@ package com.locaudio.api;
 import android.content.Context;
 
 import com.locaudio.functional.Function;
-import com.locaudio.io.WaveWriter;
+import com.locaudio.functional.UIFunction;
 import com.locaudio.net.*;
 
 import com.musicg.wave.Wave;
@@ -83,7 +83,7 @@ public class Locaudio extends Requests {
 	}
 
 	public AsyncPostRequest<NotifyResponse> notifyEvent(Context context,
-			final Function<NotifyResponse, Void> callback) {
+			Wave wave, final Function<NotifyResponse, Void> callback) {
 
 		AsyncPostRequest<NotifyResponse> apr = new AsyncPostRequest<NotifyResponse>(
 				NotifyResponse.class, NOTIFY_ROUTE) {
@@ -96,7 +96,6 @@ public class Locaudio extends Requests {
 
 		};
 
-		Wave wave = WaveWriter.getWave();
 		apr.setPostForm(NotifyForm.getDefaultNotifyForm(wave, context));
 		apr.execute(this);
 
@@ -135,5 +134,11 @@ public class Locaudio extends Requests {
 		};
 
 		return apr.getResponse(this);
+	}
+
+	public AcquisitionThread getAcquisitionThread(Context context,
+			UIFunction<NotifyResponse> callback) {
+		return new AcquisitionThread(this, context, callback);
+
 	}
 }

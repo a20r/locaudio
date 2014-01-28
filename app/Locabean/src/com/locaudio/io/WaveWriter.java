@@ -210,7 +210,7 @@ public class WaveWriter {
 				RECORDER_AUDIO_ENCODING, BUFFER_SIZE);
 	}
 
-	public static Wave getWave() {
+	private static Wave getWave() {
 		return new Wave(getFilename());
 	}
 
@@ -228,7 +228,7 @@ public class WaveWriter {
 		recordingThread.start();
 	}
 
-	public static void stopRecording() {
+	public static Wave stopRecording() {
 		if (null != recorder) {
 			isRecording = false;
 
@@ -246,6 +246,22 @@ public class WaveWriter {
 		copyWaveFile(getTempFilename(), getFilename());
 
 		deleteTempFile();
+		return getWave();
+	}
+	
+	public static Wave record(int seconds) {
+		
+		try {
+			startRecording();
+			Thread.sleep(seconds * 1000);
+			stopRecording();
+			return getWave();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			stopRecording();
+			return null;
+		}
+		
 	}
 
 }

@@ -10,16 +10,6 @@
     tools:context=".NodeActivity" >
 
     <TextView
-        android:id="@+id/nameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnStart"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="79dp"
-        android:text="@string/name"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
         android:id="@+id/confidenceLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,50 +38,15 @@
         android:layout_alignLeft="@+id/nameTextView"
         android:text="@string/confidenceItl" />
 
-    <Button
-        android:id="@+id/btnSend"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnStart"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="27dp"
-        android:text="@string/send" />
-
-    <Button
-        android:id="@+id/btnStart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnStop"
-        android:layout_alignLeft="@+id/btnStop"
-        android:layout_marginBottom="27dp"
-        android:text="@string/record" />
-
     <TextView
-        android:id="@+id/splTextView"
+        android:id="@+id/nameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/confidenceTextView"
-        android:layout_below="@+id/confidenceLabel"
-        android:layout_marginTop="27dp"
-        android:text="@string/soundPressureLevel" />
-
-    <TextView
-        android:id="@+id/splLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/splTextView"
-        android:layout_alignBottom="@+id/splTextView"
-        android:layout_alignLeft="@+id/confidenceLabel"
-        android:text="@string/averageSPL"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="37dp"
+        android:layout_marginTop="148dp"
+        android:text="@string/name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <Button
-        android:id="@+id/btnStop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnSend"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="29dp"
-        android:text="@string/stop" />
 
 </RelativeLayout>
