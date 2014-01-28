@@ -374,25 +374,23 @@ def evaluate_location_list(location_list):
 
 def determine_sound_positions(r_ref, l_ref, node_events, **kwargs):
 
-    min_range = r_ref - MIN_RADIUS_INC
-    max_range = r_ref + MAX_RADIUS_INC + RADIUS_STEP
-
-    best_location_list = None
-
-    for r_ref_i in xrange(min_range, max_range, RADIUS_STEP):
-        location_list = determine_sound_positions_instance(
-            r_ref, l_ref,
+    pos_func = lambda ref: -1 * evaluate_location_list(
+        determine_sound_positions_instance(
+            ref[0], ref[1],
             node_events,
             **kwargs
         )
+    )
 
-        best_location_list_eval = evaluate_location_list(best_location_list)
-        location_list_eval = evaluate_location_list(location_list)
+    opt_output = opt.fmin(pos_func, [r_ref, l_ref], full_output=1, **kwargs)
 
-        if best_location_list_eval <= location_list_eval:
-            best_location_list = location_list
+    r_opt, l_opt = opt_output[0]
 
-    return best_location_list
+    return determine_sound_positions_instance(
+        r_opt, l_opt,
+        node_events,
+        **kwargs
+    )
 
 
 def generate_sound_position_func(r_ref, l_ref):
