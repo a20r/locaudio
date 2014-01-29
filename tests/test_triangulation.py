@@ -66,7 +66,7 @@ class TriangulationTest(unittest.TestCase):
         l_ref = 100
         r_ref = 1
 
-        res = tri.determine_sound_positions(
+        res = tri.determine_sound_locations(
             r_ref, l_ref,
             self.d_events,
             disp=0
@@ -75,24 +75,12 @@ class TriangulationTest(unittest.TestCase):
         print "\n=== Optimization === :: [ Xs, Ys ]  <--> ", res, "\n"
 
 
-    def test_closure(self):
-
-        r_ref = 1
-        l_ref = 100
-
-        clos = tri.generate_sound_position_func(r_ref, l_ref)
-
-        print "\n=== Closure === :: V_1 == {0}, V_2 == {1}\n".format(
-            clos(self.d_events), clos(self.d_events)
-        )
-
-
     def test_together(self):
 
         r_ref = 1
         l_ref = 100
 
-        res = tri.determine_sound_positions(
+        res = tri.determine_sound_locations(
             r_ref, l_ref,
             self.d_events,
             disp=0

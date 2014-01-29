@@ -29,13 +29,9 @@ import scipy.optimize as opt
 import sklearn.cluster as clustering # AffinityPropagation
 import numpy as np
 
-import matplotlib.pyplot as plt
-from matplotlib import cm
-from mpl_toolkits.mplot3d import Axes3D
-
 
 STD_SCALE =  1.4
-MIN_DIST = 1
+MIN_DIST = 0.0001
 MAX_RADIUS_INC = 10
 MIN_RADIUS_INC = -10
 RADIUS_STEP = 1
@@ -306,7 +302,7 @@ def determine_peaks(opt_vals, label_list):
     for max_point in max_point_list:
         too_close = False
         for ret_point in ret_list:
-            if ret_point.dist_to(max_point) < MIN_DIST:
+            if ret_point.dist_to_lat_long(max_point) < MIN_DIST:
                 too_close = True
                 break
         if not too_close:
@@ -315,7 +311,7 @@ def determine_peaks(opt_vals, label_list):
     return ret_list
 
 
-def determine_sound_positions_instance(r_ref, l_ref, node_events, **kwargs):
+def determine_sound_locations_instance(r_ref, l_ref, node_events, **kwargs):
     """
 
     Determines the position in the probability grid that has the highest
@@ -362,6 +358,7 @@ def determine_sound_positions_instance(r_ref, l_ref, node_events, **kwargs):
 
 
 def evaluate_location_list(location_list):
+
     if location_list == None:
         return 0
 
@@ -372,10 +369,10 @@ def evaluate_location_list(location_list):
     return locations_conf
 
 
-def determine_sound_positions(r_ref, l_ref, node_events, **kwargs):
+def determine_reference_data(r_ref, l_ref, node_events, **kwargs):
 
     pos_func = lambda ref: -1 * evaluate_location_list(
-        determine_sound_positions_instance(
+        determine_sound_locations_instance(
             ref[0], ref[1],
             node_events,
             **kwargs
@@ -386,103 +383,21 @@ def determine_sound_positions(r_ref, l_ref, node_events, **kwargs):
 
     r_opt, l_opt = opt_output[0]
 
-    return determine_sound_positions_instance(
-        r_opt, l_opt,
+    return r_opt, l_opt
+
+
+def determine_sound_locations(r_ref, l_ref, node_events, **kwargs):
+
+    r_opt, l_opt = determine_reference_data(
+        r_ref, l_ref,
         node_events,
         **kwargs
     )
 
-
-def generate_sound_position_func(r_ref, l_ref):
-    """
-
-    This is a closure that provides a new function that makes it so the
-    developer does not need to continue passing the rRef, lRef and initGuess
-    variables when determining the sound position. This is most useful when
-    tracking a sound throughout an enivronment because these parameters will
-    stay constant.
-
-    @param rRef The reference distance at which the reference sound
-    pressure level was recorded
-
-    @param lRef The reference sound pressure level used to determine the
-    distance from the newly measured sound pressure level
-
-    @return A function that will use rRef, lRef, and initGuess to determine
-    the position of the input sound. The independent variable will become
-    just the node detection events.
-
-    """
-
-    return partial(
-        determine_sound_positions,
-        r_ref, l_ref, disp=0
+    return determine_sound_locations_instance(
+        r_opt, l_opt,
+        node_events,
+        **kwargs
     )
-
-
-def plot_detection_events(res, r_ref, l_ref, d_events, filename):
-    """
-
-    Plots the detection events and saves the figure in the given path.
-
-    @param res The list of locations. Locations are named tuples with fields
-    which are position which is a point and confidence which is a float
-
-    @param rRef The reference distance at which the reference sound
-    pressure level was recorded
-
-    @param lRef The reference sound pressure level used to determine the
-    distance from the newly measured sound pressure level
-
-    @param nodeEvents The list ofassociated data when a node detects with some
-    confidence that the sound has been identified
-
-    @return The plt object of the saved figure
-
-    """
-
-    fig = plt.figure("Locaudio")
-    ax = fig.add_subplot(111)
-    ax.set_xlabel("X Location")
-    ax.set_ylabel("Y Location")
-    x_min = 56.3399
-    x_max = 56.3400
-    y_min = -2.80834
-    y_max = -2.80824
-    v_step = 0.000001
-    x = np.arange(x_min, x_max, v_step)
-    y = np.arange(y_min, y_max, v_step)
-    X, Y = np.meshgrid(x, y)
-
-    zs = np.array(
-        [
-            position_probability(x, y, r_ref, l_ref, d_events)
-            for x, y in zip(np.ravel(X), np.ravel(Y))
-        ]
-    )
-
-    Z = zs.reshape(X.shape)
-    ax.pcolormesh(X, Y, Z, cmap=cm.jet)
-    ax.scatter(
-        [p.position.x for p in res],
-        [p.position.y for p in res],
-        marker="+",
-        linewidths=15,
-        c="white"
-    )
-    ax.scatter(
-        [d_event.x for d_event in d_events],
-        [d_event.y for d_event in d_events],
-        marker="o",
-        linewidths=5,
-        c="white",
-        s=300
-    )
-
-    ax.set_xlim(x_min, x_max)
-    ax.set_ylim(y_min, y_max)
-
-    plt.savefig(filename)
-    return plt
 
 

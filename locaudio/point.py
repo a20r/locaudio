@@ -1,6 +1,10 @@
 
 import math
 
+
+EARTH_RADIUS = 1000 * 6371
+
+
 class Point(object):
 
     def __init__(self, x, y):
@@ -25,11 +29,33 @@ class Point(object):
         self.y = y
         return self
 
+
     def dist_to(self, other_point):
         return math.sqrt(
             pow(self.x - other_point.x, 2) +
             pow(self.y - other_point.y, 2)
         )
+
+
+    def dist_to_lat_long(self, other_point):
+        lat1 = math.radians(self.x)
+        lon1 = math.radians(self.y)
+        lat2 = math.radians(other_point.x)
+        lon2 = math.radians(other_point.y)
+
+        dlon = lon2 - lon1
+        dlat = lat2 - lat1
+
+        a = (
+            (math.sin(dlat / 2)) ** 2 +
+            math.cos(lat1) * math.cos(lat2) * (math.sin(dlon / 2)) ** 2
+        )
+
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+        distance = EARTH_RADIUS * c
+
+        return distance
 
 
     def to_list(self):

@@ -17,6 +17,7 @@ import config
 import json
 import triangulation as tri
 import fingerprint
+import plot
 import db
 import os
 
@@ -94,7 +95,7 @@ def get_sound_positions(sound_name):
 
     radius, spl, _ = db.get_reference_data(sound_name)
 
-    location_list = tri.determine_sound_positions(
+    location_list = tri.determine_sound_locations(
         radius, spl,
         config.detection_events[sound_name],
         disp=0
@@ -121,7 +122,7 @@ def get_position_viewer(sound_name):
 
     radius, spl, _ = db.get_reference_data(sound_name)
 
-    location_list = tri.determine_sound_positions(
+    location_list = tri.determine_sound_locations(
         radius, spl,
         config.detection_events[sound_name],
         disp=0
@@ -131,7 +132,7 @@ def get_position_viewer(sound_name):
     img_web_path = "/" + img_path
 
     if config.new_data[sound_name]:
-        tri.plot_detection_events(
+        plot.plot_detection_events(
             location_list,
             radius, spl,
             config.detection_events[sound_name],

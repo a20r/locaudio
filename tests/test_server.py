@@ -14,7 +14,7 @@ import locaudio.api as api
 import socket
 
 
-server_addr = socket.gethostbyname(socket.getfqdn())
+server_addr = "localhost" #socket.gethostbyname(socket.getfqdn())
 server_port = 8000
 
 test_sound_name = "Cock"

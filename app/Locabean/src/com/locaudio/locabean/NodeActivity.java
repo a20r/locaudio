@@ -25,7 +25,7 @@ public class NodeActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_node);
-		
+
 		setupTextViews();
 		setupLocaudio();
 	}
@@ -45,18 +45,21 @@ public class NodeActivity extends Activity {
 		locaudio = new Locaudio(IP_ADDRESS, PORT);
 
 		acquisitionThread = locaudio.getAcquisitionThread(
-				getApplicationContext(), new UIFunction<NotifyResponse>(this) {
-
-					@Override
-					public Void body(NotifyResponse nr) {
-						nameTextView.setText(nr.name);
-						confidenceTextView.setText("" + nr.confidence);
-
-						return null;
-					}
-
-				});
+				getApplicationContext(), acquisitionCallback);
 
 		acquisitionThread.start();
 	}
+
+	private UIFunction<NotifyResponse> acquisitionCallback = new UIFunction<NotifyResponse>(
+			this) {
+
+		@Override
+		public Void body(NotifyResponse nr) {
+			nameTextView.setText(nr.name);
+			confidenceTextView.setText("" + nr.confidence);
+
+			return null;
+		}
+
+	};
 }

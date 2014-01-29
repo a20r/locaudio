@@ -11,22 +11,22 @@ public abstract class Function<T, R> {
 		return body(input);
 	}
 
-	public <IN_TYPE, OUT_TYPE> List<OUT_TYPE> map(
-			Function<IN_TYPE, OUT_TYPE> f, IN_TYPE[] inArray) {
+	public <A, B> List<B> map(
+			Function<A, B> f, A[] inArray) {
 
-		List<OUT_TYPE> retList = new ArrayList<OUT_TYPE>();
-		for (IN_TYPE inVal : inArray) {
+		List<B> retList = new ArrayList<B>();
+		for (A inVal : inArray) {
 			retList.add(f.call(inVal));
 		}
 
 		return retList;
 	}
 
-	public <IN_TYPE, OUT_TYPE> List<OUT_TYPE> map(
-			Function<IN_TYPE, OUT_TYPE> f, List<IN_TYPE> inArray) {
+	public <A, B> List<B> map(
+			Function<A, B> f, List<A> inArray) {
 
-		List<OUT_TYPE> retList = new ArrayList<OUT_TYPE>();
-		for (IN_TYPE inVal : inArray) {
+		List<B> retList = new ArrayList<B>();
+		for (A inVal : inArray) {
 			retList.add(f.call(inVal));
 		}
 
