@@ -17,6 +17,10 @@
                 -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
             }
 
+            body {
+                padding-top: 100px;
+                padding-bottom: 40px;
+            }
             .scrollable{
                 overflow-y: scroll;
                 max-height: 100px;
@@ -24,12 +28,8 @@
             }
 
             .container-narrow {
-                padding-top: 100px;
                 margin: 0 auto;
-                max-width: 3000px;
-                -moz-transform: scale(0.75);
-                -webkit-transform: scale(0.75);
-                transform: scale(0.75);
+                max-width: 600px;
             }
 
             .hero-unit {
@@ -96,14 +96,16 @@
                 </font>
             </div>
 
+            <div class="container-narrow">
             {% if img_path %}
-            <div class="hero-unit pull-left">
+            <div class="hero-unit">
             <font size="5">
                 <b style="padding-bottom:15;">Position Graph</b>
-                (<a href="#" onclick="openMapModal()">View Map</a>)
+                <!-- (<a href="#" onclick="openMapModal()">View Map</a>) -->
             </font>
             <br/><br/>
-                <img src="{{ img_path }}"style="width: 540px; height: auto;">
+                <!-- <img src="{{ img_path }}"style="width: 540px; height: auto;"> -->
+                <div id="map-canvas"></div>
                 <div style="padding-top:20;" class="scrollable">
                     <table class="table table-hover" border="0">
                     {% for location in location_list %}
@@ -117,7 +119,7 @@
                     </table>
                 </div>
             </div>
-            <div class="hero-unit pull-right">
+            <div class="hero-unit">
             <font size="5">
                 <b style="padding-bottom:15;">
                     Detection Events ({{ detection_events.__len__() }})
@@ -139,7 +141,7 @@
                     </table>
                 </div>
             </div>
-            <div class="hero-unit pull-right">
+            <div class="hero-unit">
             <font size="5">
                 <b style="padding-bottom:15;">Reference Data</b>
             </font>
@@ -173,6 +175,7 @@
             </div>
             {% endif %}
         </div>
+    </div>
 
         <!-- Modal -->
         <div id="mapModal"
@@ -184,6 +187,7 @@
             </button>
             <h3 id="mapModalLabel">Map</h3>
         </div>
+
         <div class="modal-body" id="map-canvas"/>
         </div>
         <script type="text/javascript">
@@ -198,26 +202,30 @@
 
 
             function initialize() {
-
                 {% for location in location_list %}
-                new google.maps.Marker({
-                    position: new google.maps.LatLng(
+                var p = new google.maps.LatLng(
                         {{ location["position"].x }},
                         {{ location["position"].y }}
-                    ),
+                )
+                var m = new google.maps.Marker({
+                    position: p,
                     title: "Sound",
                     icon: "http://maps.google.com/mapfiles/arrow.png"
-                }).setMap(map);
+                })
+                m.setMap(map);
+
                 {% endfor %}
 
                 {% for d_event in detection_events %}
-                new google.maps.Marker({
-                    position: new google.maps.LatLng(
+                var p = new google.maps.LatLng(
                         {{ d_event.x }},
                         {{ d_event.y }}
-                    ),
+                )
+                new google.maps.Marker({
+                    position: p,
                     title: "Sound"
                 }).setMap(map);
+
                 {% endfor %}
 
             }
@@ -229,6 +237,8 @@
                     google.maps.event.trigger(map, 'resize');
                 });
             }
+
+            google.maps.event.addDomListener(window, 'load', initialize);
         </script>
 
     </body>

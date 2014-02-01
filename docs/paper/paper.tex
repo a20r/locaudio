@@ -1,0 +1,84 @@
+
+\title{Probabilistic Audio Localization in Wireless Acoustic Sensor Networks}
+
+\date{\today}
+
+\author{Alexander Wallar}
+
+\documentclass[12pt]{article}
+
+\usepackage[pdftex]{graphicx}
+
+\usepackage{amsmath}
+
+\usepackage{float}
+
+\floatstyle{ruled} \newfloat{program}{thp}{lop} \floatname{program}{Structure}
+
+\newcommand{\Normal}[3]{\mathcal{N}(#1, #2, #3)}
+
+\newcommand{\Acronym}[1]{\ensuremath{{\small{\texttt{#1}}}}}
+\newcommand{\Name}{\Acronym{Camgaze.js}} \newcommand{\False}{\Constant{false}}
+\newcommand{\True}{\Constant{true}}
+\newcommand{\Symbol}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\Function}[1]{\ensuremath{{\small \textsc{#1}}}}
+\newcommand{\Constant}[1]{\ensuremath{\small{\texttt{#1}}}}
+\newcommand{\Var}[1]{\ensuremath{{\small{\textsl{#1}}}}}
+\newcommand{\argmin}[1]{\underset{#1}{\operatorname{arg}\,\operatorname{min}}\;}
+
+\begin{document}
+
+\maketitle
+
+\section{Implementation}
+
+\subsection{Acquisition}
+
+To determine the position of a sound within a wireless acoustic sensor network
+(WASN), we must discuss the structure and type of data that is being sent from
+the acoustic nodes. We define a \emph{node event}, which is the structure being
+sent from the acoustic nodes to central server. Below is an outline of a node
+event.
+
+
+\begin{program}
+\caption{Node Event Structure}
+\begin{verbatim}
+{
+    x: <Float: X position>,
+    y: <Float: Y position>,
+    spl: <Float: Sound pressure level>,
+    timestamp: <Float: Unix time in seconds>,
+    confidence: <Float: Confidence of recognition>
+}
+\end{verbatim}
+\end{program}
+
+The node event structure provides all of the acquisition data needed by the
+central server in order to perform audio localization. This structure is sent
+in JSON to the central server using a \verb|POST| request upon the positive
+recognition of a sound in the server's database. The recognition is done on the
+wireless acoustic sensor node.
+
+\subsection{Localization}
+
+In order to conduct localization using the node events, we have created a
+probability distribution that given an $x$ and $y$ position along with a list
+of node events and reference data regarding the detected sound (such as sound
+pressure level and distance at time of recording), we can deduce the
+probability of the sound being at position $(x, y)$. The probability function
+is fairly complex and is broken down into subfunctions below.
+
+Firstly, at the heart of the probability function is a normal distribution
+denoted as $\Normal{X}{\mu}{\sigma}$. To determine the mean for the normal
+distribution, we used the predicted distance from node that the sound will be
+given the reference sound pressure level and distance at which the reference
+data was taken as well as the acquired sound pressure level. With these three
+pieces of data, we are able to predict the distance away from the microphone
+the sound was. This gives us the mean value for the normal distribution. The
+function is shown below.  \begin{align*} \Function{dist}_{sound}(r, spl, spl')
+&= r \cdot 10 ^ {\frac{(spl - spl')}{20}} \end{align*}
+
+
+
+\end{document}

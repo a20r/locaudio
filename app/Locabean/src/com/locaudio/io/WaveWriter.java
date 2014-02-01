@@ -95,9 +95,9 @@ public class WaveWriter {
 
 			@Override
 			public void run() {
-				WaveWriter.writeAudioDataToFile(recorder, isRecording);
+				writeAudioDataToFile(recorder, isRecording);
 			}
-		}, WaveWriter.AUDIO_RECORDER_THREAD_NAME);
+		}, AUDIO_RECORDER_THREAD_NAME);
 	}
 
 	public static void copyWaveFile(String inFilename, String outFilename) {
@@ -170,7 +170,7 @@ public class WaveWriter {
 
 	public static void writeAudioDataToFile(AudioRecord recorder,
 			boolean isRecording) {
-		byte data[] = new byte[WaveWriter.BUFFER_SIZE];
+		byte data[] = new byte[BUFFER_SIZE];
 		String filename = getTempFilename();
 		FileOutputStream os = null;
 
@@ -185,7 +185,7 @@ public class WaveWriter {
 
 		if (null != os) {
 			while (isRecording) {
-				read = recorder.read(data, 0, WaveWriter.BUFFER_SIZE);
+				read = recorder.read(data, 0, BUFFER_SIZE);
 
 				if (AudioRecord.ERROR_INVALID_OPERATION != read) {
 					try {
@@ -248,9 +248,9 @@ public class WaveWriter {
 		deleteTempFile();
 		return getWave();
 	}
-	
+
 	public static Wave record(int seconds) {
-		
+
 		try {
 			startRecording();
 			Thread.sleep(seconds * 1000);
@@ -261,7 +261,7 @@ public class WaveWriter {
 			stopRecording();
 			return null;
 		}
-		
+
 	}
 
 }

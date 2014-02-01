@@ -131,15 +131,15 @@ def get_position_viewer(sound_name):
     img_path = IMG_DIR + sound_name + ".png"
     img_web_path = "/" + img_path
 
-    if config.new_data[sound_name]:
-        plot.plot_detection_events(
-            location_list,
-            radius, spl,
-            config.detection_events[sound_name],
-            img_path
-        )
+    # if config.new_data[sound_name]:
+    #     plot.plot_detection_events(
+    #         location_list,
+    #         radius, spl,
+    #         config.detection_events[sound_name],
+    #         img_path
+    #     )
 
-        config.new_data[sound_name] = False
+    #     config.new_data[sound_name] = False
 
     ret_list = list()
 

@@ -16,6 +16,9 @@ depend:
 	mkdir imgs
 	mkdir sounds
 
+paper:
+	cd docs/paper; pdflatex paper.tex; cd ../../;
+
 documentation:
 	cd docs; doxygen Doxyfile; cd ..
 

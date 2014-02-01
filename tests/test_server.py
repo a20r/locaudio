@@ -14,7 +14,7 @@ import locaudio.api as api
 import socket
 
 
-server_addr = "localhost" #socket.gethostbyname(socket.getfqdn())
+server_addr = socket.gethostbyname(socket.getfqdn())
 server_port = 8000
 
 test_sound_name = "Cock"
@@ -28,7 +28,7 @@ d_dicts = [
         "x": 56.3399723,
         "y": -2.8082881,
         "spl": 65,
-        "timestamp": time.time(),
+        "timestamp": time.time() - 3,
         "fingerprint": f_print
     },
     {
@@ -42,7 +42,7 @@ d_dicts = [
         "x": 56.3399723,
         "y": -2.8082881,
         "spl": 65,
-        "timestamp": time.time(),
+        "timestamp": time.time() - 5,
         "fingerprint": f_print
     },
     {

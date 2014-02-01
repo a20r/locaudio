@@ -35,6 +35,12 @@ public class NodeActivity extends Activity {
 		super.onStop();
 		acquisitionThread.kill();
 	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		acquisitionThread.kill();
+	}
 
 	private void setupTextViews() {
 		nameTextView = (TextView) findViewById(R.id.nameTextView);
