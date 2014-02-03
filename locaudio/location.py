@@ -43,6 +43,23 @@ class Location(object):
         return json.dumps(self.to_dict())
 
 
+    def __hash__(self):
+        return hash(repr(self))
+
+
+    def __eq__(self, other_location):
+        attrs = ["x", "y", "confidence"]
+
+        for attr in attrs:
+            if not hasattr(other_location, attr):
+                return False
+
+            if not getattr(self, attr) == getattr(other_location, attr):
+                return False
+
+        return True
+
+
     def __repr__(self):
         return "Location(position={0}, confidence={1})".format(
             repr(self.position), self.confidence

@@ -37,6 +37,9 @@ MIN_RADIUS_INC = -10
 RADIUS_STEP = 1
 EARTH_RADIUS = 1000 * 6371
 
+# Special distance uncertainty threshold in meters
+DISTANCE_THRESHOLD = 2
+
 
 def distance_from_sound(r_ref, l_ref, l_current):
     """
@@ -142,7 +145,7 @@ def set_node_events_std(node_events):
     for node_event in node_events:
         time_error = 1.0 - (
             (max_time - node_event.get_timestamp()) /
-            (max_time - min_time)
+            (max_time - min_time + 1)
         )
         node_event.set_std(STD_SCALE / (node_event.confidence + time_error))
 
@@ -386,18 +389,84 @@ def determine_reference_data(r_ref, l_ref, node_events, **kwargs):
     return r_opt, l_opt
 
 
+def get_node_distance_lists(r_ref, l_ref, node_events, locations):
+
+    distance_lists = list()
+
+    for location in locations:
+
+        distance_list = list()
+
+        for node_event in node_events:
+            actual_distance= distance_from_detection_event(
+                location.x,
+                location.y,
+                node_event
+            )
+
+            predicted_distance = distance_from_sound(
+                r_ref, l_ref,
+                node_event.get_spl()
+            )
+
+            distance_list.append(abs(predicted_distance - actual_distance))
+
+        distance_lists.append(distance_list)
+
+    return distance_lists
+
+
+def associate_node_events(r_ref, l_ref, node_events, locations):
+
+    distance_lists = get_node_distance_lists(
+        r_ref, l_ref,
+        node_events,
+        locations
+    )
+
+    association_dict = dict()
+
+    for location_index, distance_list in enumerate(distance_lists):
+        for node_index, distance in enumerate(distance_list):
+            if distance < DISTANCE_THRESHOLD:
+                if not location_index in association_dict.keys():
+                    association_dict[locations[location_index]] = list()
+                association_dict[locations[location_index]].append(
+                    node_events[node_index]
+                )
+
+    return association_dict
+
+
 def determine_sound_locations(r_ref, l_ref, node_events, **kwargs):
 
-    r_opt, l_opt = determine_reference_data(
+    initial_sound_locations = determine_sound_locations_instance(
         r_ref, l_ref,
         node_events,
         **kwargs
     )
 
-    return determine_sound_locations_instance(
-        r_opt, l_opt,
+    node_event_associations = associate_node_events(
+        r_ref, l_ref,
         node_events,
-        **kwargs
+        initial_sound_locations
     )
+
+    location_list = list()
+
+    for event_list in node_event_associations.values():
+        r_opt, l_opt = determine_reference_data(
+            r_ref, l_ref,
+            event_list,
+            **kwargs
+        )
+
+        location_list += determine_sound_locations_instance(
+            r_opt, l_opt,
+            event_list,
+            **kwargs
+        )
+
+    return location_list
 
 
