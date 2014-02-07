@@ -28,7 +28,7 @@ def run(host, port, config_filename):
 
     global triangulation, detectionserver, fingerprint
 
-    import triangulation
+    import localization
     import detectionserver
     import fingerprint
 

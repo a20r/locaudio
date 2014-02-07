@@ -13,7 +13,7 @@ from flask import request, jsonify, render_template
 from point import Point
 import config
 import json
-import triangulation as tri
+import localization as tri
 import fingerprint
 import plot
 import db

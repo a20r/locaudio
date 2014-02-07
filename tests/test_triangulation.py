@@ -4,7 +4,7 @@ import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
-import locaudio.triangulation as tri
+import locaudio.localization as tri
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D
@@ -30,7 +30,7 @@ class TriangulationTest(unittest.TestCase):
 
     def test_position_probability(self):
 
-        l_ref = 100
+        l_ref = 65
         r_ref = 1
 
         test_x = 0
@@ -63,7 +63,7 @@ class TriangulationTest(unittest.TestCase):
 
     def test_optimization(self):
 
-        l_ref = 100
+        l_ref = 65
         r_ref = 1
 
         res = tri.determine_sound_locations(
@@ -78,7 +78,7 @@ class TriangulationTest(unittest.TestCase):
     def test_together(self):
 
         r_ref = 1
-        l_ref = 100
+        l_ref = 65
 
         res = tri.determine_sound_locations(
             r_ref, l_ref,

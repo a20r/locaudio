@@ -57,11 +57,19 @@ d_dicts = [
 
 class ServerTest(unittest.TestCase):
 
-    def test_server_notify(self):
+    def test_server_notify_added(self):
         for d_dict in d_dicts:
             ret_dict = loc.notify_event(d_dict)
 
-        print "\n=== Server Notify === :: {0}\n".format(ret_dict)
+        print "\n=== Server Notify Added === :: {0}\n".format(ret_dict)
+
+
+    def test_server_notify_not_added(self):
+        for d_dict in d_dicts:
+            d_dict["fingerprint"] = [1, 2, 3, 4]
+            ret_dict = loc.notify_event(d_dict)
+
+        print "\n=== Server Notify Not Added === :: {0}\n".format(ret_dict)
 
 
     def test_server_triangulation(self):
