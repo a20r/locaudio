@@ -59,9 +59,9 @@ class ServerTest(unittest.TestCase):
 
     def test_server_notify(self):
         for d_dict in d_dicts:
-            loc.notify_event(d_dict)
+            ret_dict = loc.notify_event(d_dict)
 
-        print "\n=== Server Notify ===\n"
+        print "\n=== Server Notify === :: {0}\n".format(ret_dict)
 
 
     def test_server_triangulation(self):
@@ -78,8 +78,5 @@ class ServerTest(unittest.TestCase):
 
 if __name__ == "__main__":
     print "\n=== Server Testing ===\n"
-    global server_addr
-    if len(sys.argv) == 2:
-        server_addr = sys.argv[1]
     unittest.main()
 

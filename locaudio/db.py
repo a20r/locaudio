@@ -1,6 +1,7 @@
 
 import rethinkdb as r
 import fingerprint
+import config
 
 
 """
@@ -22,14 +23,14 @@ DB Structure:
 
 
 # Connection Information
-HOST = "localhost"
-PORT = 28015
+HOST = config.db_host
+PORT = config.db_port
 DB = "reference"
 
 # Sample entry information
 SAMPLE_PATH = "sounds/Cock.wav"
 SAMPLE_R_REF = 1
-SAMPLE_L_REF = 100
+SAMPLE_L_REF = 65
 SAMPLE_NAME = "Cock"
 
 

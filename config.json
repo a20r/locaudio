@@ -1,0 +1,10 @@
+
+{
+    "jvm_path": "/System/Library/Frameworks/JavaVM.framework/JavaVM",
+    "db_host": "localhost",
+    "db_port": 28015,
+    "max_node_events": 10,
+    "min_confidence": 0.3,
+    "debug_mode": true
+}
+

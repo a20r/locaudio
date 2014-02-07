@@ -11,8 +11,6 @@ Sorry for the crap comments, there is more description in the README.md
 
 from flask import request, jsonify, render_template
 from point import Point
-import time
-import util
 import config
 import json
 import triangulation as tri
@@ -22,8 +20,10 @@ import db
 import os
 
 
-MAX_NODE_EVENTS = 10
-DEBUG = True
+MAX_NODE_EVENTS = config.max_node_events
+MIN_CONFIDENCE = config.min_confidence
+
+CREATE_PLOTS = False
 IMG_DIR = "imgs/"
 
 
@@ -62,23 +62,25 @@ def post_notify():
 
     sound_name, confidence = db.get_best_matching_print(req_print)
 
-    if not sound_name in config.detection_events.keys():
-        config.detection_events[sound_name] = list()
+    if confidence > MIN_CONFIDENCE:
+        if not sound_name in config.detection_events.keys():
+            config.detection_events[sound_name] = list()
 
-    config.new_data[sound_name] = True
+        config.new_data[sound_name] = True
 
-    if len(config.detection_events[sound_name]) + 1 >= MAX_NODE_EVENTS:
-        del config.detection_events[sound_name][0]
+        if len(config.detection_events[sound_name]) + 1 >= MAX_NODE_EVENTS:
+            del config.detection_events[sound_name][0]
 
-    config.detection_events[sound_name].append(
-        request_to_detection_event(request.form, confidence)
-    )
+        config.detection_events[sound_name].append(
+            request_to_detection_event(request.form, confidence)
+        )
 
     return jsonify(
         error=0,
         message="No error",
         name=sound_name,
-        confidence=confidence
+        confidence=confidence,
+        added=confidence > MIN_CONFIDENCE
     )
 
 
@@ -131,15 +133,15 @@ def get_position_viewer(sound_name):
     img_path = IMG_DIR + sound_name + ".png"
     img_web_path = "/" + img_path
 
-    # if config.new_data[sound_name]:
-    #     plot.plot_detection_events(
-    #         location_list,
-    #         radius, spl,
-    #         config.detection_events[sound_name],
-    #         img_path
-    #     )
+    if config.new_data[sound_name] and CREATE_PLOTS:
+        plot.plot_detection_events(
+            location_list,
+            radius, spl,
+            config.detection_events[sound_name],
+            img_path
+        )
 
-    #     config.new_data[sound_name] = False
+        config.new_data[sound_name] = False
 
     ret_list = list()
 

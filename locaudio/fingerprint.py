@@ -5,9 +5,10 @@ import atexit
 import jpype
 import math
 import json
+import config
 
 
-jvm_path = "/System/Library/Frameworks/JavaVM.framework/JavaVM"
+jvm_path = config.jvm_path
 
 
 def surround_jvm(func):
@@ -19,16 +20,6 @@ def surround_jvm(func):
 
         return ret_val
     return _inner
-
-
-def load_fingerprint_from_file(filename):
-    with open(filename) as f:
-        print_dict = json.loads(f.read())
-        return ReferencePrint(
-            print_dict["fingerprint"],
-            print_dict["radius"],
-            print_dict["sound_pressure_level"]
-        )
 
 
 #@atexit.register
@@ -44,7 +35,7 @@ def get_similarity(f_1, f_2):
     sim_obj = com_obj.getFingerprintsSimilarity()
     sim = sim_obj.getSimilarity()
     if math.isnan(sim):
-        return 0.5
+        return 0.0
     else:
         return sim
 
@@ -55,11 +46,4 @@ def get_fingerprint(wav_path):
     wv = Jwave.Wave(wav_path)
     return list(wv.getFingerprint())
 
-
-class ReferencePrint(object):
-
-    def __init__(self, fingerprint, radius, spl):
-        self.fingerprint = fingerprint
-        self.radius = radius
-        self.spl = spl
 

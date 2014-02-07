@@ -14,6 +14,9 @@ public class NotifyResponse {
 
 	@SerializedName("confidence")
 	public float confidence;
+	
+	@SerializedName("added")
+	public boolean added;
 
 	@Override
 	public String toString() {

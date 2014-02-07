@@ -32,9 +32,6 @@ import numpy as np
 
 STD_SCALE =  1.4
 MIN_DIST = 0.0001
-MAX_RADIUS_INC = 10
-MIN_RADIUS_INC = -10
-RADIUS_STEP = 1
 EARTH_RADIUS = 1000 * 6371
 
 # Special distance uncertainty threshold in meters

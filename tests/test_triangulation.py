@@ -19,7 +19,7 @@ class TriangulationTest(unittest.TestCase):
 
     def setUp(self):
 
-        self.show_plot = True
+        self.show_plot = False
         self.d_events = [
             tri.DetectionEvent(-9, -1, 0.9, 90, time.time()),
             tri.DetectionEvent(-2, 1, 0.3, 97, time.time() - 7),

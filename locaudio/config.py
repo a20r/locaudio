@@ -1,6 +1,8 @@
 
+import json
+import sys
+
 from flask import Flask
-import db
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -8,24 +10,22 @@ app.config.from_object(__name__)
 detection_events = dict()
 new_data = dict()
 
-# So the routes get initiated
-import detectionserver
-import pageserver
+this = sys.modules[__name__]
+
+# setting default values
+jvm_path = "/System/Library/Frameworks/JavaVM.framework/JavaVM"
+db_host = "localhost"
+db_port = 28015
+max_node_events = 10
+min_confidence = 0.3
+debug_mode = True
 
 
-def run(host, port):
-    """
-
-    Runs the server.
-
-    @param host The host for the server
-
-    @param port The port for the server
-
-    """
-
-    db.init()
-    app.run(host=host, port=int(port), debug=True)
-
+def load_config_file(filename):
+    global this
+    with open(filename) as f:
+        config_dict = json.loads(f.read())
+        for config_key, config_value in config_dict.items():
+            setattr(this, config_key, config_value)
 
 
