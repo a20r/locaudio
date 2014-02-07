@@ -32,6 +32,7 @@ SAMPLE_PATH = "sounds/Cock.wav"
 SAMPLE_R_REF = 1
 SAMPLE_L_REF = 65
 SAMPLE_NAME = "Cock"
+SAMPLE_CLASS = "Chicken"
 
 
 # Table Names
@@ -40,6 +41,10 @@ FINGERPRINT_TABLE = "fingerprints"
 
 # Primary Keys
 FINGERPRINT_PRIMARY_KEY = "name"
+
+
+# Secondary Keys
+FINGERPRINT_SECONDARY_KEY = "class"
 
 
 def create(conn):
@@ -59,6 +64,10 @@ def create(conn):
         primary_key=FINGERPRINT_PRIMARY_KEY
     ).run(conn)
 
+    r.db(DB).table(FINGERPRINT_TABLE).index_create(
+        FINGERPRINT_SECONDARY_KEY
+    ).run(conn)
+
 
 def init():
     """
@@ -73,7 +82,13 @@ def init():
     if not DB in r.db_list().run(conn):
         create(conn)
         f_print = fingerprint.get_fingerprint(SAMPLE_PATH)
-        insert_reference(SAMPLE_NAME, f_print, SAMPLE_R_REF, SAMPLE_L_REF)
+        insert_reference(
+            SAMPLE_NAME,
+            f_print,
+            SAMPLE_R_REF,
+            SAMPLE_L_REF,
+            SAMPLE_CLASS
+        )
         return True
     else:
         return False
@@ -144,7 +159,7 @@ def get_list_of_names():
     return list(names)
 
 
-def insert_reference(name, f_ref, r_ref, l_ref):
+def insert_reference(name, f_ref, r_ref, l_ref, class_ref):
     """
 
     Inserts a reference into the database
@@ -166,7 +181,8 @@ def insert_reference(name, f_ref, r_ref, l_ref):
             "name": name,
             "fingerprint": f_ref,
             "distance": r_ref,
-            "spl": l_ref
+            "spl": l_ref,
+            "class": class_ref
         }
     ).run(conn)
 

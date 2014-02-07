@@ -21,7 +21,6 @@ from detectionevent import DetectionEvent
 
 from point import Point
 from location import Location
-from functools import partial
 from collections import namedtuple
 
 import math

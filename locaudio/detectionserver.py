@@ -189,7 +189,8 @@ def get_post_upload():
             request.form["sound_name"],
             fingerprint.get_fingerprint(file_path),
             float(request.form["r_ref"]),
-            float(request.form["l_ref"])
+            float(request.form["l_ref"]),
+            request.form["class"]
         )
     return render_template("upload.html")
 
