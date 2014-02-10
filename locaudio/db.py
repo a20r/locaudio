@@ -3,6 +3,8 @@ import rethinkdb as r
 import fingerprint
 import config
 
+from multiprocessing import Pool
+
 
 """
 
@@ -10,6 +12,7 @@ DB Structure:
     [
         {
             name: <String>,
+            class: <String>,
             fingerprint: <List[Int]>,
             distance: <Float>,
             spl: <Float>
@@ -94,6 +97,43 @@ def init():
         return False
 
 
+class SimilarityFunction:
+
+    def __init__(self, f_check):
+        self.f_check = f_check
+
+
+    def __call__(self, db_dict):
+        return {
+            "conf": fingerprint.get_similarity(
+                self.f_check, db_dict["fingerprint"]
+            ),
+            "name": db_dict["name"],
+            "class": db_dict["class"]
+        }
+
+
+def determine_sound_class(conf_list):
+
+    class_conf_dict = dict()
+    class_count_dict = dict()
+
+    for db_dict in conf_list:
+        if not db_dict["class"] in class_conf_dict.keys():
+            class_conf_dict[db_dict["class"]] = 0.0
+            class_count_dict[db_dict["class"]] = 0
+
+        class_conf_dict[db_dict["class"]] += db_dict["conf"]
+        class_count_dict[db_dict["class"]] += 1
+
+    best_match = max(
+        class_conf_dict.items(),
+        key=lambda ct: ct[1] / float(class_count_dict[ct[0]])
+    )
+
+    return best_match[0]
+
+
 def get_best_matching_print(f_in):
     """
 
@@ -107,22 +147,42 @@ def get_best_matching_print(f_in):
 
     """
 
+    p_pool = Pool(processes=4)
+
+    try:
+        conn = r.connect(host=HOST, port=PORT, db=DB)
+
+        table = list(r.table(FINGERPRINT_TABLE).run(conn))
+
+        if len(table) == 0:
+            raise LookupError("Database is empty")
+
+        map_func = SimilarityFunction(f_in)
+        conf_list = p_pool.map(map_func, table)
+
+        best_match = max(conf_list, key=lambda ct: ct["conf"])
+        sound_class = determine_sound_class(conf_list)
+
+        return best_match["name"], sound_class, best_match["conf"]
+    finally:
+        p_pool.terminate()
+
+
+def get_class_reference_data(class_name):
     conn = r.connect(host=HOST, port=PORT, db=DB)
+    ref_list = list(r.table(FINGERPRINT_TABLE).get_all(
+        class_name, index=FINGERPRINT_SECONDARY_KEY
+    ).run(conn))
 
-    table = list(r.table(FINGERPRINT_TABLE).run(conn))
 
-    if len(table) == 0:
-        raise LookupError("Database is empty")
+    avg_distance = 0.0
+    avg_spl = 0.0
+    for ref_data in ref_list:
+        avg_distance += ref_data["distance"]
+        avg_spl += ref_data["spl"]
 
-    conf_list = map(
-        lambda info: {
-            "conf": fingerprint.get_similarity(f_in, info["fingerprint"]),
-            "name": info["name"]
-        }, table
-    )
-
-    best_match = max(conf_list, key=lambda ct: ct["conf"])
-    return best_match["name"], best_match["conf"]
+    len_ref_list = float(len(list(ref_list)))
+    return avg_distance / len_ref_list, avg_spl / len_ref_list
 
 
 def get_reference_data(ref_name):

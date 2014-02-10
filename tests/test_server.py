@@ -17,6 +17,7 @@ import socket
 server_addr = socket.gethostbyname(socket.getfqdn())
 server_port = 8000
 
+test_sound_class = "Chicken"
 test_sound_name = "Cock"
 
 loc = api.Locaudio(server_addr, server_port)
@@ -72,10 +73,16 @@ class ServerTest(unittest.TestCase):
         print "\n=== Server Notify Not Added === :: {0}\n".format(ret_dict)
 
 
-    def test_server_triangulation(self):
+    def test_server_sound_triangulation(self):
         pos_list = loc.get_sound_locations(test_sound_name)
 
-        print "\n=== Server Triangulation === :: {0}\n".format(pos_list)
+        print "\n=== Server Sound Triangulation === :: {0}\n".format(pos_list)
+
+
+    def test_server_class_triangulation(self):
+        pos_list = loc.get_class_locations(test_sound_class)
+
+        print "\n=== Server Class Triangulation === :: {0}\n".format(pos_list)
 
 
     def test_names(self):

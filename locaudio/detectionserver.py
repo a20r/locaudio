@@ -60,20 +60,23 @@ def post_notify():
 
     req_print = json.loads(request.form["fingerprint"])
 
-    sound_name, confidence = db.get_best_matching_print(req_print)
+    sound_name, sound_class, confidence = db.get_best_matching_print(req_print)
 
     if confidence > MIN_CONFIDENCE:
         if not sound_name in config.detection_events.keys():
             config.detection_events[sound_name] = list()
+            config.class_detection_events[sound_class] = list()
 
         config.new_data[sound_name] = True
 
         if len(config.detection_events[sound_name]) + 1 >= MAX_NODE_EVENTS:
             del config.detection_events[sound_name][0]
 
-        config.detection_events[sound_name].append(
-            request_to_detection_event(request.form, confidence)
-        )
+        d_event = request_to_detection_event(request.form, confidence)
+
+        config.detection_events[sound_name].append(d_event)
+
+        config.class_detection_events[sound_class].append(d_event)
 
     return jsonify(
         error=0,
@@ -85,7 +88,7 @@ def post_notify():
 
 
 @config.app.route("/locations/<sound_name>", methods=["GET"])
-def get_sound_positions(sound_name):
+def get_sound_locations(sound_name):
     """
 
     Gets the sound position given the sound name
@@ -109,6 +112,37 @@ def get_sound_positions(sound_name):
         ret_list.append(location.to_dict())
 
     return json.dumps(ret_list)
+
+
+@config.app.route("/class/locations/<class_name>", methods=["GET"])
+def get_class_locations(class_name):
+    """
+
+    HIGHLY EXPERIMENTAL: DO NOT FUCK WITH!
+
+    """
+
+    if not class_name in config.class_detection_events.keys():
+        return json.dumps([])
+
+    # I can do the average like this because we are assuming we are trying
+    # to track the same class of things, so the reference data must be
+    # similar
+    radius, spl = db.get_class_reference_data(class_name)
+
+    location_list = tri.determine_sound_locations(
+        radius, spl,
+        config.class_detection_events[class_name],
+        disp=0
+    )
+
+    ret_list = list()
+
+    for location in location_list:
+        ret_list.append(location.to_dict())
+
+    return json.dumps(ret_list)
+
 
 
 @config.app.route("/viewer/<sound_name>", methods=["GET"])

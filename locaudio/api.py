@@ -14,6 +14,7 @@ class Locaudio:
         self.pos_url = self.url + "/locations"
         self.notify_url = self.url + "/notify"
         self.names_url = self.url + "/names"
+        self.class_pos_url = self.url + "/class/locations"
 
 
     def make_position_url(self, sound_name):
@@ -36,6 +37,25 @@ class Locaudio:
             )
 
         return ret_list
+
+
+    def get_class_locations(self, class_name):
+        req = urllib2.urlopen(self.class_pos_url + "/" + class_name)
+        location_list = json.loads(req.read())
+        ret_list = list()
+
+        for location in location_list:
+            position = Point(
+                location["position"]["x"],
+                location["position"]["y"]
+            )
+
+            ret_list.append(
+                Location(position, location["confidence"])
+            )
+
+        return ret_list
+
 
 
     def get_names(self):

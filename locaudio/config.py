@@ -8,6 +8,7 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 
 detection_events = dict()
+class_detection_events = dict()
 new_data = dict()
 
 this = sys.modules[__name__]
