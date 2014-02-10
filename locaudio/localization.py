@@ -413,6 +413,16 @@ def get_node_distance_lists(r_ref, l_ref, node_events, locations):
 
 
 def associate_node_events(r_ref, l_ref, node_events, locations):
+    """
+
+    Checks with node events correspond to which peaks so we can optimize
+    the reference distance and the reference sound pressure level. If we
+    know the node event association, we can partition the problem into
+    multiple sets of node events for multiple peaks. Then using this
+    partitioning, we can optimize different values or r_ref and l_ref for
+    different sound occurences
+
+    """
 
     distance_lists = get_node_distance_lists(
         r_ref, l_ref,
@@ -424,6 +434,7 @@ def associate_node_events(r_ref, l_ref, node_events, locations):
 
     for location_index, distance_list in enumerate(distance_lists):
         for node_index, distance in enumerate(distance_list):
+
             if distance < DISTANCE_THRESHOLD:
                 if not location_index in association_dict.keys():
                     association_dict[locations[location_index]] = list()
