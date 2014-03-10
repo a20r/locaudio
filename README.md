@@ -26,7 +26,7 @@ To make use of this API, the Locaudio server and the RethinkDB database must be 
 		fingerprint: [<Int>: Audio fingerprint]
 	}
 
-#### Return structure
+#### Return structurep
 	
 	{
 		error: <Integer: Error code>,

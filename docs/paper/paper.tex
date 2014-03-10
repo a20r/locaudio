@@ -11,7 +11,13 @@
 
 \usepackage{amsmath}
 
+\usepackage{relsize}
+
 \usepackage{float}
+
+\usepackage{algorithm}
+
+\usepackage[noend]{algorithmic}
 
 \floatstyle{ruled} \newfloat{program}{thp}{lop} \floatname{program}{Structure}
 
@@ -25,6 +31,7 @@
 \newcommand{\Constant}[1]{\ensuremath{\small{\texttt{#1}}}}
 \newcommand{\Var}[1]{\ensuremath{{\small{\textsl{#1}}}}}
 \newcommand{\argmin}[1]{\underset{#1}{\operatorname{arg}\,\operatorname{min}}\;}
+\newcommand{\grad}[1]{\underset{#1}{\operatorname{\Function{GradientDecent}}}\;}
 
 \begin{document}
 
@@ -50,6 +57,7 @@ event.
     spl: <Float: Sound pressure level>,
     timestamp: <Float: Unix time in seconds>,
     confidence: <Float: Confidence of recognition>
+    name: <String: Name of the detected sound in the database>
 }
 \end{verbatim}
 \end{program}
@@ -62,6 +70,8 @@ wireless acoustic sensor node.
 
 \subsection{Localization}
 
+\subsubsection{Single Source}
+
 In order to conduct localization using the node events, we have created a
 probability distribution that given an $x$ and $y$ position along with a list
 of node events and reference data regarding the detected sound (such as sound
@@ -70,15 +80,77 @@ probability of the sound being at position $(x, y)$. The probability function
 is fairly complex and is broken down into subfunctions below.
 
 Firstly, at the heart of the probability function is a normal distribution
-denoted as $\Normal{X}{\mu}{\sigma}$. To determine the mean for the normal
-distribution, we used the predicted distance from node that the sound will be
-given the reference sound pressure level and distance at which the reference
-data was taken as well as the acquired sound pressure level. With these three
-pieces of data, we are able to predict the distance away from the microphone
-the sound was. This gives us the mean value for the normal distribution. The
-function is shown below.  \begin{align*} \Function{dist}_{sound}(r, spl, spl')
-&= r \cdot 10 ^ {\frac{(spl - spl')}{20}} \end{align*}
+denoted as $\Normal{X}{\mu}{\sigma}$, where $X$ is the distance from the node
+event, $\mu$ is the predicted distance from the node that the sound will be,
+and $\sigma$ is how confident the recognition is. To determine the mean for the
+normal distribution, we used the predicted distance from node that the sound
+will be given the reference sound pressure level and distance at which the
+reference data was taken as well as the acquired sound pressure level. With
+these three pieces of data, we are able to predict the distance away from the
+microphone the sound was. This gives us the mean value for the normal
+distribution. The function is shown below.  \begin{align*}
+\Function{D}_{s}(r, spl, spl') &= r \cdot 10 ^ {\frac{(spl - spl')}{20}}
+\end{align*}
 
+In the equation above, $r$ is the reference distance at time of recording,
+$spl$ is the reference sound pressure level at the time of recording, and
+$spl'$ is the detected sound pressure level. The result is the corresponding
+distance for the input sound pressure level. The input, $X$, to the normal
+distribution function is the euclidean distance from the node event to the an
+$(x, y)$ position. The formula is shown below.  \begin{align*}
+\Function{D}(x, y, n) &= \sqrt{(x - n.x) ^ 2 + (y - n.y) ^ 2} \end{align*}
 
+Lastly, to complete the parameters for the normal distribution, we need to
+determine what standard deviation to use for each of the node events. To
+determine the standard deviation, we use the timestamps and confidence of
+recognition available from the node events. This is described more in
+\textbf{Algorithm} \ref{algo:Std}
+
+\begin{algorithm}[ht] \caption{Determining the Standard Deviation}
+\label{algo:Std} \begin{algorithmic}[1] \setcounter{ALC@line}{0}
+
+\vspace*{1mm}
+
+\STATE $\Function{GetSD}(\Var{event}, \Var{eventList}) \rightarrow$
+\STATE $t_{max} \leftarrow \Function{GetMaxTime}(\Var{eventList})$
+\STATE $t_{min} \leftarrow \Function{GetMinTime}(\Var{eventList})$
+\STATE $t_{err} \leftarrow 1 - \mathlarger{\frac{t_{max} - \Var{event}.\Var{timestamp}}{t_{max} - t_{min} + \epsilon}}$
+\STATE $err \leftarrow \frac{c}{t_{err} + \Var{event}.\Var{confidence}}$
+\COMMENT {$c$ is a scaling constant}
+\RETURN $err$
+
+\end{algorithmic}
+\end{algorithm}
+
+Finally, we are able to derive the function for sound position probability. The
+function below takes in an $x, y$ position, a reference distance, a reference
+sound pressure level, and a list of node events. The returned value is the
+probability of the sound being at point $x, y$.  \begin{align*} \mathcal{P}(x,
+y, r, spl, events) &= \frac{\mathlarger{\sum}_{e \in
+events}{\Normal{\Function{D}(x, y, e)}{\Function{D}_{s}(r, spl,
+e.\Var{spl})}{\Function{GetSD}(e, events)}}}{|events|} \end{align*}
+
+Now, we have a function $P$ that can determine the probability of a sound being
+in an $(x, y)$ location. Therefore, given a list of node events for a gvien
+sound, and the sound's associated metadata, we can determine the position of
+the sound using gradient decent assuming that there is only one instance of the
+sound for all of the node events. The equation for the location of the sound is
+shown below. \begin{align*} \mathcal{L}(r, spl, events) &= \argmin{x, y}
+-\mathcal{P}(x, y, r, spl, events) \end{align*}
+
+The function, $\mathcal{L}$, provides us with a sound location given that there
+is a single source within the WASN for the given sound.
+
+\subsubsection{Multiple Source}
+
+In order to do multiple source localization, we have to bias the way we perform
+gradient decent on the probability density function, $\mathcal{P}$. It is
+needed to start the decent at a certain point. Below is an ammended function,
+$\mathcal{L}_m$ which also takes in an initial guess for the gradient decent.
+\begin{align*} \mathcal{L}_m(r, spl, events, x_g, y_g) &=
+\grad{x, y}(\mathcal{-P}, x_g, y_g, r, spl, events) \end{align*}
+
+The variables, $r$, $spl$, $events$ are the same as in $\mathcal{L}$, however,
+$x_g$ and $y_g$ are the initial guesses for the gradient decent.
 
 \end{document}

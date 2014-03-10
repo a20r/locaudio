@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  1 FEB 2014 04:26
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  10 MAR 2014 01:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -113,6 +113,9 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 LaTeX Info: Redefining \[ on input line 2665.
 LaTeX Info: Redefining \] on input line 2666.
 )
+(/usr/local/texlive/2013/texmf-dist/tex/latex/relsize/relsize.sty
+Package: relsize 2013/03/29 ver 4.1
+)
 (/usr/local/texlive/2013/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count100
@@ -121,37 +124,57 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks21
 \@floatcapt=\box29
 )
-\@float@every@program=\toks22
-\c@program=\count101
- (./paper.aux)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks22
+\c@algorithm=\count101
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count102
+\c@ALC@line=\count103
+\c@ALC@rem=\count104
+\c@ALC@depth=\count105
+\ALC@tlm=\skip46
+\algorithmicindent=\skip47
+)
+\@float@every@program=\toks23
+\c@program=\count106
+
+(./paper.aux)
 \openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
 
 (/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count102
+\scratchcounter=\count107
 \scratchdimen=\dimen114
 \scratchbox=\box30
-\nofMPsegments=\count103
-\nofMParguments=\count104
-\everyMPshowfont=\toks23
-\MPscratchCnt=\count105
+\nofMPsegments=\count108
+\nofMParguments=\count109
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count110
 \MPscratchDim=\dimen115
-\MPnumerator=\count106
-\makeMPintoPDFobject=\count107
-\everyMPtoPDFconversion=\toks24
+\MPnumerator=\count111
+\makeMPintoPDFobject=\count112
+\everyMPtoPDFconversion=\toks25
 ) (/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -204,37 +227,155 @@ e
 
 {/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 80.
+LaTeX Font Warning: Command \small invalid in math mode on input line 93.
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 80.
+LaTeX Font Warning: Command \small invalid in math mode on input line 93.
 
-[2] (./paper.aux) ) 
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 101.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 101.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 114.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 114.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 114.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 115.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 115.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 116.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 116.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 117.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 117.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 117.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 117.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 117.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 117.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 117.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 117.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 118.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 118.
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 119.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 119.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 131.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 131.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 131.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 131.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 131.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 131.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 131.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 131.
+
+
+Overfull \hbox (13.72737pt too wide) in paragraph at lines 131--131
+[] 
+ []
+
+[2]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 151.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 151.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 151.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 151.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 151.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 151.
+
+[3] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 2187 strings out of 493315
- 29437 string characters out of 6137904
- 91203 words of memory out of 5000000
- 5626 multiletter control sequences out of 15000+600000
- 12492 words of font info for 45 fonts, out of 8000000 for 9000
+ 2494 strings out of 493315
+ 33359 string characters out of 6137904
+ 98191 words of memory out of 5000000
+ 5914 multiletter control sequences out of 15000+600000
+ 14254 words of font info for 50 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 38i,11n,23p,231b,233s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,17n,23p,231b,471s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmbx12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmcsc10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmmi12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmmi6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmmi8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr17.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
-.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.p
-fb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
-></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on paper.pdf (2 pages, 120563 bytes).
+ts/cm/cmex10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmmi12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmmi6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmmi8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
+7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.p
+fb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb>
+</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb><
+/usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl8.pfb></u
+sr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
+r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/
+local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/lo
+cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/loc
+al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on paper.pdf (3 pages, 176698 bytes).
 PDF statistics:
- 63 PDF objects out of 1000 (max. 8388607)
- 45 compressed objects within 1 object stream
+ 86 PDF objects out of 1000 (max. 8388607)
+ 62 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

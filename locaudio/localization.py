@@ -272,7 +272,7 @@ def determine_peaks(opt_vals, label_list):
     Given a list of "optimized" points and their corresponding probabilities
     and a list of labels returned from the clustering algorithm, this
     function goes through all of the optimized points and returns the ones with
-    the highest probabilities and issues them as cluter centers. This function
+    the highest probabilities and issues them as cluster centers. This function
     is used to ensure that the center for each cluster also has the highest
     probability in the cluster of being the sound position.
 
