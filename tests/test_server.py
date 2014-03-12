@@ -18,7 +18,7 @@ server_addr = socket.gethostbyname(socket.getfqdn())
 server_port = 8000
 
 test_sound_class = "Chicken"
-test_sound_name = "Cock"
+test_sound_name = "Koel"
 
 loc = api.Locaudio(server_addr, server_port)
 

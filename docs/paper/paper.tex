@@ -115,9 +115,9 @@ recognition available from the node events. This is described more in
 \STATE $t_{max} \leftarrow \Function{GetMaxTime}(\Var{eventList})$
 \STATE $t_{min} \leftarrow \Function{GetMinTime}(\Var{eventList})$
 \STATE $t_{err} \leftarrow 1 - \mathlarger{\frac{t_{max} - \Var{event}.\Var{timestamp}}{t_{max} - t_{min} + \epsilon}}$
-\STATE $err \leftarrow \frac{c}{t_{err} + \Var{event}.\Var{confidence}}$
+\STATE $\Var{err} \leftarrow \frac{c}{t_{err} + \Var{event}.\Var{confidence}}$
 \COMMENT {$c$ is a scaling constant}
-\RETURN $err$
+\RETURN $\Var{err}$
 
 \end{algorithmic}
 \end{algorithm}
@@ -151,6 +151,37 @@ $\mathcal{L}_m$ which also takes in an initial guess for the gradient decent.
 \grad{x, y}(\mathcal{-P}, x_g, y_g, r, spl, events) \end{align*}
 
 The variables, $r$, $spl$, $events$ are the same as in $\mathcal{L}$, however,
-$x_g$ and $y_g$ are the initial guesses for the gradient decent.
+$x_g$ and $y_g$ are the initial guesses for the gradient decent. The function
+returns the $x$ and $y$ values that minimizes the equation $-\mathcal{P}$ given
+constant arguments $r$, $spl$, and $events$.
+
+Now that we are able to bias the gradient decent, it is possible for us to find
+mutliple local maximas in the probability density function, $\mathcal{P}$. This
+is done by iterating through the list of events and performing the gradient
+decent function with an initial guess of the position of the event. Once we
+have a list of $x, y$ points, we are able to apply an affinity propogation
+algorithm to determine the point clusters and therefore distinguish between
+multiple sources of the same sound in our WASN. This is shown in
+\textbf{Algorithm} \ref{algo:MS}.
+
+\begin{algorithm}[ht] \caption{Multiple Source Sound Localization}
+\label{algo:MS} \begin{algorithmic}[1] \setcounter{ALC@line}{0}
+
+\vspace*{1mm}
+
+\STATE $\Function{GetLocations}(\Var{r}, \Var{spl}, \Var{eventList}) \rightarrow$
+\STATE $\Var{locations} \leftarrow \Function{InitLocationList}()$
+\FORALL {$e \in \Var{eventList}$}
+\STATE $\Var{locations}.\Var{add}(\mathcal{L}_m(\Var{r}, \Var{spl}, \Var{eventList}, e.\Var{x}, e.\Var{y}))$
+\ENDFOR
+\STATE $\Var{centers} \leftarrow \Function{AffinityPropagation}(\Var{locations})$
+\COMMENT {\Var{centers} is a list of $(x, y, c)$ points where $c$ is the confidence}
+\RETURN $\Var{centers}$
+
+\end{algorithmic}
+\end{algorithm}
+
+Now given reference data and a list of node events, we it is possible to
+determine the position of multiple instances of the same sound.
 
 \end{document}

@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  10 MAR 2014 01:48
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  10 MAR 2014 14:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**paper.tex
+**paper.tex cd ../../
 (./paper.tex
 LaTeX2e <2011/06/27>
 Babel <3.9f> and hyphenation patterns for 78 languages loaded.
@@ -289,6 +289,9 @@ LaTeX Font Warning: Command \small invalid in math mode on input line 118.
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 118.
 
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 118.
+
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 119.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
@@ -296,6 +299,9 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 119.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 120.
 
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 131.
@@ -345,15 +351,73 @@ LaTeX Font Warning: Command \small invalid in math mode on input line 151.
 
 LaTeX Font Warning: Command \small invalid in math mode on input line 151.
 
-[3] (./paper.aux) ) 
+[3]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 172.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 172.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 172.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 172.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 173.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 173.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 174.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 175.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 175.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 175.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 175.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 175.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 175.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 175.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 177.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 177.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 177.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 178.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 179.
+
+[4] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 2494 strings out of 493315
- 33359 string characters out of 6137904
- 98191 words of memory out of 5000000
- 5914 multiletter control sequences out of 15000+600000
+ 2495 strings out of 493315
+ 33368 string characters out of 6137904
+ 99199 words of memory out of 5000000
+ 5915 multiletter control sequences out of 15000+600000
  14254 words of font info for 50 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 38i,17n,23p,231b,471s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,17n,23p,241b,471s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmbx12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmcsc10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfon
@@ -372,10 +436,10 @@ r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/
 local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/lo
 cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/loc
 al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on paper.pdf (3 pages, 176698 bytes).
+Output written on paper.pdf (4 pages, 182662 bytes).
 PDF statistics:
- 86 PDF objects out of 1000 (max. 8388607)
- 62 compressed objects within 1 object stream
+ 89 PDF objects out of 1000 (max. 8388607)
+ 64 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

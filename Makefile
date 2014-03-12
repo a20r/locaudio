@@ -17,7 +17,7 @@ depend:
 	mkdir sounds
 
 paper:
-	cd docs/paper; pdflatex paper.tex; cd ../../;
+	cd docs/paper; pdflatex paper.tex; pdflatex paper.tex; pdflatex paper.tex cd ../../;
 
 documentation:
 	cd docs; doxygen Doxyfile; cd ..

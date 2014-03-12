@@ -8,6 +8,9 @@ database/
 imgs/
 sounds/*
 
+presentations/*
+
+!presentations/Ocean.pdf
 !sounds/Cock.wav
 
 *.pdf
